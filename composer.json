@@ -1,5 +1,5 @@
 {
-  "name": "mikron-ia/rpg-boilerplate-silex",
+  "name": "mikron-ia/rpg-hub-backend",
   "license": "GPL-2.0",
   "version": "0.0-dev",
   "authors": [
@@ -10,7 +10,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Mikron\\rpg\\": "src/"
+      "Mikron\\HubBack\\": "src/"
     }
   },
   "require": {
