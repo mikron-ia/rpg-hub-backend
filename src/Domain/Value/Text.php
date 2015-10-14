@@ -1,10 +1,10 @@
 <?php
 
-namespace Mikron\HubBack\Value;
+namespace Mikron\HubBack\Domain\Value;
 
 /**
- * Class Text - classs for possbibly multi-language text
- * @package Mikron\HubBack\Value
+ * Class Text - class for potentially multi-language text
+ * @package Mikron\HubBack\Domain\Value
  */
 class Text
 {
