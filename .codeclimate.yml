@@ -1,0 +1,20 @@
+engines:
+  csslint:
+    enabled: true
+  phpmd:
+    enabled: true
+    config:
+      file_extensions: "php"
+      rulesets: "codesize,controversial,design,naming,unusedcode"
+  phpcodesniffer:
+    enabled: true
+
+ratings:
+  paths:
+    - src/**
+    - "**.php"
+
+exclude_paths:
+  - vendor/**/*
+  - .git/**/*
+  - composer.*
