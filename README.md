@@ -1,4 +1,8 @@
 # RPG hub
+[![Build Status](https://travis-ci.org/mikron-ia/rpg-hub-backend.svg?branch=master)](https://travis-ci.org/mikron-ia/rpg-hub-backend)
+[![Code Climate](https://codeclimate.com/github/mikron-ia/rpg-hub-backend/badges/gpa.svg)](https://codeclimate.com/github/mikron-ia/rpg-hub-backend)
+[![Test Coverage](https://codeclimate.com/github/mikron-ia/rpg-hub-backend/badges/coverage.svg)](https://codeclimate.com/github/mikron-ia/rpg-hub-backend/coverage)
+
 A system for role-playing game story/campaign/epic (names vary from system to system) management. This repository contains the backend.
 
 ## Background
