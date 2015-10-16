@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2089b1d0303d0305441cf6f0cdb7fb1a",
+    "hash": "fa2729ab08eeec2db88e9f55064f4785",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -961,12 +961,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeclimate/php-test-reporter.git",
-                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18"
+                "reference": "892163d67e3bd9c190d43655acb69657da765c7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/85b5de950678a25f3e85adb6bc26de7f7f231d18",
-                "reference": "85b5de950678a25f3e85adb6bc26de7f7f231d18",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/892163d67e3bd9c190d43655acb69657da765c7b",
+                "reference": "892163d67e3bd9c190d43655acb69657da765c7b",
                 "shasum": ""
             },
             "require": {
@@ -985,7 +985,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.1.x-dev"
+                    "dev-master": "0.2.x-dev"
                 }
             },
             "autoload": {
@@ -1011,7 +1011,7 @@
                 "codeclimate",
                 "coverage"
             ],
-            "time": "2015-09-08 14:22:33"
+            "time": "2015-10-15 14:41:10"
         },
         {
             "name": "doctrine/instantiator",
