@@ -8,8 +8,39 @@ namespace Mikron\HubBack\Domain\Entity;
  */
 class Character
 {
-	/**
-	 * @var Ego
-	 */
-	private $ego;
+    /**
+     * @var Ego
+     */
+    private $ego;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var storageData
+     */
+    private $storageData;
+
+    /**
+     * Character constructor.
+     * @param string $name
+     * @param Ego $ego
+     * @param StorageData|null $storageData
+     */
+    public function __construct($name, Ego $ego, $storageData)
+    {
+        $this->name = $name;
+        $this->ego = $ego;
+        $this->storageData = $storageData;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
