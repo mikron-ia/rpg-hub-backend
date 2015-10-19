@@ -2,5 +2,6 @@
 
 $app['config.deploy'] = [
     'debug' => false,
+    'dbEngine' => '',
     'source' => ''
 ];

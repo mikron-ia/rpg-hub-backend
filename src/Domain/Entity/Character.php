@@ -26,10 +26,10 @@ class Character
     /**
      * Character constructor.
      * @param string $name
-     * @param Ego $ego
+     * @param Ego|null $ego
      * @param StorageData|null $storageData
      */
-    public function __construct($name, Ego $ego, $storageData)
+    public function __construct($name, $ego, $storageData)
     {
         $this->name = $name;
         $this->ego = $ego;

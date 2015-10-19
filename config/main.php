@@ -5,5 +5,9 @@ $app['config.main'] = [
     "interface" => [
         "title" => "Front",
         "welcome" => "Welcome to the front",
+    ],
+    "databaseReference" => [
+        'mysql' => "MySql",
+        'mongodb' => "MongoDb",
     ]
 ];

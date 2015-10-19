@@ -45,6 +45,8 @@ class Character
 
         $array = $characterStorage->retrieveAll();
 
+        $list = [];
+
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageData($record['character_id']);
