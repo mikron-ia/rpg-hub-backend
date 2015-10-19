@@ -18,7 +18,8 @@ $app->get('/characters/', function () use ($app) {
 
     $output = new \Mikron\HubBack\Domain\Service\Output(
         "List",
-        "This is a complete list of character available for your peruse",
+        "This is a complete list of character available for your peruse. If the character you are looking for is not"
+        ." here, please ensure you have correct access rights.",
         $characterList
     );
 
