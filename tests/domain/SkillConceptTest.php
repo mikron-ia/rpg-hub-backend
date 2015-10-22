@@ -1,6 +1,7 @@
 <?php
 
 use Mikron\HubBack\Domain\Concept\Skill;
+use Mikron\HubBack\Domain\Value\Code;
 use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\Name;
 
@@ -9,37 +10,53 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @dataProvider correctSkillDataProvider
+     * @param $code
      * @param $name
      * @param $description
      */
-    function isNameCorrect($name, $description)
+    function isCodeCorrect($code, $name, $description)
     {
-        $skill = new Skill($name, $description);
+        $skill = new Skill($code, $name, $description);
         $this->assertEquals($name, $skill->getName());
     }
 
     /**
      * @test
      * @dataProvider correctSkillDataProvider
+     * @param $code
      * @param $name
      * @param $description
      */
-    function isDescriptionCorrect($name, $description)
+    function isNameCorrect($code, $name, $description)
     {
-        $skill = new Skill($name, $description);
+        $skill = new Skill($code, $name, $description);
+        $this->assertEquals($name, $skill->getName());
+    }
+
+    /**
+     * @test
+     * @dataProvider correctSkillDataProvider
+     * @param $code
+     * @param $name
+     * @param $description
+     */
+    function isDescriptionCorrect($code, $name, $description)
+    {
+        $skill = new Skill($code, $name, $description);
         $this->assertEquals($description, $skill->getDescription());
     }
 
     /**
      * @test
      * @dataProvider correctSkillDataProvider
-     * @depends isNameCorrect
+     * @depends      isNameCorrect
+     * @param $code
      * @param $name
      * @param $description
      */
-    function isSimpleDisplayCorrect($name, $description)
+    function isSimpleDisplayCorrect($code, $name, $description)
     {
-        $skill = new Skill($name, $description);
+        $skill = new Skill($code, $name, $description);
 
         $expectation = [
             "name" => $skill->getName()
@@ -54,9 +71,9 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      * @param $name
      * @param $description
      */
-    function isComplexDisplayCorrect($name, $description)
+    function isComplexDisplayCorrect($code, $name, $description)
     {
-        $skill = new Skill($name, $description);
+        $skill = new Skill($code, $name, $description);
 
         $expectation = [
             "name" => $skill->getName(),
@@ -70,6 +87,7 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
     {
         return [
             [
+                new Code('KNOW-GEOGRAPHY'),
                 new Name(['en' => 'Knowledge (Geography)'], 'en'),
                 new Description(['en' => 'Lore regarding various landmarks on Mars'], 'en')
             ]

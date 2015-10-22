@@ -3,6 +3,7 @@
 namespace Mikron\HubBack\Domain\Concept;
 
 use Mikron\HubBack\Domain\Blueprint\Displayable;
+use Mikron\HubBack\Domain\Value\Code;
 use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\Name;
 
@@ -12,6 +13,11 @@ use Mikron\HubBack\Domain\Value\Name;
  */
 class Skill implements Displayable
 {
+	/**
+	 * @var Code
+	 */
+	private $code;
+
 	/**
 	 * @var Name
 	 */
@@ -26,11 +32,21 @@ class Skill implements Displayable
 	 * Skill constructor.
 	 * @param Name $name
 	 * @param Description $description
+	 * @param Code $code
 	 */
-	public function __construct(Name $name, Description $description)
+	public function __construct(Code $code, Name $name, Description $description)
 	{
+		$this->code = $code;
 		$this->name = $name;
 		$this->description = $description;
+	}
+
+	/**
+	 * @return Code
+	 */
+	public function getCode()
+	{
+		return $this->code;
 	}
 
 	/**
