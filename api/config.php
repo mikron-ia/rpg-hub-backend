@@ -1,6 +1,6 @@
 <?php
 
-use Mikron\HubBack\Domain\Exception\MissingComponentException;
+use Mikron\HubBack\Domain\Exception\MissingConfigurationComponentException;
 
 $configPath = __DIR__ . '/../config/';
 
@@ -18,7 +18,7 @@ if (isset($app['config.epic']['system'])) {
     if (file_exists($path)) {
         require_once $path;
     } else {
-        throw new MissingComponentException('Data file for system coded "' . $app['config.epic']['system'] . '" not found"');
+        throw new MissingConfigurationComponentException('Data file for system coded "' . $app['config.epic']['system'] . '" not found"');
     }
 }
 
