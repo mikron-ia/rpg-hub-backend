@@ -9,7 +9,7 @@ class SkillGroupConceptTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @dataProvider correctSkillDataProvider
+     * @dataProvider correctSkillGroupDataProvider
      * @param $code
      * @param $name
      * @param $description
@@ -22,7 +22,7 @@ class SkillGroupConceptTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider correctSkillDataProvider
+     * @dataProvider correctSkillGroupDataProvider
      * @param $code
      * @param $name
      * @param $description
@@ -35,7 +35,7 @@ class SkillGroupConceptTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider correctSkillDataProvider
+     * @dataProvider correctSkillGroupDataProvider
      * @param $code
      * @param $name
      * @param $description
@@ -48,7 +48,7 @@ class SkillGroupConceptTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider correctSkillDataProvider
+     * @dataProvider correctSkillGroupDataProvider
      * @depends      isNameCorrect
      * @param $code
      * @param $name
@@ -67,7 +67,7 @@ class SkillGroupConceptTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider correctSkillDataProvider
+     * @dataProvider correctSkillGroupDataProvider
      * @param $name
      * @param $description
      */
@@ -83,7 +83,7 @@ class SkillGroupConceptTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectation, $skillGroup->getCompleteData());
     }
 
-    public function correctSkillDataProvider()
+    public function correctSkillGroupDataProvider()
     {
         return [
             [
