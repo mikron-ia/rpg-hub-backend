@@ -19,6 +19,23 @@ class TextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedReturn, $text->getText($expectedLanguage));
     }
 
+    /**
+     * @test
+     */
+    public function incorrectDefaultIsRecognised()
+    {
+        $this->setExpectedException("\\Mikron\\HubBack\\Domain\\Exception\\MissingConfigurationComponentException");
+
+        new Text(
+            [
+                'de' => "Versuchstext",
+                'en' => "Test text",
+                'pl' => "Tekst testowy"
+            ],
+            'ru'
+        );
+    }
+
     public function correctTextDataProvider()
     {
         return [
@@ -51,20 +68,6 @@ class TextTest extends PHPUnit_Framework_TestCase
                 'en',
                 'ru',
                 'Test text'
-            ],
-        ];
-    }
-
-    public function brokenDefaultTextDataProvider()
-    {
-        return [
-            [
-                [
-                    'de' => "Versuchstext",
-                    'en' => "Test text",
-                    'pl' => "Tekst testowy"
-                ],
-                'ru'
             ],
         ];
     }
