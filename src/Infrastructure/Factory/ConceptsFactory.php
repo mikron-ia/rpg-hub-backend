@@ -40,7 +40,7 @@ class ConceptsFactory
         $created = [];
 
         foreach ($config as $configItem) {
-            $created[] = $this->createSkillGroup?FromArray($configItem);
+            $created[] = $this->createSkillGroupFromArray($configItem);
         }
 
         return $created;
