@@ -10,6 +10,7 @@ use Mikron\HubBack\Domain\Value\Name;
 /**
  * Class Skill - numeric representation of an ability
  * @package Mikron\HubBack\Domain\Concept
+ * @todo This class should be collectible
  */
 class Skill implements Displayable
 {
@@ -38,14 +39,14 @@ class Skill implements Displayable
      * @param Code $code
      * @param Name $name
      * @param Description $description
-     * @param array $skillGroups Skill groups the skill belongs to; this may be empty
+     * @param array $skillGroupCollection Skill groups the skill belongs to; this may be empty
      */
-    public function __construct(Code $code, Name $name, Description $description, array $skillGroups)
+    public function __construct(Code $code, Name $name, Description $description, array $skillGroupCollection)
     {
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;
-        $this->skillGroups = $skillGroups;
+        $this->skillGroups = $skillGroupCollection;
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Mikron\HubBack\Infrastructure\Factory;
 use Mikron\HubBack\Domain\Concept\Skill;
 use Mikron\HubBack\Domain\Concept\SkillGroup;
 use Mikron\HubBack\Domain\Concept\SkillGroupCollection;
+use Mikron\HubBack\Domain\Exception\IncorrectConfigurationComponentException;
 use Mikron\HubBack\Domain\Value\Code;
 use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\Name;
@@ -15,8 +16,23 @@ use Mikron\HubBack\Domain\Value\Name;
  */
 class ConceptsFactory
 {
-    public function createSkillFromArray($payload, $skillGroups)
+    /**
+     * @param array $payload
+     * @param SkillGroupCollection $skillGroupCollection
+     * @return Skill
+     * @throws IncorrectConfigurationComponentException
+     */
+    public function createSkillFromArray($payload, $skillGroupCollection)
     {
+        $skillGroups = [];
+
+        foreach ($payload['groups'] as $skillGroupName) {
+            $skillGroup = $skillGroupCollection->findByIndex($skillGroupName);
+            if ($skillGroup === null) {
+                throw new IncorrectConfigurationComponentException("Non-existing skill group name '$skillGroupName' in configuration of " . $payload['code'] . " skill");
+            }
+        }
+
         return new Skill(new Code($payload['code']), new Name($payload['name'], 'en'), new Description($payload['description'], 'en'), []);
     }
 
@@ -49,7 +65,7 @@ class ConceptsFactory
             $created[] = $this->createSkillGroupFromArray($configItem);
         }
 
-        $collection = new SkillGroupCollection($created, 'code');
+        $collection = new SkillGroupCollection($created);
 
         return $collection;
     }

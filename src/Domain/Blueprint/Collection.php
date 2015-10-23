@@ -18,10 +18,9 @@ abstract class Collection
     /**
      * Collection constructor.
      * @param Collectible[] $collection
-     * @param $keyName
      * @throws IncorrectConfigurationComponentException
      */
-    public function __construct($collection, $keyName)
+    public function __construct($collection)
     {
         $this->collection = [];
 
