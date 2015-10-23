@@ -4,6 +4,7 @@ namespace Mikron\HubBack\Infrastructure\Factory;
 
 use Mikron\HubBack\Domain\Concept\Skill;
 use Mikron\HubBack\Domain\Concept\SkillGroup;
+use Mikron\HubBack\Domain\Concept\SkillGroupCollection;
 use Mikron\HubBack\Domain\Value\Code;
 use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\Name;
@@ -14,9 +15,9 @@ use Mikron\HubBack\Domain\Value\Name;
  */
 class ConceptsFactory
 {
-    public function createSkillFromArray($payload)
+    public function createSkillFromArray($payload, $skillGroups)
     {
-        return new Skill(new Code($payload['code']), new Name($payload['name'], 'en'), new Description($payload['description'], 'en'));
+        return new Skill(new Code($payload['code']), new Name($payload['name'], 'en'), new Description($payload['description'], 'en'), []);
     }
 
     public function createSkillGroupFromArray($payload)
@@ -24,18 +25,23 @@ class ConceptsFactory
         return new SkillGroup(new Code($payload['code']), new Name($payload['name'], 'en'), new Description($payload['description'], 'en'));
     }
 
-    public function createSkillsFromConfig($config)
+    /**
+     * @param $config
+     * @param SkillGroup[] $skillGroups
+     * @return array
+     */
+    public function createSkillsFromConfig($config, $skillGroups)
     {
         $created = [];
 
         foreach ($config as $configItem) {
-            $created[] = $this->createSkillFromArray($configItem);
+            $created[] = $this->createSkillFromArray($configItem, $skillGroups);
         }
 
         return $created;
     }
 
-    public function createSkillGroupsFromConfig($config)
+    public function createSkillGroupCollectionFromList($config)
     {
         $created = [];
 
@@ -43,6 +49,8 @@ class ConceptsFactory
             $created[] = $this->createSkillGroupFromArray($configItem);
         }
 
-        return $created;
+        $collection = new SkillGroupCollection($created, 'code');
+
+        return $collection;
     }
 }

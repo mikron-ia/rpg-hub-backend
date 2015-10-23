@@ -16,7 +16,7 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      */
     function isCodeCorrect($code, $name, $description)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, []);
         $this->assertEquals($name, $skill->getName());
     }
 
@@ -29,7 +29,7 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      */
     function isNameCorrect($code, $name, $description)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, []);
         $this->assertEquals($name, $skill->getName());
     }
 
@@ -42,7 +42,7 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      */
     function isDescriptionCorrect($code, $name, $description)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, []);
         $this->assertEquals($description, $skill->getDescription());
     }
 
@@ -56,7 +56,7 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      */
     function isSimpleDisplayCorrect($code, $name, $description)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, []);
 
         $expectation = [
             "name" => $skill->getName()
@@ -73,7 +73,7 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      */
     function isComplexDisplayCorrect($code, $name, $description)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, []);
 
         $expectation = [
             "name" => $skill->getName(),

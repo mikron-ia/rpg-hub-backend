@@ -2,6 +2,7 @@
 
 namespace Mikron\HubBack\Domain\Concept;
 
+use Mikron\HubBack\Domain\Blueprint\Collectible;
 use Mikron\HubBack\Domain\Value\Code;
 use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\Name;
@@ -10,7 +11,7 @@ use Mikron\HubBack\Domain\Value\Name;
  * Class SkillGroup - representation of a profession, skill aggregation or simple group
  * @package Mikron\HubBack\Domain\Concept
  */
-class SkillGroup
+class SkillGroup implements Collectible
 {
     /**
      * @var Code
@@ -83,5 +84,10 @@ class SkillGroup
             "name" => $this->getName(),
             "description" => $this->getDescription()
         ];
+    }
+
+    public function getKey()
+    {
+        return $this->code->getCode();
     }
 }

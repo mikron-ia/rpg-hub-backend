@@ -29,16 +29,23 @@ class Skill implements Displayable
     private $description;
 
     /**
+     * @var SkillGroups[]
+     */
+    private $skillGroups;
+
+    /**
      * Skill constructor.
+     * @param Code $code
      * @param Name $name
      * @param Description $description
-     * @param Code $code
+     * @param array $skillGroups Skill groups the skill belongs to; this may be empty
      */
-    public function __construct(Code $code, Name $name, Description $description)
+    public function __construct(Code $code, Name $name, Description $description, array $skillGroups)
     {
         $this->code = $code;
         $this->name = $name;
         $this->description = $description;
+        $this->skillGroups = $skillGroups;
     }
 
     /**

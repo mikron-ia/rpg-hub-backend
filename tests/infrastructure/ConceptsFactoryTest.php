@@ -4,6 +4,9 @@ use Mikron\HubBack\Infrastructure\Factory\ConceptsFactory;
 
 class ConceptsFactoryTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ConceptsFactory
+     */
     private $factory;
 
     protected function setUp()
@@ -14,8 +17,21 @@ class ConceptsFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function SkillCreationFromArrayReturnsSkill()
+    public function skillCreationFromArrayReturnsSkill()
     {
+        $skillGroupPayload = [
+            "code" => "social",
+            "name" => [
+                "en" => "Social skills",
+                "pl" => "Umiejêtnoœci spo³eczne"
+            ],
+            "description" => [
+                "en" => "Skills concerned with interaction with living or thinking beings"
+            ],
+        ];
+
+        $skillGroup = $this->factory->createSkillGroupFromArray($skillGroupPayload);
+
         $payload = [
             "code" => "animal-handling",
             "name" => [
@@ -32,7 +48,7 @@ Training animals: Training animals is a time-consuming task requiring repeated e
             ],
         ];
 
-        $skill = $this->factory->createSkillFromArray($payload);
+        $skill = $this->factory->createSkillFromArray($payload, [$skillGroup]);
 
         $this->assertInstanceOf("Mikron\\HubBack\\Domain\\Concept\\Skill", $skill);
     }
@@ -40,7 +56,7 @@ Training animals: Training animals is a time-consuming task requiring repeated e
     /**
      * @test
      */
-    public function SkillGroupCreationFromArrayReturnsSkillGroup()
+    public function skillGroupCreationFromArrayReturnsSkillGroup()
     {
         $payload = [
             "code" => "social",
@@ -53,8 +69,51 @@ Training animals: Training animals is a time-consuming task requiring repeated e
             ],
         ];
 
-        $skill = $this->factory->createSkillGroupFromArray($payload);
+        $skillGroup = $this->factory->createSkillGroupFromArray($payload);
 
-        $this->assertInstanceOf("Mikron\\HubBack\\Domain\\Concept\\SkillGroup", $skill);
+        $this->assertInstanceOf("Mikron\\HubBack\\Domain\\Concept\\SkillGroup", $skillGroup);
+    }
+
+    /**
+     * @test
+     */
+    public function skillGroupCollectionIsCreated()
+    {
+        $payload = [
+            [
+                "code" => "active",
+                "name" => [
+                    "en" => "Active skills",
+                    "pl" => "Umiejêtnoœci aktywne"
+                ],
+                "description" => [
+                    "en" => "Skills that are mainly concerned with direct actions. Every skill is either active or knowledge skill"
+                ],
+            ],
+            [
+                "code" => "knowledge",
+                "name" => [
+                    "en" => "Knowledge skills",
+                    "pl" => "Umiejêtnoœci wiedzowe"
+                ],
+                "description" => [
+                    "en" => "Skills that are mainly knowledge or lore. Every skill is either active or knowledge skill"
+                ],
+            ],
+            [
+                "code" => "social",
+                "name" => [
+                    "en" => "Social skills",
+                    "pl" => "Umiejêtnoœci spo³eczne"
+                ],
+                "description" => [
+                    "en" => "Skills concerned with interaction with living or thinking beings"
+                ],
+            ]
+        ];
+
+        $skillGroupCollection = $this->factory->createSkillGroupCollectionFromList($payload);
+
+        $this->assertInstanceOf("Mikron\\HubBack\\Domain\\Concept\\SkillGroupCollection", $skillGroupCollection);
     }
 }
