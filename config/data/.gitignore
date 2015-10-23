@@ -1,6 +1,0 @@
-# This directory will usually contain sensitive or copyrighted data, not fit for open source repositories.
-# Files that are placed here MUST NOT contain data that is not released under an open licence.
-*
-!.gitignore
-!ep.php
-!example.php
