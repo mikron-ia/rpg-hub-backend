@@ -12,18 +12,18 @@ use Mikron\HubBack\Domain\Value\Name;
  */
 class SkillGroup
 {
-	/**
-	 * @var Code
-	 */
-	private $code;
+    /**
+     * @var Code
+     */
+    private $code;
 
-	/**
-	 * @var Name
-	 */
-	private $name;
+    /**
+     * @var Name
+     */
+    private $name;
 
-	/**
-	 * @var Description
-	 */
-	private $description;
+    /**
+     * @var Description
+     */
+    private $description;
 }

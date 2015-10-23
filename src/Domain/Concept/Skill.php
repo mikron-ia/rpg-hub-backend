@@ -13,76 +13,76 @@ use Mikron\HubBack\Domain\Value\Name;
  */
 class Skill implements Displayable
 {
-	/**
-	 * @var Code
-	 */
-	private $code;
+    /**
+     * @var Code
+     */
+    private $code;
 
-	/**
-	 * @var Name
-	 */
-	private $name;
+    /**
+     * @var Name
+     */
+    private $name;
 
-	/**
-	 * @var Description
-	 */
-	private $description;
+    /**
+     * @var Description
+     */
+    private $description;
 
-	/**
-	 * Skill constructor.
-	 * @param Name $name
-	 * @param Description $description
-	 * @param Code $code
-	 */
-	public function __construct(Code $code, Name $name, Description $description)
-	{
-		$this->code = $code;
-		$this->name = $name;
-		$this->description = $description;
-	}
+    /**
+     * Skill constructor.
+     * @param Name $name
+     * @param Description $description
+     * @param Code $code
+     */
+    public function __construct(Code $code, Name $name, Description $description)
+    {
+        $this->code = $code;
+        $this->name = $name;
+        $this->description = $description;
+    }
 
-	/**
-	 * @return Code
-	 */
-	public function getCode()
-	{
-		return $this->code;
-	}
+    /**
+     * @return Code
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
 
-	/**
-	 * @return Name
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
+    /**
+     * @return Name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @return Description
-	 */
-	public function getDescription()
-	{
-		return $this->description;
-	}
+    /**
+     * @return Description
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-	/**
-	 * @return array Simple representation of the object content, fit for basic display
-	 */
-	public function getSimpleData()
-	{
-		return [
-			"name" => $this->getName()
-		];
-	}
+    /**
+     * @return array Simple representation of the object content, fit for basic display
+     */
+    public function getSimpleData()
+    {
+        return [
+            "name" => $this->getName()
+        ];
+    }
 
-	/**
-	 * @return array Complete representation of public parts of object content, fit for full card display
-	 */
-	public function getCompleteData()
-	{
-		return [
-			"name" => $this->getName(),
-			"description" => $this->getDescription()
-		];
-	}
+    /**
+     * @return array Complete representation of public parts of object content, fit for full card display
+     */
+    public function getCompleteData()
+    {
+        return [
+            "name" => $this->getName(),
+            "description" => $this->getDescription()
+        ];
+    }
 }
