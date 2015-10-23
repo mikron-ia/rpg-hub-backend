@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Data file for 7th Sea RPG system
- * @todo Complete with proper copyright data
+ * Data file for example system
+ * Copy and fill to wit with data you require
  */
 
 /* Reputation networks list */
