@@ -64,7 +64,7 @@ abstract class Collection
     public function findByIndex($key)
     {
         if (isset($this->collection[$key])) {
-            return $key;
+            return $this->collection[$key];
         } else {
             return null;
         }

@@ -2,6 +2,7 @@
 
 namespace Mikron\HubBack\Infrastructure\Factory;
 
+use Mikron\HubBack\Domain\Blueprint\Collectible;
 use Mikron\HubBack\Domain\Concept\Skill;
 use Mikron\HubBack\Domain\Concept\SkillGroup;
 use Mikron\HubBack\Domain\Concept\SkillGroupCollection;
@@ -18,22 +19,26 @@ class ConceptsFactory
 {
     /**
      * @param array $payload
-     * @param SkillGroupCollection $skillGroupCollection
+     * @param SkillGroupCollection $completeSkillGroupCollection
      * @return Skill
      * @throws IncorrectConfigurationComponentException
      */
-    public function createSkillFromArray($payload, $skillGroupCollection)
+    public function createSkillFromArray($payload, $completeSkillGroupCollection)
     {
-        $skillGroups = [];
+        $skillGroupListForSkill = [];
 
         foreach ($payload['groups'] as $skillGroupName) {
-            $skillGroup = $skillGroupCollection->findByIndex($skillGroupName);
+            $skillGroup = $completeSkillGroupCollection->findByIndex($skillGroupName);
             if ($skillGroup === null) {
                 throw new IncorrectConfigurationComponentException("Non-existing skill group name '$skillGroupName' in configuration of " . $payload['code'] . " skill");
             }
+
+            $skillGroupListForSkill[] = $skillGroup;
         }
 
-        return new Skill(new Code($payload['code']), new Name($payload['name'], 'en'), new Description($payload['description'], 'en'), []);
+        $skillSkillGroupCollection = $this->createSkillGroupCollectionFromList($skillGroupListForSkill);
+
+        return new Skill(new Code($payload['code']), new Name($payload['name'], 'en'), new Description($payload['description'], 'en'), $skillSkillGroupCollection);
     }
 
     public function createSkillGroupFromArray($payload)
@@ -57,12 +62,20 @@ class ConceptsFactory
         return $created;
     }
 
-    public function createSkillGroupCollectionFromList($config)
+    /**
+     * @param array $array
+     * @return SkillGroupCollection
+     */
+    public function createSkillGroupCollectionFromList(array $array)
     {
         $created = [];
 
-        foreach ($config as $configItem) {
-            $created[] = $this->createSkillGroupFromArray($configItem);
+        foreach ($array as $arrayItem) {
+            if ($arrayItem instanceof SkillGroup) {
+                $created[] = $arrayItem;
+            } else {
+                $created[] = $this->createSkillGroupFromArray($arrayItem);
+            }
         }
 
         $collection = new SkillGroupCollection($created);

@@ -2,6 +2,7 @@
 
 namespace Mikron\HubBack\Domain\Concept;
 
+use Mikron\HubBack\Domain\Blueprint\Collectible;
 use Mikron\HubBack\Domain\Blueprint\Displayable;
 use Mikron\HubBack\Domain\Value\Code;
 use Mikron\HubBack\Domain\Value\Description;
@@ -10,9 +11,8 @@ use Mikron\HubBack\Domain\Value\Name;
 /**
  * Class Skill - numeric representation of an ability
  * @package Mikron\HubBack\Domain\Concept
- * @todo This class should be collectible
  */
-class Skill implements Displayable
+class Skill implements Collectible, Displayable
 {
     /**
      * @var Code
@@ -30,7 +30,7 @@ class Skill implements Displayable
     private $description;
 
     /**
-     * @var SkillGroups[]
+     * @var SkillGroupCollection
      */
     private $skillGroups;
 
@@ -39,9 +39,9 @@ class Skill implements Displayable
      * @param Code $code
      * @param Name $name
      * @param Description $description
-     * @param array $skillGroupCollection Skill groups the skill belongs to; this may be empty
+     * @param SkillGroupCollection $skillGroupCollection Skill groups the skill belongs to; this may be empty
      */
-    public function __construct(Code $code, Name $name, Description $description, array $skillGroupCollection)
+    public function __construct(Code $code, Name $name, Description $description, SkillGroupCollection $skillGroupCollection)
     {
         $this->code = $code;
         $this->name = $name;
@@ -92,5 +92,10 @@ class Skill implements Displayable
             "name" => $this->getName(),
             "description" => $this->getDescription()
         ];
+    }
+
+    public function getKey()
+    {
+        return $this->code->getCode();
     }
 }

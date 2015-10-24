@@ -3,7 +3,7 @@
 $app['skillGroupCollection'] = $app->share(function ($app) {
     if (isset($app['config.system.skillGroups'])) {
         $factory = new \Mikron\HubBack\Infrastructure\Factory\ConceptsFactory();
-        $skillGroupCollection = $factory->createSkillGroupCollectionFromList($app['config.system.skillGroups']);
+        $skillGroupCollection = $factory->createSkillGroupCollectionFromListOfObjects($app['config.system.skillGroups']);
     } else {
         $skillGroupCollection = [];
     }
