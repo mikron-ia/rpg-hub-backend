@@ -2,7 +2,6 @@
 
 namespace Mikron\HubBack\Infrastructure\Factory;
 
-use Mikron\HubBack\Domain\Blueprint\Collectible;
 use Mikron\HubBack\Domain\Concept\Skill;
 use Mikron\HubBack\Domain\Concept\SkillGroup;
 use Mikron\HubBack\Domain\Concept\SkillGroupCollection;
@@ -41,25 +40,34 @@ class ConceptsFactory
         return new Skill(new Code($payload['code']), new Name($payload['name'], 'en'), new Description($payload['description'], 'en'), $skillSkillGroupCollection);
     }
 
+    /**
+     * @param $payload
+     * @return SkillGroup
+     */
     public function createSkillGroupFromArray($payload)
     {
         return new SkillGroup(new Code($payload['code']), new Name($payload['name'], 'en'), new Description($payload['description'], 'en'));
     }
 
     /**
-     * @param $config
-     * @param SkillGroup[] $skillGroups
-     * @return array
+     * @param array $array
+     * @return SkillGroupCollection
      */
-    public function createSkillsFromConfig($config, $skillGroups)
+    public function createSkillCollectionFromList(array $array)
     {
         $created = [];
 
-        foreach ($config as $configItem) {
-            $created[] = $this->createSkillFromArray($configItem, $skillGroups);
+        foreach ($array as $arrayItem) {
+            if ($arrayItem instanceof Skill) {
+                $created[] = $arrayItem;
+            } else {
+                $created[] = $this->createSkillFromArray($arrayItem);
+            }
         }
 
-        return $created;
+        $collection = new SkillCollection($created);
+
+        return $collection;
     }
 
     /**
