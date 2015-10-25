@@ -1,30 +1,24 @@
 <?php
 
-$app['skillGroups'] = $app->share(function ($app) {
+$app['skillGroupCollection'] = $app->share(function ($app) {
+    $factory = new \Mikron\HubBack\Infrastructure\Factory\ConceptsFactory();
 
     if (isset($app['config.system.skillGroups'])) {
-        $factory = new \Mikron\HubBack\Infrastructure\Factory\ConceptsFactory();
-
-        $skillGroupsConfig = $app['config.system.skillGroups'];
-
-        $skillGroupList = $factory->createSkillGroupsFromConfig($skillGroupsConfig);
+        $skillGroupCollection = $factory->createSkillGroupCollectionFromListOfObjects($app['config.system.skillGroups']);
     } else {
-        $skillGroupList = [];
+        $skillGroupCollection = $factory->createSkillGroupCollectionFromListOfObjects([]);
     }
 
-    return $skillGroupList;
+    return $skillGroupCollection;
 });
 
 $app['skills'] = $app->share(function ($app) {
+    $factory = new \Mikron\HubBack\Infrastructure\Factory\ConceptsFactory();
 
     if (isset($app['config.system.skills'])) {
-        $factory = new \Mikron\HubBack\Infrastructure\Factory\ConceptsFactory();
-
-        $skillsConfig = $app['config.system.skills'];
-
-        $skillList = $factory->createSkillsFromConfig($skillsConfig);
+        $skillList = $factory->createSkillCollectionFromList($app['config.system.skills'], $app['skillGroupCollection']);
     } else {
-        $skillList = [];
+        $skillList = $factory->createSkillCollectionFromList([], $app['skillGroupCollection']);
     }
 
     return $skillList;

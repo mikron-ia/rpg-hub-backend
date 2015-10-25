@@ -88,7 +88,7 @@ class SkillGroupConceptTest extends PHPUnit_Framework_TestCase
         return [
             [
                 new Code('active'),
-                new Name(['en' => 'Active Skills', 'pl' => 'Umiejêtnoœci aktywne'], 'en'),
+                new Name(['en' => 'Active Skills', 'pl' => 'UmiejÄ™tnoÅ›ci aktywne'], 'en'),
                 new Description(['en' => 'Skills used for active tests'], 'en')
             ]
         ];

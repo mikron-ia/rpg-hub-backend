@@ -13,10 +13,11 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      * @param $code
      * @param $name
      * @param $description
+     * @param $skillGroupCollection
      */
-    function isCodeCorrect($code, $name, $description)
+    function isCodeCorrect($code, $name, $description, $skillGroupCollection)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, $skillGroupCollection);
         $this->assertEquals($name, $skill->getName());
     }
 
@@ -26,10 +27,11 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      * @param $code
      * @param $name
      * @param $description
+     * @param $skillGroupCollection
      */
-    function isNameCorrect($code, $name, $description)
+    function isNameCorrect($code, $name, $description, $skillGroupCollection)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, $skillGroupCollection);
         $this->assertEquals($name, $skill->getName());
     }
 
@@ -39,10 +41,11 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      * @param $code
      * @param $name
      * @param $description
+     * @param $skillGroupCollection
      */
-    function isDescriptionCorrect($code, $name, $description)
+    function isDescriptionCorrect($code, $name, $description, $skillGroupCollection)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, $skillGroupCollection);
         $this->assertEquals($description, $skill->getDescription());
     }
 
@@ -54,9 +57,9 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
      * @param $name
      * @param $description
      */
-    function isSimpleDisplayCorrect($code, $name, $description)
+    function isSimpleDisplayCorrect($code, $name, $description, $skillGroupCollection)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, $skillGroupCollection);
 
         $expectation = [
             "name" => $skill->getName()
@@ -68,12 +71,15 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @dataProvider correctSkillDataProvider
+     * @param $code
      * @param $name
      * @param $description
+     * @param $skillGroupCollection
+     * @internal param $skillGroups
      */
-    function isComplexDisplayCorrect($code, $name, $description)
+    function isComplexDisplayCorrect($code, $name, $description, $skillGroupCollection)
     {
-        $skill = new Skill($code, $name, $description);
+        $skill = new Skill($code, $name, $description, $skillGroupCollection);
 
         $expectation = [
             "name" => $skill->getName(),
@@ -89,7 +95,8 @@ class SkillConceptTest extends PHPUnit_Framework_TestCase
             [
                 new Code('KNOW-GEOGRAPHY'),
                 new Name(['en' => 'Knowledge (Geography)'], 'en'),
-                new Description(['en' => 'Lore regarding various landmarks on Mars'], 'en')
+                new Description(['en' => 'Lore regarding various landmarks on Mars'], 'en'),
+                new \Mikron\HubBack\Domain\Concept\SkillGroupCollection([]),
             ]
         ];
     }
