@@ -1,6 +1,6 @@
 <?php
 
-$app['config.epic'] = [
+return [
     'title' => "",
     'system' => "",
 ];

@@ -5,11 +5,8 @@
  * Copy and fill to wit with data you require
  */
 
-/* Reputation networks list */
-$app['config.system.reputations'] = [];
-
-/* Skill groups used by the system */
-$app['config.system.skillGroups'] = [];
-
-/* Skills used by the system */
-$app['config.system.skills'] = [];
+return [
+    'reputations' => [], /* Reputation networks list */
+    'skillGroups' => [], /* Skill groups used by the system */
+    'skills' => [], /* Skills used by the system */
+];

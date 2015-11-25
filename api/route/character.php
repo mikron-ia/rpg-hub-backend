@@ -1,11 +1,11 @@
 <?php
 
 /* Reputation data of a particular person */
-$app->get('/character/{id}', function ($id) use ($app) {
-    $dbEngine = $app['config.deploy']['dbEngine'];
+$app->get('/character/{id}/', function ($id) use ($app) {
+    $dbEngine = $app['config']['dbEngine'];
     $dbClass = '\Mikron\HubBack\Infrastructure\Storage\\'
-        . $app['config.main']['databaseReference'][$dbEngine] . 'StorageEngine';
-    $connection = new $dbClass($app['config.deploy'][$dbEngine]);
+        . $app['config']['databaseReference'][$dbEngine] . 'StorageEngine';
+    $connection = new $dbClass($app['config'][$dbEngine]);
 
     $factory = new \Mikron\HubBack\Infrastructure\Factory\Character();
 

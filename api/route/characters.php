@@ -2,10 +2,10 @@
 
 /* List of all characters available for display */
 $app->get('/characters/', function () use ($app) {
-    $dbEngine = $app['config.deploy']['dbEngine'];
+    $dbEngine = $app['config']['dbEngine'];
     $dbClass = '\Mikron\HubBack\Infrastructure\Storage\\'
-        . $app['config.main']['databaseReference'][$dbEngine] . 'StorageEngine';
-    $connection = new $dbClass($app['config.deploy'][$dbEngine]);
+        . $app['config']['databaseReference'][$dbEngine] . 'StorageEngine';
+    $connection = new $dbClass($app['config'][$dbEngine]);
 
     $factory = new \Mikron\HubBack\Infrastructure\Factory\Character();
 

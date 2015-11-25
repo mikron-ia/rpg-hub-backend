@@ -1,6 +1,6 @@
 <?php
 
-$app['config.deploy'] = [
+return [
     'debug' => false,
     'dbEngine' => '',
     'source' => ''
