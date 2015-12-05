@@ -49,6 +49,8 @@ class Retriever
     /**
      * @return string JSON from the source
      * @throws InvalidSourceException
+     * @todo Move cURL operations outside the class
+     * @todo Create exception specifically for cURL
      */
     private function retrieve()
     {
