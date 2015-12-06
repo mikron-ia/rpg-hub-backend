@@ -1,7 +1,6 @@
 <?php
 
 use Mikron\HubBack\Domain\Entity\Character;
-use Mikron\HubBack\Domain\Entity\Ego;
 
 class CharacterTest extends PHPUnit_Framework_TestCase
 {
@@ -9,10 +8,11 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @test
      * @dataProvider correctDataProvider
      * @param $name
+     * @param $storage
      */
-    function isNameCorrect($name, $ego, $storage)
+    function isNameCorrect($name, $storage)
     {
-        $character = new Character($name, $ego, $storage);
+        $character = new Character($name, $storage);
         $this->assertEquals($name, $character->getName());
     }
 
@@ -21,7 +21,6 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         return [
             [
                 "Test Character",
-                new Ego(),
                 null
             ]
         ];
