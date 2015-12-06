@@ -9,9 +9,9 @@ use Mikron\HubBack\Infrastructure\Storage\StorageForCharacter;
 
 class Character
 {
-    public function createFromSingleArray($name, $ego, $storageData)
+    public function createFromSingleArray($name, $storageData)
     {
-        return new Entity\character($name, $ego, $storageData);
+        return new Entity\character($name, $storageData);
     }
 
     /**
@@ -26,7 +26,7 @@ class Character
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageData($record['character_id']);
-                $list[] = $this->createFromSingleArray($record['name'], null, $storageData);
+                $list[] = $this->createFromSingleArray($record['name'], $storageData);
             }
         }
 
