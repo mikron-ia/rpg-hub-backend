@@ -4,7 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new Silex\Application;
 
-$apiPath = '/../api/';
+$apiPath = '../api/';
 
 require_once $apiPath.'config.php';
 require_once $apiPath.'dic.php';
