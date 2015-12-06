@@ -11,7 +11,3 @@ before_script:
 script:
   - composer test
   - CODECLIMATE_REPO_TOKEN=61fb888c8a221e88c7c84723df21568b86b0fb68ab75ddee8afc7a600dd55bde ./vendor/bin/test-reporter
-
-matrix:
-  allow_failures:
-    - php: 7.0
