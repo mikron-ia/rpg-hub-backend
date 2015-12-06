@@ -2,8 +2,10 @@
 
 namespace Mikron\HubBack\Domain\Service;
 
+use Mikron\HubBack\Domain\Blueprint\ConnectionToOutside;
 use Mikron\HubBack\Domain\Exception\InvalidDataException;
 use Mikron\HubBack\Domain\Exception\InvalidSourceException;
+use Mikron\HubBack\Infrastructure\Connection\Curler;
 
 /**
  * Class Retriever - retrieves data from a module
@@ -12,9 +14,9 @@ use Mikron\HubBack\Domain\Exception\InvalidSourceException;
 class Retriever
 {
     /**
-     * @var string Data source
+     * @var ConnectionToOutside Data source
      */
-    private $uri;
+    private $connection;
 
     /**
      * @var string Retrieved data in JSON
@@ -27,14 +29,20 @@ class Retriever
     private $data;
 
     /**
-     * Retriever constructor.
-     * @param $uri
-     * @throws InvalidDataException
-     * @throws InvalidSourceException
+     * @var $address string[] Address for URI in form of uri segments
      */
-    public function __construct($uri)
+    private $address;
+
+    /**
+     * Retriever constructor.
+     * @param ConnectionToOutside $connection
+     * @param string[] $address
+     * @throws InvalidDataException
+     */
+    public function __construct($connection, $address)
     {
-        $this->uri = $uri;
+        $this->connection = $connection;
+        $this->address = $address;
 
         $json = $this->retrieve();
         $this->json = $json;
@@ -48,27 +56,11 @@ class Retriever
 
     /**
      * @return string JSON from the source
-     * @throws InvalidSourceException
-     * @todo Move cURL operations outside the class
-     * @todo Create exception specifically for cURL
      */
     private function retrieve()
     {
-        $curl = curl_init($this->uri);
-
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_FAILONERROR, true);
-
-        $result = curl_exec($curl);
-        $error = curl_error($curl);
-
-        curl_close($curl);
-
-        if (!empty($error)) {
-            throw new InvalidSourceException("cURL error: " . $error);
-        }
-
-        return $result;
+        $address = implode('/', $this->address);
+        return $this->connection->retrieve($address);
     }
 
     /**
