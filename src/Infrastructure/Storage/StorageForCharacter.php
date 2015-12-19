@@ -2,12 +2,13 @@
 
 namespace Mikron\HubBack\Infrastructure\Storage;
 
+use Mikron\HubBack\Domain\Blueprint\StorageEngine;
 use Mikron\HubBack\Domain\Storage\StorageForObject;
 
 final class StorageForCharacter implements StorageForObject
 {
     /**
-     * @var Storage
+     * @var StorageEngine
      */
     private $storage;
 

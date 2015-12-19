@@ -28,16 +28,17 @@ class Character
     /**
      * @var StorageIdentification
      */
-    private $storageData;
+    private $identification;
 
     /**
      * Character constructor.
      * @param string $name
-     * @param StorageIdentification|null $storageData
+     * @param StorageIdentification|null $identification
      */
-    public function __construct($name, $storageData)
+    public function __construct($identification, $name)
     {
         $this->name = $name;
+        $this->identification = $identification;
     }
 
     /**

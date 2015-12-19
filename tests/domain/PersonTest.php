@@ -1,18 +1,18 @@
 <?php
 
-use Mikron\HubBack\Domain\Entity\Character;
+use Mikron\HubBack\Domain\Entity\Person;
 
-class CharacterTest extends PHPUnit_Framework_TestCase
+class PersonTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
      * @dataProvider correctDataProvider
      * @param $name
-     * @param $storage
+     * @param $identification
      */
-    function isNameCorrect($name, $storage)
+    function isNameCorrect($name, $identification)
     {
-        $character = new Character($storage, $name);
+        $character = new Person($identification, $name);
         $this->assertEquals($name, $character->getName());
     }
 
@@ -21,7 +21,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         return [
             [
                 null,
-                "Test Character"
+                "Test Person",
             ]
         ];
     }

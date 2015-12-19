@@ -9,9 +9,9 @@ use Mikron\HubBack\Infrastructure\Storage\StorageForCharacter;
 
 class Character
 {
-    public function createFromSingleArray($name, $storageData)
+    public function createFromSingleArray($identification, $name)
     {
-        return new Entity\character($name, $storageData);
+        return new Entity\character($identification, $name);
     }
 
     /**
@@ -26,7 +26,7 @@ class Character
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['character_id'], null);
-                $list[] = $this->createFromSingleArray($record['name'], $storageData);
+                $list[] = $this->createFromSingleArray($storageData, $record['name']);
             }
         }
 
@@ -50,7 +50,7 @@ class Character
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['character_id'], null);
-                $list[] = $this->createFromSingleArray($record['name'], null, $storageData);
+                $list[] = $this->createFromSingleArray($storageData, $record['name']);
             }
         }
 
@@ -68,7 +68,7 @@ class Character
 
             $storageData = new StorageIdentification($characterUnwrapped['character_id'], null);
 
-            $character = $this->createFromSingleArray($characterUnwrapped['name'], null, $storageData);
+            $character = $this->createFromSingleArray($storageData, $characterUnwrapped['name']);
         } else {
             throw new CharacterNotFoundException("Character with given ID has not been found in our database");
         }
