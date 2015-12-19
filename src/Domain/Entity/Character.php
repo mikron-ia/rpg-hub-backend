@@ -32,13 +32,18 @@ class Character
 
     /**
      * Character constructor.
-     * @param string $name
      * @param StorageIdentification|null $identification
+     * @param string $name
+     * @param $person
+     * @param $data     *
+     * @todo Validate data?
      */
-    public function __construct($identification, $name)
+    public function __construct($identification, $name, $person, $data)
     {
         $this->name = $name;
         $this->identification = $identification;
+        $this->person = $person;
+        $this->data = $data;
     }
 
     /**

@@ -12,7 +12,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      */
     function isNameCorrect($name, $storage)
     {
-        $character = new Character($storage, $name);
+        $character = new Character($storage, $name, [], []);
         $this->assertEquals($name, $character->getName());
     }
 

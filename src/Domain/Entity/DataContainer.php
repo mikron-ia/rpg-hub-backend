@@ -4,7 +4,9 @@ namespace Mikron\HubBack\Domain\Entity;
 
 /**
  * Class DataContainer - class for all bag-like resources that are extras for the model, not represented it is normal structure
- * This should not be used for things that have their own entity models
+ * This container is intended to wrap module-delivered data, with assumption they are already correctly formatted (if JSON was correct)
+ * This container should not be used for things that have their own entity models
+ *
  * @package Mikron\HubBack\Domain\Entity
  */
 class DataContainer
@@ -13,8 +15,8 @@ class DataContainer
 
     /**
      * Character constructor.
-     * @param $dataPattern
-     * @param $inputData
+     * @param $dataPattern array Labels with default values (most likely "" and [], dependent on type)
+     * @param $inputData array Unpacked JSON to be put into mold
      */
     public function __construct($dataPattern, $inputData)
     {
