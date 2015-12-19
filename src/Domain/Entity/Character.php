@@ -2,7 +2,7 @@
 
 namespace Mikron\HubBack\Domain\Entity;
 
-use Mikron\HubBack\Domain\Value\StorageData;
+use Mikron\HubBack\Domain\Value\StorageIdentification;
 
 /**
  * Class Character - abstract concepts that aggregates everything that makes a character
@@ -26,14 +26,14 @@ class Character
     private $data;
 
     /**
-     * @var StorageData
+     * @var StorageIdentification
      */
     private $storageData;
 
     /**
      * Character constructor.
      * @param string $name
-     * @param StorageData|null $storageData
+     * @param StorageIdentification|null $storageData
      */
     public function __construct($name, $storageData)
     {

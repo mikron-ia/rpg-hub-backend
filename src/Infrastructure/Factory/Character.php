@@ -4,7 +4,7 @@ namespace Mikron\HubBack\Infrastructure\Factory;
 
 use Mikron\HubBack\Domain\Entity;
 use Mikron\HubBack\Domain\Exception\CharacterNotFoundException;
-use Mikron\HubBack\Domain\Value\StorageData;
+use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Infrastructure\Storage\StorageForCharacter;
 
 class Character
@@ -25,7 +25,7 @@ class Character
 
         if (!empty($array)) {
             foreach ($array as $record) {
-                $storageData = new StorageData($record['character_id']);
+                $storageData = new StorageIdentification($record['character_id'], null);
                 $list[] = $this->createFromSingleArray($record['name'], $storageData);
             }
         }
@@ -49,7 +49,7 @@ class Character
 
         if (!empty($array)) {
             foreach ($array as $record) {
-                $storageData = new StorageData($record['character_id']);
+                $storageData = new StorageIdentification($record['character_id'], null);
                 $list[] = $this->createFromSingleArray($record['name'], null, $storageData);
             }
         }
@@ -66,7 +66,7 @@ class Character
         if (!empty($characterWrapped)) {
             $characterUnwrapped = array_pop($characterWrapped);
 
-            $storageData = new StorageData($characterUnwrapped['character_id']);
+            $storageData = new StorageIdentification($characterUnwrapped['character_id'], null);
 
             $character = $this->createFromSingleArray($characterUnwrapped['name'], null, $storageData);
         } else {
