@@ -1,11 +1,11 @@
 engines:
-  csslint:
+  duplication:
     enabled: true
   phpmd:
     enabled: true
     config:
       file_extensions: "php"
-      rulesets: "codesize,controversial,design,naming,unusedcode"
+      rulesets: "codesize,controversial,design,unusedcode"
   phpcodesniffer:
     enabled: true
 
