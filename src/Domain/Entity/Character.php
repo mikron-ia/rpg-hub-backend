@@ -16,6 +16,16 @@ class Character
     private $name;
 
     /**
+     * @var Person Person data
+     */
+    private $person;
+
+    /**
+     * @var DataContainer Unstructured data
+     */
+    private $data;
+
+    /**
      * @var StorageData
      */
     private $storageData;
