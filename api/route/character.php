@@ -9,12 +9,12 @@ $app->get('/character/{id}/', function ($id) use ($app) {
 
     $factory = new \Mikron\HubBack\Infrastructure\Factory\Character();
 
-    $person = $factory->retrieveCharacterFromDb($connection,$id);
+    $character = $factory->retrieveCharacterFromDb($connection, $app['config']['dataPatterns'], $id);
 
     $output = new \Mikron\HubBack\Domain\Service\Output(
         "Character data",
         "",
-        [$person->getName()]
+        [$character->getName()]
     );
 
     return $app->json($output->getArrayForJson());

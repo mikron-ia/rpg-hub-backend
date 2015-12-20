@@ -29,9 +29,9 @@ class Person
      * Person constructor.
      * @param StorageIdentification|null $identification
      * @param string $name
-     * @param array $data
+     * @param DataContainer|null $data
      */
-    public function __construct($identification, $name, array $data)
+    public function __construct($identification, $name, $data)
     {
         $this->name = $name;
         $this->identification = $identification;

@@ -17,7 +17,7 @@ class PersonTest extends PHPUnit_Framework_TestCase
      */
     public function identificationIsCorrect()
     {
-        $person = new Person($this->identification, 'Test Name', []);
+        $person = new Person($this->identification, 'Test Name', null);
         $this->assertEquals($this->identification, $person->getIdentification());
     }
 

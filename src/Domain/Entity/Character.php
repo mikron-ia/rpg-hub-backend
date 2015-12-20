@@ -34,9 +34,8 @@ class Character
      * Character constructor.
      * @param StorageIdentification|null $identification
      * @param string $name
-     * @param $person
-     * @param $data     *
-     * @todo Validate data?
+     * @param Person|null $person
+     * @param DataContainer $data
      */
     public function __construct($identification, $name, $person, $data)
     {

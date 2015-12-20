@@ -9,5 +9,10 @@ return [
     'databaseReference' => [
         'mysql' => 'MySql',
         'mongodb' => 'MongoDb',
-    ]
+    ],
+    'dataPatterns' => [
+        'character' => [],
+        'person' => [],
+        'event' => [],
+    ],
 ];

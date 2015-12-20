@@ -11,6 +11,15 @@ use Psr\Log\LoggerInterface;
 
 class Character
 {
+    /**
+     * Creates character object from array
+     *
+     * @param StorageIdentification|null $identification
+     * @param string $name
+     * @param Entity\Person|null $person
+     * @param Entity\DataContainer $data
+     * @return Entity\Character
+     */
     public function createFromSingleArray($identification, $name, $person, $data)
     {
         return new Entity\Character($identification, $name, $person, $data);
@@ -28,7 +37,7 @@ class Character
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['character_id'], null);
-                $list[] = $this->createFromSingleArray($storageData, $record['name'], [], []);
+                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, null);
             }
         }
 
@@ -38,10 +47,13 @@ class Character
     /**
      * Retrieves character objects from database
      *
-     * @param $connection
+     * @param StorageEngine $connection
+     * @param array $dataPatterns
+     * @param LoggerInterface $logger
      * @return Character[]
+     * @throws CharacterNotFoundException
      */
-    public function retrieveAllFromDb($connection)
+    public function retrieveAllFromDb($connection, $dataPatterns, $logger)
     {
         $characterStorage = new StorageForCharacter($connection);
         $array = $characterStorage->retrieveAll();
@@ -49,7 +61,7 @@ class Character
         $list = [];
         if (!empty($array)) {
             foreach ($array as $record) {
-                $list[] = $this->unwrapCharacter($record, $connection, null);
+                $list[] = $this->unwrapCharacter($record, $connection, $dataPatterns, $logger);
             }
         }
 
@@ -59,26 +71,31 @@ class Character
     /**
      * Retrieves single character from DB
      * @param $connection StorageEngine
+     * @param $dataPatterns
      * @param $dbId int
      * @return Entity\Character
      * @throws CharacterNotFoundException
      */
-    public function retrieveCharacterFromDb($connection, $dbId)
+    public function retrieveCharacterFromDb($connection, $dataPatterns, $dbId)
     {
         $characterStorage = new StorageForCharacter($connection);
         $characterWrapped = $characterStorage->retrieve($dbId);
 
-        return $this->unwrapCharacter($characterWrapped, $connection, null);
+        return $this->unwrapCharacter($characterWrapped, $connection, $dataPatterns, null);
     }
 
     /**
      * @param array $characterWrapped
      * @param StorageEngine $connection
+     * @param array $dataPatterns
      * @param LoggerInterface $logger
      * @return Entity\Person
      * @throws CharacterNotFoundException
+     * @throws \Mikron\HubBack\Domain\Exception\PersonNotFoundException
+     * @todo Make $dataContainerForCharacter use available data
+     * @todo Factory should be passed as DI with correct data
      */
-    public function unwrapCharacter($characterWrapped, $connection, $logger)
+    public function unwrapCharacter($characterWrapped, $connection, $dataPatterns, $logger)
     {
         if (!empty($characterWrapped)) {
             $characterUnwrapped = array_pop($characterWrapped);
@@ -88,12 +105,20 @@ class Character
             /* Get Person if ID is available */
             if (!empty($characterUnwrapped['person_id'])) {
                 $personFactory = new Person();
-                $person = $personFactory->retrievePersonFromDb($connection, $characterUnwrapped['person_id']);
+                $person = $personFactory->retrievePersonFromDb($connection, $dataPatterns, $characterUnwrapped['person_id']);
             } else {
                 $person = null;
             }
 
-            $character = $this->createFromSingleArray($identification, $characterUnwrapped['name'], $person, []);
+            $dataContainerFactory = new DataContainer();
+            $dataContainerForCharacter = $dataContainerFactory->createWithPattern([], $dataPatterns['character']);
+
+            $character = $this->createFromSingleArray(
+                $identification,
+                $characterUnwrapped['name'],
+                $person,
+                $dataContainerForCharacter
+            );
         } else {
             throw new CharacterNotFoundException("Character with given ID has not been found in our database");
         }
