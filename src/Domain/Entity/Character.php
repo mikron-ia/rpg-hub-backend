@@ -8,27 +8,12 @@ use Mikron\HubBack\Domain\Value\StorageIdentification;
  * Class Character - abstract concepts that aggregates everything that makes a character
  * @package Mikron\HubBack\Domain\Entity
  */
-class Character
+final class Character extends BasicDataObject
 {
-    /**
-     * @var string
-     */
-    private $name;
-
     /**
      * @var Person Person data
      */
     private $person;
-
-    /**
-     * @var DataContainer Unstructured data
-     */
-    private $data;
-
-    /**
-     * @var StorageIdentification
-     */
-    private $identification;
 
     /**
      * Character constructor.
@@ -39,17 +24,7 @@ class Character
      */
     public function __construct($identification, $name, $person, $data)
     {
-        $this->name = $name;
-        $this->identification = $identification;
+        parent::__construct($identification, $name, $data);
         $this->person = $person;
-        $this->data = $data;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }
