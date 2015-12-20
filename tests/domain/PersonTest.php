@@ -1,6 +1,8 @@
 <?php
 
 use Mikron\HubBack\Domain\Entity\Person;
+use Mikron\HubBack\Domain\Value\StorageIdentification;
+use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
 
 class PersonTest extends PHPUnit_Framework_TestCase
 {
@@ -33,12 +35,28 @@ class PersonTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($name, $character->getName());
     }
 
+    /**
+     * @test
+     * @dataProvider correctDataProvider
+     * @param string $name
+     * @param array $data
+     */
+    function isDataCorrect($name,  $data)
+    {
+        $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
+        $person = new Person($this->identification, $name, $dataObject);
+        $this->assertEquals($dataObject, $person->getData());
+    }
+
     public function correctDataProvider()
     {
         return [
             [
                 "Test Person",
-                []
+                [
+                    'test0' => 'Test Data',
+                    'test1' => 'Test Data',
+                ]
             ]
         ];
     }

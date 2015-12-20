@@ -27,4 +27,12 @@ final class Character extends BasicDataObject
         parent::__construct($identification, $name, $data);
         $this->person = $person;
     }
+
+    /**
+     * @return Person
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
 }
