@@ -1,18 +1,22 @@
 <?php
 
 use Mikron\HubBack\Domain\Entity\Character;
+use Mikron\HubBack\Domain\Entity\Person;
+use Mikron\HubBack\Domain\Value\StorageIdentification;
 
 class CharacterTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
      * @dataProvider correctDataProvider
-     * @param $name
-     * @param $storage
+     * @param $storage StorageIdentification
+     * @param $name string
+     * @param $person Person
+     * @param $data array
      */
-    function isNameCorrect($name, $storage)
+    function isNameCorrect($storage, $name, $person, $data)
     {
-        $character = new Character($storage, $name, [], []);
+        $character = new Character($storage, $name, $person, $data);
         $this->assertEquals($name, $character->getName());
     }
 
@@ -21,7 +25,9 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         return [
             [
                 null,
-                "Test Character"
+                "Test Character",
+                null,
+                []
             ]
         ];
     }

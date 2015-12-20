@@ -27,13 +27,23 @@ class Person
 
     /**
      * Person constructor.
-     * @param string $name
      * @param StorageIdentification|null $identification
+     * @param string $name
+     * @param array $data
      */
-    public function __construct($identification, $name)
+    public function __construct($identification, $name, array $data)
     {
         $this->name = $name;
         $this->identification = $identification;
+        $this->data = $data;
+    }
+
+    /**
+     * @return StorageIdentification
+     */
+    public function getIdentification()
+    {
+        return $this->identification;
     }
 
     /**
@@ -42,5 +52,13 @@ class Person
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return DataContainer
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 }
