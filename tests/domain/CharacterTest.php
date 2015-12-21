@@ -56,6 +56,22 @@ class CharacterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($dataObject, $character->getData());
     }
 
+    /**
+     * @test
+     * @dataProvider correctDataProvider
+     * @param StorageIdentification $storage
+     * @param string $name
+     * @param string[] $help
+     * @param array $data
+     * @param Person $person
+     */
+    function isHelpCorrect($storage, $name, $help, $data, $person)
+    {
+        $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
+        $character = new Character($storage, $name, $dataObject, $help, $person);
+        $this->assertEquals($help, $character->getHelp());
+    }
+
     public function correctDataProvider()
     {
         return [

@@ -67,4 +67,12 @@ abstract class BasicDataObject
     {
         return $this->data;
     }
+
+    /**
+     * @return \string[]
+     */
+    public function getHelp()
+    {
+        return $this->help;
+    }
 }
