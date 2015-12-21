@@ -9,7 +9,12 @@ $app->get('/character/{id}/', function ($id) use ($app) {
 
     $factory = new \Mikron\HubBack\Infrastructure\Factory\Character();
 
-    $character = $factory->retrieveCharacterFromDb($connection, $app['config']['dataPatterns'], $id);
+    $character = $factory->retrieveCharacterFromDb(
+        $connection,
+        $app['config']['dataPatterns'],
+        $app['config']['help'],
+        $id
+    );
 
     $output = new \Mikron\HubBack\Domain\Service\Output(
         "Character data",

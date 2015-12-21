@@ -15,4 +15,9 @@ return [
         'person' => [],
         'event' => [],
     ],
+    'help' => [
+        'character' => [],
+        'person' => [],
+        'event' => [],
+    ],
 ];

@@ -54,7 +54,7 @@ class Character
      * @return Character[]
      * @throws CharacterNotFoundException
      */
-    public function retrieveAllFromDb($connection, $dataPatterns, $logger)
+    public function retrieveAllFromDb($connection, $dataPatterns, $help, $logger)
     {
         $characterStorage = new StorageForCharacter($connection);
         $array = $characterStorage->retrieveAll();
@@ -62,7 +62,7 @@ class Character
         $list = [];
         if (!empty($array)) {
             foreach ($array as $record) {
-                $list[] = $this->unwrapCharacter($record, $connection, $dataPatterns, $logger);
+                $list[] = $this->unwrapCharacter($record, $connection, $dataPatterns, $logger, $help);
             }
         }
 
@@ -77,12 +77,12 @@ class Character
      * @return Entity\Character
      * @throws CharacterNotFoundException
      */
-    public function retrieveCharacterFromDb($connection, $dataPatterns, $dbId)
+    public function retrieveCharacterFromDb($connection, $dataPatterns, $help, $dbId)
     {
         $characterStorage = new StorageForCharacter($connection);
         $characterWrapped = $characterStorage->retrieve($dbId);
 
-        return $this->unwrapCharacter($characterWrapped, $connection, $dataPatterns, null);
+        return $this->unwrapCharacter($characterWrapped, $connection, $dataPatterns, null, $help);
     }
 
     /**
@@ -90,13 +90,13 @@ class Character
      * @param StorageEngine $connection
      * @param array $dataPatterns
      * @param LoggerInterface $logger
+     * @param string[][] $help
      * @return Entity\Person
      * @throws CharacterNotFoundException
-     * @throws \Mikron\HubBack\Domain\Exception\PersonNotFoundException
      * @todo Make $dataContainerForCharacter use available data
      * @todo Factory should be passed as DI with correct data
      */
-    public function unwrapCharacter($characterWrapped, $connection, $dataPatterns, $logger)
+    public function unwrapCharacter($characterWrapped, $connection, $dataPatterns, $logger, $help)
     {
         if (!empty($characterWrapped)) {
             $characterUnwrapped = array_pop($characterWrapped);
@@ -118,7 +118,7 @@ class Character
                 $identification,
                 $characterUnwrapped['name'],
                 $dataContainerForCharacter,
-                [],
+                $help['character'],
                 $person
             );
         } else {

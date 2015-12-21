@@ -40,4 +40,9 @@ return [
         ],
         'event' => [],
     ],
+    'help' => [
+        'character' => [],
+        'person' => [],
+        'event' => [],
+    ],
 ];
