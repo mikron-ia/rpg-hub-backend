@@ -12,13 +12,14 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @dataProvider correctDataProvider
      * @param StorageIdentification $storage
      * @param string $name
-     * @param Person $person
      * @param array $data
+     * @param string[] $help
+     * @param Person $person
      */
-    function isNameCorrect($storage, $name, $person, $data)
+    function isNameCorrect($storage, $name, $data, $help, $person)
     {
         $dataFactory = new DataContainerFactory();
-        $character = new Character($storage, $name, $person, $dataFactory->createWithoutPattern($data));
+        $character = new Character($storage, $name, $dataFactory->createWithoutPattern($data), $help, $person);
         $this->assertEquals($name, $character->getName());
     }
 
@@ -29,12 +30,13 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @param string $name
      * @param Person $person
      * @param array $data
+     * @param string[] $help
      * @todo Test both type and content
      */
-    function isPersonCorrect($storage, $name, $person, $data)
+    function isPersonCorrect($storage, $name, $data, $help, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $character = new Character($storage, $name, $person, $dataObject);
+        $character = new Character($storage, $name, $dataObject, $help, $person);
         $this->assertEquals($person, $character->getPerson());
     }
 
@@ -43,13 +45,14 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @dataProvider correctDataProvider
      * @param StorageIdentification $storage
      * @param string $name
-     * @param Person $person
+     * @param string[] $help
      * @param array $data
+     * @param Person $person
      */
-    function isDataCorrect($storage, $name, $person, $data)
+    function isDataCorrect($storage, $name, $help, $data, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $character = new Character($storage, $name, $person, $dataObject);
+        $character = new Character($storage, $name, $dataObject, $help, $person);
         $this->assertEquals($dataObject, $character->getData());
     }
 
@@ -59,11 +62,12 @@ class CharacterTest extends PHPUnit_Framework_TestCase
             [
                 null,
                 "Test Character",
-                null,
                 [
                     'test0' => 'Test Data',
                     'test1' => 'Test Data',
-                ]
+                ],
+                [],
+                null
             ]
         ];
     }

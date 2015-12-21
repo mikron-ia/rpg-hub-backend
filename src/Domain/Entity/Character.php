@@ -19,12 +19,13 @@ final class Character extends BasicDataObject
      * Character constructor.
      * @param StorageIdentification|null $identification
      * @param string $name
-     * @param Person|null $person
      * @param DataContainer $data
+     * @param string[] $help
+     * @param Person|null $person
      */
-    public function __construct($identification, $name, $person, $data)
+    public function __construct($identification, $name, $data, $help, $person)
     {
-        parent::__construct($identification, $name, $data);
+        parent::__construct($identification, $name, $data, $help);
         $this->person = $person;
     }
 

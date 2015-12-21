@@ -26,15 +26,22 @@ abstract class BasicDataObject
     protected $data;
 
     /**
+     * @var string[] Help strings displayed on pages
+     */
+    protected $help;
+
+    /**
      * @param StorageIdentification|null $identification
      * @param string $name
      * @param DataContainer $data
+     * @param string[] $help
      */
-    public function __construct($identification, $name, $data)
+    public function __construct($identification, $name, $data, $help)
     {
         $this->name = $name;
         $this->identification = $identification;
         $this->data = $data;
+        $this->help = $help;
     }
 
     /**

@@ -16,13 +16,14 @@ class Character
      *
      * @param StorageIdentification|null $identification
      * @param string $name
-     * @param Entity\Person|null $person
      * @param Entity\DataContainer $data
+     * @param string[] $help
+     * @param Entity\Person|null $person
      * @return Entity\Character
      */
-    public function createFromSingleArray($identification, $name, $person, $data)
+    public function createFromSingleArray($identification, $name, $data, $help, $person)
     {
-        return new Entity\Character($identification, $name, $person, $data);
+        return new Entity\Character($identification, $name, $data, $help, $person);
     }
 
     /**
@@ -37,7 +38,7 @@ class Character
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['character_id'], null);
-                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, null);
+                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], null);
             }
         }
 
@@ -116,8 +117,9 @@ class Character
             $character = $this->createFromSingleArray(
                 $identification,
                 $characterUnwrapped['name'],
-                $person,
-                $dataContainerForCharacter
+                $dataContainerForCharacter,
+                [],
+                $person
             );
         } else {
             throw new CharacterNotFoundException("Character with given ID has not been found in our database");

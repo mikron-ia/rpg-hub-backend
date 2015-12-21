@@ -1,7 +1,6 @@
 <?php
 
 use Mikron\HubBack\Domain\Entity\Person;
-use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
 
 class PersonTest extends PHPUnit_Framework_TestCase
@@ -19,19 +18,21 @@ class PersonTest extends PHPUnit_Framework_TestCase
      */
     public function identificationIsCorrect()
     {
-        $person = new Person($this->identification, 'Test Name', null);
+        $person = new Person($this->identification, 'Test Name', null, []);
         $this->assertEquals($this->identification, $person->getIdentification());
     }
 
     /**
      * @test
      * @dataProvider correctDataProvider
-     * @param $name
-     * @param $data
+     * @param string $name
+     * @param array $dataArray
+     * @param string[] $help
      */
-    function isNameCorrect($name, $data)
+    function isNameCorrect($name, $dataArray, $help)
     {
-        $character = new Person($this->identification, $name, $data);
+        $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
+        $character = new Person($this->identification, $name, $data, $help);
         $this->assertEquals($name, $character->getName());
     }
 
@@ -39,13 +40,14 @@ class PersonTest extends PHPUnit_Framework_TestCase
      * @test
      * @dataProvider correctDataProvider
      * @param string $name
-     * @param array $data
+     * @param array $dataArray
+     * @param string[] $help
      */
-    function isDataCorrect($name,  $data)
+    function isDataCorrect($name, $dataArray, $help)
     {
-        $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject);
-        $this->assertEquals($dataObject, $person->getData());
+        $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
+        $person = new Person($this->identification, $name, $data, $help);
+        $this->assertEquals($data, $person->getData());
     }
 
     public function correctDataProvider()
@@ -56,7 +58,8 @@ class PersonTest extends PHPUnit_Framework_TestCase
                 [
                     'test0' => 'Test Data',
                     'test1' => 'Test Data',
-                ]
+                ],
+                [],
             ]
         ];
     }
