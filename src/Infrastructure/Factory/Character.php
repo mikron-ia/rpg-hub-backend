@@ -75,14 +75,31 @@ class Character
      * @param $connection StorageEngine
      * @param $dataPatterns
      * @param string[][] $help
-     * @param $dbId int
+     * @param int $dbId
      * @return Entity\Character
      * @throws CharacterNotFoundException
      */
-    public function retrieveCharacterFromDb($connection, $dataPatterns, $help, $dbId)
+    public function retrieveCharacterFromDbById($connection, $dataPatterns, $help, $dbId)
     {
         $characterStorage = new StorageForCharacter($connection);
-        $characterWrapped = $characterStorage->retrieve($dbId);
+        $characterWrapped = $characterStorage->retrieveById($dbId);
+
+        return $this->unwrapCharacter($characterWrapped, $connection, $dataPatterns, null, $help);
+    }
+
+    /**
+     * Retrieves single character from DB
+     * @param $connection StorageEngine
+     * @param array $dataPatterns
+     * @param string[][] $help
+     * @param string $key
+     * @return Entity\Character
+     * @throws CharacterNotFoundException
+     */
+    public function retrieveCharacterFromDbByKey($connection, $dataPatterns, $help, $key)
+    {
+        $characterStorage = new StorageForCharacter($connection);
+        $characterWrapped = $characterStorage->retrieveByKey($key);
 
         return $this->unwrapCharacter($characterWrapped, $connection, $dataPatterns, null, $help);
     }
@@ -107,7 +124,7 @@ class Character
             /* Get Person if ID is available */
             if (!empty($characterUnwrapped['person_id'])) {
                 $personFactory = new Person();
-                $person = $personFactory->retrievePersonFromDb(
+                $person = $personFactory->retrievePersonFromDbById(
                     $connection,
                     $dataPatterns,
                     $help,

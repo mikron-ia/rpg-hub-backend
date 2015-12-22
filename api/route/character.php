@@ -11,7 +11,7 @@ $app->get(
 
         $factory = new \Mikron\HubBack\Infrastructure\Factory\Character();
 
-        $character = $factory->retrieveCharacterFromDb(
+        $character = $factory->retrieveCharacterFromDbById(
             $connection,
             $app['config']['dataPatterns'],
             $app['config']['help'],

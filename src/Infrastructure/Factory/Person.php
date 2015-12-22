@@ -74,14 +74,32 @@ class Person
      * @param $connection StorageEngine
      * @param $dataPatterns
      * @param string[][] $help
-     * @param $dbId
+     * @param int $dbId
      * @return Entity\person
      * @throws PersonNotFoundException
      */
-    public function retrievePersonFromDb($connection, $dataPatterns, $help, $dbId)
+    public function retrievePersonFromDbById($connection, $dataPatterns, $help, $dbId)
     {
         $personStorage = new StorageForPerson($connection);
-        $personWrapped = $personStorage->retrieve($dbId);
+        $personWrapped = $personStorage->retrieveById($dbId);
+
+        return $this->unwrapPerson($personWrapped, $dataPatterns, null, $help);
+    }
+
+    /**
+     * Retrieves a given person from the database
+     *
+     * @param $connection StorageEngine
+     * @param $dataPatterns
+     * @param string[][] $help
+     * @param string $key
+     * @return Entity\person
+     * @throws PersonNotFoundException
+     */
+    public function retrievePersonFromDbByKey($connection, $dataPatterns, $help, $key)
+    {
+        $personStorage = new StorageForPerson($connection);
+        $personWrapped = $personStorage->retrieveByKey($key);
 
         return $this->unwrapPerson($personWrapped, $dataPatterns, null, $help);
     }

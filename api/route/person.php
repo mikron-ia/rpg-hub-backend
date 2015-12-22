@@ -11,7 +11,18 @@ $app->get(
 
         $factory = new \Mikron\HubBack\Infrastructure\Factory\Person();
 
-        $person = $factory->retrievePersonFromDb(
+        $personFactory = new \Mikron\HubBack\Infrastructure\Factory\Person();
+
+        /* Verify whether identification method makes sense */
+        $method = "retrievePersonFromDbBy" . ucfirst($identificationMethod);
+        if (!method_exists($personFactory, $method)) {
+            throw new \Exception(
+                'Error: "' . $identificationMethod . '" is not a valid way for object identification'
+            );
+        }
+
+        /* Prepare data and start the factory */
+        $person = $factory->$method(
             $connection,
             $app['config']['dataPatterns'],
             $app['config']['help'],

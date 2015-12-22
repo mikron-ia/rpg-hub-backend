@@ -3,9 +3,10 @@
 namespace Mikron\HubBack\Infrastructure\Storage;
 
 use Doctrine\DBAL\Configuration;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
 use Mikron\HubBack\Domain\Blueprint\StorageEngine;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class MySqlStorage
@@ -14,27 +15,27 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 final class MySqlStorageEngine implements StorageEngine
 {
     /**
-     * @var \Doctrine\DBAL\Connection
+     * @var Connection
      */
     private $connection;
 
     /**
-     * @param $table
-     * @param $primaryKeyName
-     * @param $keyName
+     * @param string $table
+     * @param string $primaryKeyName
+     * @param string $keyName
      * @param $keyValues
      * @return array
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws DBALException
      */
     public function selectByKey($table, $primaryKeyName, $keyName, $keyValues)
     {
         $basicSql = "SELECT * FROM `$table`";
 
         if (!empty($keyValues)) {
-            $where = " WHERE $keyName IN (?)";
+            $where = " WHERE `$keyName` IN (?)";
             $statement = $this->connection->executeQuery($basicSql . $where,
                 [$keyValues],
-                [\Doctrine\DBAL\Connection::PARAM_INT_ARRAY]
+                [Connection::PARAM_STR_ARRAY]
             );
         } else {
             $statement = $this->connection->executeQuery($basicSql);
@@ -44,16 +45,17 @@ final class MySqlStorageEngine implements StorageEngine
     }
 
     /**
-     * @param $dbConfig
-     * @throws \Doctrine\DBAL\DBALException
+     * @param string[] $dbConfig
+     * @throws \Exception
      */
     public function __construct($dbConfig)
     {
         try {
             $config = new Configuration();
             $this->connection = DriverManager::getConnection($dbConfig, $config);
-        } catch (\PDOException $e) {
-            throw new Exception('Could not connect to MySQL database: ' . $e->getMessage());
+            $this->connection->executeQuery('SELECT 0');
+        } catch (\Exception $e) {
+            throw new \Exception('Database connection test failed: ' . $e->getMessage());
         }
     }
 

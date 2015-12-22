@@ -21,9 +21,16 @@ final class StorageForCharacter implements StorageForObject
         $this->storage = $storage;
     }
 
-    public function retrieve($dbId)
+    public function retrieveById($dbId)
     {
         $result = $this->storage->selectByPrimaryKey('character', 'character_id', [$dbId]);
+
+        return $result;
+    }
+
+    public function retrieveByKey($key)
+    {
+        $result = $this->storage->selectByKey('character', 'character_id', 'key', [$key]);
 
         return $result;
     }
