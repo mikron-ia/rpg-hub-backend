@@ -9,9 +9,18 @@ $app->get(
             . $app['config']['databaseReference'][$dbEngine] . 'StorageEngine';
         $connection = new $dbClass($app['config'][$dbEngine]);
 
-        $factory = new \Mikron\HubBack\Infrastructure\Factory\Character();
+        $characterFactory = new \Mikron\HubBack\Infrastructure\Factory\Character();
 
-        $character = $factory->retrieveCharacterFromDbById(
+        /* Verify whether identification method makes sense */
+        $method = "retrieveCharacterFromDbBy" . ucfirst($identificationMethod);
+        if (!method_exists($characterFactory, $method)) {
+            throw new \Exception(
+                'Error: "' . $identificationMethod . '" is not a valid way for object identification'
+            );
+        }
+
+        /* Prepare data and start the factory */
+        $character = $characterFactory->$method(
             $connection,
             $app['config']['dataPatterns'],
             $app['config']['help'],

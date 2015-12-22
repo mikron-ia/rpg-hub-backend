@@ -9,8 +9,6 @@ $app->get(
             . $app['config']['databaseReference'][$dbEngine] . 'StorageEngine';
         $connection = new $dbClass($app['config'][$dbEngine]);
 
-        $factory = new \Mikron\HubBack\Infrastructure\Factory\Person();
-
         $personFactory = new \Mikron\HubBack\Infrastructure\Factory\Person();
 
         /* Verify whether identification method makes sense */
@@ -22,7 +20,7 @@ $app->get(
         }
 
         /* Prepare data and start the factory */
-        $person = $factory->$method(
+        $person = $personFactory->$method(
             $connection,
             $app['config']['dataPatterns'],
             $app['config']['help'],
