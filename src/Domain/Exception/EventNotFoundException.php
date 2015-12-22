@@ -3,9 +3,9 @@
 namespace Mikron\HubBack\Domain\Exception;
 
 /**
- * Class CharacterNotFoundException
+ * Class EventNotFoundException
  * @package Mikron\HubBack\Domain\Exception
  */
-class CharacterNotFoundException extends RecordNotFoundException
+final class EventNotFoundException extends RecordNotFoundException
 {
 }

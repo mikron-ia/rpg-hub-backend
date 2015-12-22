@@ -4,7 +4,7 @@ namespace Mikron\HubBack\Domain\Exception;
 
 /**
  * Class InvalidDataException
- * @package Mikron\HubFront\Domain\Exception
+ * @package Mikron\HubBack\Domain\Exception
  */
 class InvalidDataException extends \Exception
 {

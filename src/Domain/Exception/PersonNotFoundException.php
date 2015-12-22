@@ -2,6 +2,10 @@
 
 namespace Mikron\HubBack\Domain\Exception;
 
-class PersonNotFoundException extends RecordNotFoundException
+/**
+ * Class PersonNotFoundException
+ * @package Mikron\HubBack\Domain\Exception
+ */
+final class PersonNotFoundException extends RecordNotFoundException
 {
 }
