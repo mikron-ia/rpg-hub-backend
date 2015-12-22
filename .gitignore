@@ -1,10 +1,3 @@
 .idea/
 nbproject/
 vendor/
-
-# Those rules apply to config/data directory and will usually contain sensitive or copyrighted data
-# Files that are placed here MUST NOT contain data that is not released under an open licence.
-config/data/*
-!config/data/.gitignore
-!config/data/ep.php
-!config/data/example.php
