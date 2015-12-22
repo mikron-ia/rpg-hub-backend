@@ -9,7 +9,12 @@ $app->get('/characters/', function () use ($app) {
 
     $factory = new \Mikron\HubBack\Infrastructure\Factory\Character();
 
-    $characterObjects = $factory->retrieveAllFromDb($connection);
+    $characterObjects = $factory->retrieveAllFromDb(
+        $connection,
+        $app['config']['dataPatterns'],
+        $app['config']['help'],
+        null
+    );
     $characterList = [];
 
     foreach ($characterObjects as $character) {
