@@ -93,8 +93,8 @@ class Person
      * @param string[][] $help
      * @return Entity\Person
      * @throws PersonNotFoundException
-     * @todo Make $dataContainerForPerson use available data
-     * @todo Factory should be passed as DI with correct data
+     * @todo DataContainer factory should be passed as DI with defined pattern?
+     * @todo Consider methods for JSON and array separately
      */
     public function unwrapPerson($personWrapped, $dataPatterns, $logger, $help)
     {
@@ -104,7 +104,8 @@ class Person
             $storageData = new StorageIdentification($personUnwrapped['person_id'], null);
 
             $dataContainerFactory = new DataContainer();
-            $dataContainerForPerson = $dataContainerFactory->createWithPattern([], $dataPatterns['person']);
+            $data = json_decode($personUnwrapped['data'], true);
+            $dataContainerForPerson = $dataContainerFactory->createWithPattern($data, $dataPatterns['person']);
 
             $person = $this->createFromSingleArray(
                 $storageData,

@@ -94,7 +94,6 @@ class Character
      * @param string[][] $help
      * @return Entity\Person
      * @throws CharacterNotFoundException
-     * @todo Make $dataContainerForCharacter use available data
      * @todo Factory should be passed as DI with correct data
      */
     public function unwrapCharacter($characterWrapped, $connection, $dataPatterns, $logger, $help)
@@ -118,7 +117,8 @@ class Character
             }
 
             $dataContainerFactory = new DataContainer();
-            $dataContainerForCharacter = $dataContainerFactory->createWithPattern([], $dataPatterns['character']);
+            $data = json_decode($characterUnwrapped['data'], true);
+            $dataContainerForCharacter = $dataContainerFactory->createWithPattern($data, $dataPatterns['character']);
 
             $character = $this->createFromSingleArray(
                 $identification,
