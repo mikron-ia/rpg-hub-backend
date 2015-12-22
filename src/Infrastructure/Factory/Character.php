@@ -101,7 +101,7 @@ class Character
         if (!empty($characterWrapped)) {
             $characterUnwrapped = array_pop($characterWrapped);
 
-            $identification = new StorageIdentification($characterUnwrapped['character_id'], null);
+            $identification = new StorageIdentification($characterUnwrapped['character_id'], $characterUnwrapped['key']);
 
             /* Get Person if ID is available */
             if (!empty($characterUnwrapped['person_id'])) {

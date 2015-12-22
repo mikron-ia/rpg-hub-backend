@@ -101,7 +101,7 @@ class Person
         if (!empty($personWrapped)) {
             $personUnwrapped = array_pop($personWrapped);
 
-            $storageData = new StorageIdentification($personUnwrapped['person_id'], null);
+            $storageData = new StorageIdentification($personUnwrapped['person_id'], $personUnwrapped['key']);
 
             $dataContainerFactory = new DataContainer();
             $data = json_decode($personUnwrapped['data'], true);
