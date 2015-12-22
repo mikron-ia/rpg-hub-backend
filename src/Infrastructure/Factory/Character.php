@@ -50,6 +50,7 @@ class Character
      *
      * @param StorageEngine $connection
      * @param array $dataPatterns
+     * @param string[][] $help
      * @param LoggerInterface $logger
      * @return Character[]
      * @throws CharacterNotFoundException
@@ -62,7 +63,7 @@ class Character
         $list = [];
         if (!empty($array)) {
             foreach ($array as $record) {
-                $list[] = $this->unwrapCharacter($record, $connection, $dataPatterns, $logger, $help);
+                $list[] = $this->unwrapCharacter([$record], $connection, $dataPatterns, $logger, $help);
             }
         }
 
