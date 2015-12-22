@@ -20,7 +20,6 @@ return [
             'development' => [], // development history
             'equipment' => [], // items on person
             'expenses' => [], // regular expenses
-            'help' => [], // helpful information to display on page
             'income' => [], // regular income
             'languages' => [], // languages known
             'money' => [], // cash at hand
@@ -34,7 +33,6 @@ return [
             'xp' => [], // experience
         ],
         'person' => [
-            'help' => [], // helpful information to display on page
             'reputations' => [], // reputation values
             'reputationEvents' => [], // reputation history
         ],
