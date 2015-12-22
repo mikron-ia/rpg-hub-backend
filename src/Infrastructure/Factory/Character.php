@@ -73,6 +73,7 @@ class Character
      * Retrieves single character from DB
      * @param $connection StorageEngine
      * @param $dataPatterns
+     * @param string[][] $help
      * @param $dbId int
      * @return Entity\Character
      * @throws CharacterNotFoundException
@@ -106,7 +107,12 @@ class Character
             /* Get Person if ID is available */
             if (!empty($characterUnwrapped['person_id'])) {
                 $personFactory = new Person();
-                $person = $personFactory->retrievePersonFromDb($connection, $dataPatterns, $characterUnwrapped['person_id']);
+                $person = $personFactory->retrievePersonFromDb(
+                    $connection,
+                    $dataPatterns,
+                    $help,
+                    $characterUnwrapped['person_id']
+                );
             } else {
                 $person = null;
             }
