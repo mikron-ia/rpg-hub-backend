@@ -1,6 +1,8 @@
 <?php
 
 /* Reputation data of a particular person */
+use Mikron\HubBack\Domain\Exception\ExceptionWithSafeMessage;
+
 $app->get(
     '/person/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
@@ -14,7 +16,7 @@ $app->get(
         /* Verify whether identification method makes sense */
         $method = "retrievePersonFromDbBy" . ucfirst($identificationMethod);
         if (!method_exists($personFactory, $method)) {
-            throw new \Exception(
+            throw new ExceptionWithSafeMessage(
                 'Error: "' . $identificationMethod . '" is not a valid way for object identification'
             );
         }

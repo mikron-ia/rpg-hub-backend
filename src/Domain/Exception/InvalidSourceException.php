@@ -6,6 +6,6 @@ namespace Mikron\HubBack\Domain\Exception;
  * Class InvalidSourceException
  * @package Mikron\HubBack\Domain\Exception
  */
-class InvalidSourceException extends \Exception
+final class InvalidSourceException extends ExceptionWithSafeMessage
 {
 }
