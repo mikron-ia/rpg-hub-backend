@@ -19,7 +19,7 @@ $app->get('/character/{id}/', function ($id) use ($app) {
     $output = new \Mikron\HubBack\Domain\Service\Output(
         "Character data",
         "",
-        [$character->getName()]
+        [$character->getCompleteData()]
     );
 
     return $app->json($output->getArrayForJson());

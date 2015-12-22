@@ -2,13 +2,14 @@
 
 namespace Mikron\HubBack\Domain\Entity;
 
+use Mikron\HubBack\Domain\Blueprint\Displayable;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 
 /**
  * Class Character - abstract concepts that aggregates everything that makes a character
  * @package Mikron\HubBack\Domain\Entity
  */
-final class Character extends BasicDataObject
+final class Character extends BasicDataObject implements Displayable
 {
     /**
      * @var Person Person data
@@ -35,5 +36,14 @@ final class Character extends BasicDataObject
     public function getPerson()
     {
         return $this->person;
+    }
+
+    public function getCompleteData()
+    {
+        $person = $this->getPerson();
+        $ownData = [
+            'person' => (!empty($person)?$this->getPerson()->getCompleteData():null),
+        ];
+        return parent::getCompleteData() + $ownData;
     }
 }

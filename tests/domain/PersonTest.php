@@ -64,6 +64,49 @@ class PersonTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($help, $person->getHelp());
     }
 
+    /**
+     * @test
+     * @dataProvider correctDataProvider
+     * @depends isNameCorrect
+     * @param string $name
+     * @param string[] $help
+     * @param array $data
+     */
+    public function simpleDataIsCorrect($name, $help, $data)
+    {
+        $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
+        $person = new Person($this->identification, $name, $dataObject, $help);
+        $expected = [
+            'name' => $person->getName(),
+            'key' => $person->getKey(),
+        ];
+
+        $this->assertEquals($expected, $person->getSimpleData());
+    }
+
+    /**
+     * @test
+     * @depends      isNameCorrect
+     * @dataProvider correctDataProvider
+     * @param string $name
+     * @param string[] $help
+     * @param array $data
+     */
+    public function completeDataIsCorrect($name, $help, $data)
+    {
+        $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
+        $person = new Person($this->identification, $name, $dataObject, $help);
+
+        $expected = [
+            'name' => $person->getName(),
+            'key' => $person->getKey(),
+            'data' => $person->getData()->getData(),
+            'help' => $person->getHelp(),
+        ];
+
+        $this->assertEquals($expected, $person->getCompleteData());
+    }
+
     public function correctDataProvider()
     {
         return [

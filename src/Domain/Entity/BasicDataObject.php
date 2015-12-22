@@ -2,13 +2,14 @@
 
 namespace Mikron\HubBack\Domain\Entity;
 
+use Mikron\HubBack\Domain\Blueprint\Displayable;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 
 /**
  * Class BasicDataObject - trait for standard things like name or help data
  * @package Mikron\HubBack\Domain\Entity
  */
-abstract class BasicDataObject
+abstract class BasicDataObject implements Displayable
 {
     /**
      * @var StorageIdentification
@@ -74,5 +75,37 @@ abstract class BasicDataObject
     public function getHelp()
     {
         return $this->help;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->identification->getUuid();
+    }
+
+    /**
+     * @return array Simple representation of the object content, fit for basic display
+     */
+    public function getSimpleData()
+    {
+        return [
+            'name' => $this->getName(),
+            'key' => $this->getKey(),
+        ];
+    }
+
+    /**
+     * @return array Complete representation of public parts of object content, fit for full card display
+     */
+    public function getCompleteData()
+    {
+        return [
+            'name' => $this->getName(),
+            'key' => $this->getKey(),
+            'data' => $this->getData()->getData(),
+            'help' => $this->getHelp(),
+        ];
     }
 }
