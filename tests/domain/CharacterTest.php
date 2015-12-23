@@ -31,12 +31,14 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @param Person $person
      * @param array $data
      * @param string[] $help
-     * @todo Test both type and content
      */
     function isPersonCorrect($storage, $name, $data, $help, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $character = new Character($storage, $name, $dataObject, $help, $person);
+        if ($person !== null) {
+            $this->assertInstanceOf('\Mikron\HubBack\Domain\Entity\Person', $person);
+        }
         $this->assertEquals($person, $character->getPerson());
     }
 
@@ -84,7 +86,17 @@ class CharacterTest extends PHPUnit_Framework_TestCase
                 ],
                 [],
                 null
-            ]
+            ],
+            [
+                null,
+                "Test Character",
+                [
+                    'test0' => 'Test Data',
+                    'test1' => 'Test Data',
+                ],
+                [],
+                new Person(null, "Test Person", null, [])
+            ],
         ];
     }
 }

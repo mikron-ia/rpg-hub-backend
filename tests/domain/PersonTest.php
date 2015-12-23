@@ -54,10 +54,10 @@ class PersonTest extends PHPUnit_Framework_TestCase
      * @test
      * @dataProvider correctDataProvider
      * @param string $name
-     * @param string[] $help
      * @param array $data
+     * @param string[] $help
      */
-    function isHelpCorrect($name, $help, $data)
+    function isHelpCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $person = new Person($this->identification, $name, $dataObject, $help);
@@ -67,12 +67,12 @@ class PersonTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @dataProvider correctDataProvider
-     * @depends isNameCorrect
+     * @depends      isNameCorrect
      * @param string $name
-     * @param string[] $help
      * @param array $data
+     * @param string[] $help
      */
-    public function simpleDataIsCorrect($name, $help, $data)
+    public function simpleDataIsCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $person = new Person($this->identification, $name, $dataObject, $help);
@@ -89,10 +89,10 @@ class PersonTest extends PHPUnit_Framework_TestCase
      * @depends      isNameCorrect
      * @dataProvider correctDataProvider
      * @param string $name
-     * @param string[] $help
      * @param array $data
+     * @param string[] $help
      */
-    public function completeDataIsCorrect($name, $help, $data)
+    public function completeDataIsCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $person = new Person($this->identification, $name, $dataObject, $help);
@@ -116,8 +116,31 @@ class PersonTest extends PHPUnit_Framework_TestCase
                     'test0' => 'Test Data',
                     'test1' => 'Test Data',
                 ],
+                [
+                    'basic' => 'Basic help',
+                    'complex' => 'Complex help',
+                ],
+            ],
+            [
+                "Test Person",
                 [],
-            ]
+                [],
+            ],
+            [
+                "Test Person",
+                [
+                    'test0' => 'Test Data',
+                    'test1' =>
+                        [
+                            'Test Data',
+                            'Test Data'
+                        ]
+                ],
+                [
+                    'basic' => 'Basic help',
+                    'complex' => 'Complex help',
+                ],
+            ],
         ];
     }
 }
