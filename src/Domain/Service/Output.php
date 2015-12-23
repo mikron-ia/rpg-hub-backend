@@ -6,8 +6,11 @@ namespace Mikron\HubBack\Domain\Service;
  * Class Output - packs and outputs content
  * @package Mikron\HubBack\Domain\Service
  */
-class Output
+final class Output
 {
+    /**
+     * @var array
+     */
     private $pack;
 
     /**

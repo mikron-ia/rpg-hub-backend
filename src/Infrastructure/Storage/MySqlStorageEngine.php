@@ -4,7 +4,6 @@ namespace Mikron\HubBack\Infrastructure\Storage;
 
 use Doctrine\DBAL\Configuration;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\DriverManager;
 use Mikron\HubBack\Domain\Blueprint\StorageEngine;
 use Mikron\HubBack\Domain\Exception\ExceptionWithSafeMessage;
@@ -49,7 +48,7 @@ final class MySqlStorageEngine implements StorageEngine
             );
         }
 
-        return $statement->fetchAll((\PDO::FETCH_ASSOC));
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -70,11 +69,6 @@ final class MySqlStorageEngine implements StorageEngine
         }
     }
 
-    /**
-     * @param $table
-     * @param $primaryKeyName
-     * @return array
-     */
     public function selectAll($table, $primaryKeyName)
     {
         return $this->selectByKey($table, $primaryKeyName, null, []);

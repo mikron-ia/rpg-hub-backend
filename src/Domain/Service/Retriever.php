@@ -11,7 +11,7 @@ use Mikron\HubBack\Infrastructure\Connection\Curler;
  * Class Retriever - retrieves data from a module
  * @package Mikron\HubBack\Domain\Service
  */
-class Retriever
+final class Retriever
 {
     /**
      * @var ConnectionToOutside Data source
