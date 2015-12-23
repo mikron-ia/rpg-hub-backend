@@ -97,12 +97,13 @@ class PersonTest extends PHPUnit_Framework_TestCase
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $person = new Person($this->identification, $name, $dataObject, $help);
 
-        $expected = [
+        $expectedSimple = [
             'name' => $person->getName(),
             'key' => $person->getKey(),
-            'data' => $person->getData()->getData(),
             'help' => $person->getHelp(),
         ];
+
+        $expected = $expectedSimple + $person->getData()->getData();
 
         $this->assertEquals($expected, $person->getCompleteData());
     }

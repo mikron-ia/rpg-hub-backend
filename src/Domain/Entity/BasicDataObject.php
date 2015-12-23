@@ -66,7 +66,23 @@ abstract class BasicDataObject implements Displayable
      */
     public function getData()
     {
+        return $this->getDataObject();
+    }
+
+    /**
+     * @return DataContainer
+     */
+    public function getDataAsObject()
+    {
         return $this->data;
+    }
+
+    /**
+     * @return DataContainer
+     */
+    public function getDataAsArray()
+    {
+        return $this->data->getData();
     }
 
     /**
@@ -101,11 +117,11 @@ abstract class BasicDataObject implements Displayable
      */
     public function getCompleteData()
     {
-        return [
+        $basicData = [
             'name' => $this->getName(),
             'key' => $this->getKey(),
-            'data' => $this->getData()->getData(),
             'help' => $this->getHelp(),
         ];
+        return $basicData + $this->getDataAsArray();
     }
 }
