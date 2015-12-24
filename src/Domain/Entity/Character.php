@@ -42,7 +42,7 @@ final class Character extends BasicDataObject implements Displayable
     {
         $person = $this->getPerson();
         $ownData = [
-            'person' => (!empty($person)?$this->getPerson()->getCompleteData():null),
+            'person' => !empty($person)?$person->getCompleteData():null,
         ];
         return parent::getCompleteData() + $ownData;
     }

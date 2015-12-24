@@ -37,7 +37,7 @@ abstract class BasicDataObject implements Displayable
      * @param DataContainer $data
      * @param string[] $help
      */
-    public function __construct($identification, $name, $data, $help)
+    public function __construct($identification, $name, $data, array $help)
     {
         $this->name = $name;
         $this->identification = $identification;
@@ -66,7 +66,7 @@ abstract class BasicDataObject implements Displayable
      */
     public function getData()
     {
-        return $this->getDataObject();
+        return $this->getDataAsObject();
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class BasicDataObject implements Displayable
     }
 
     /**
-     * @return string
+     * @return string Key that identifies the object
      */
     public function getKey()
     {
