@@ -26,5 +26,11 @@ interface AuthenticationToken
      * Provides a key to be sent as authentication
      * @return string Provided key
      */
-    public function provide();
+    public function provideKey();
+
+    /**
+     * Provides a method name to be used for authentication
+     * @return string Provided method name without the 'auth-' prefix
+     */
+    public function provideMethod();
 }

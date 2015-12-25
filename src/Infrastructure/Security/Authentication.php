@@ -17,18 +17,12 @@ class Authentication
     private $token;
 
     /**
-     * @var string Key that was provided from outside
-     */
-    private $authenticationKey;
-
-    /**
      * @param array $config Configuration segment responsible for authentication
      * @param string $direction Who is trying to talk to us and which keyset is used?
      * @param string $authenticationMethodReceived What method are they trying to use?
-     * @param string $authenticationKey What is the key they present?
      * @throws AuthenticationException
      */
-    public function __construct($config, $direction, $authenticationMethodReceived, $authenticationKey)
+    public function __construct($config, $direction, $authenticationMethodReceived)
     {
         if (!isset($config['authenticationMethodReference'])) {
             throw new AuthenticationException(
@@ -53,7 +47,6 @@ class Authentication
         }
 
         $this->token = $this->createToken($config[$direction], $authenticationMethod);
-        $this->authenticationKey = $authenticationKey;
     }
 
     /**
@@ -64,7 +57,7 @@ class Authentication
      */
     private function createToken($configWithChosenDirection, $authenticationMethod)
     {
-        $className = 'Mikron\ReputationList\Infrastructure\Security\AuthenticationToken' . ucfirst($authenticationMethod);
+        $className = 'Mikron\HubBack\Infrastructure\Security\AuthenticationToken' . ucfirst($authenticationMethod);
 
         if (!class_exists($className)) {
             throw new AuthenticationException(
@@ -77,10 +70,29 @@ class Authentication
     }
 
     /**
+     * @param string $authenticationKey What is the key they present?
      * @return bool
      */
-    public function isAuthenticated()
+    public function isAuthenticated($authenticationKey)
     {
-        return $this->token->checksOut($this->authenticationKey);
+        return $this->token->checksOut($authenticationKey);
+    }
+
+    /**
+     * Provides authentication method for use in outgoing message
+     * @return string
+     */
+    public function provideAuthenticationMethod()
+    {
+        return 'auth-' . $this->token->provideMethod();
+    }
+
+    /**
+     * Provides authentication key for use in outgoing message
+     * @return string
+     */
+    public function provideAuthenticationKey()
+    {
+        return $this->token->provideKey();
     }
 }

@@ -16,11 +16,6 @@ final class AuthenticationTokenSimple implements AuthenticationToken
      */
     private $correctKey;
 
-    /**
-     * AuthenticationToken constructor.
-     * @param array $configAuthenticationSettingsForMethod Configuration data for simple authentication strategy
-     * @throws AuthenticationException Thrown in case the key is invalid
-     */
     public function __construct($configAuthenticationSettingsForMethod)
     {
         if (!isset($configAuthenticationSettingsForMethod['simple'])) {
@@ -42,12 +37,6 @@ final class AuthenticationTokenSimple implements AuthenticationToken
         }
     }
 
-    /**
-     * @param string $key
-     * @param string $identificationForErrors
-     * @return bool
-     * @throws AuthenticationException
-     */
     static public function isValid($key, $identificationForErrors)
     {
         if (empty($key)) {
@@ -67,10 +56,6 @@ final class AuthenticationTokenSimple implements AuthenticationToken
         return true;
     }
 
-    /**
-     * @param string $key Key received from the outside
-     * @return bool
-     */
     public function checksOut($key)
     {
         if (!self::isValid($key, 'received')) {
@@ -80,12 +65,13 @@ final class AuthenticationTokenSimple implements AuthenticationToken
         return $key == $this->correctKey;
     }
 
-    /**
-     * Provides a key to be sent as authentication
-     * @return string Provided key
-     */
-    public function provide()
+    public function provideKey()
     {
         return $this->correctKey;
+    }
+
+    public function provideMethod()
+    {
+        return 'simple';
     }
 }

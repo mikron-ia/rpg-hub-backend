@@ -30,7 +30,7 @@ class AuthenticationTokenSimpleTest extends PHPUnit_Framework_TestCase
         $config = [];
 
         $this->setExpectedException('\Mikron\HubBack\Domain\Exception\AuthenticationException');
-        new AuthenticationTokenSimple($config, "0000000000000000000000000000000000000000");
+        new AuthenticationTokenSimple($config);
     }
 
     /**
@@ -43,7 +43,7 @@ class AuthenticationTokenSimpleTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->setExpectedException('\Mikron\HubBack\Domain\Exception\AuthenticationException');
-        new AuthenticationTokenSimple($config, "0000000000000000000000000000000000000000");
+        new AuthenticationTokenSimple($config);
     }
 
     /**
@@ -58,7 +58,7 @@ class AuthenticationTokenSimpleTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->setExpectedException('\Mikron\HubBack\Domain\Exception\AuthenticationException');
-        new AuthenticationTokenSimple($config, "0000000000000000000000000000000000000000");
+        new AuthenticationTokenSimple($config);
     }
 
     /**
@@ -73,7 +73,7 @@ class AuthenticationTokenSimpleTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->setExpectedException('\Mikron\HubBack\Domain\Exception\AuthenticationException');
-        new AuthenticationTokenSimple($config, "0000000000000000000000000000000000000000");
+        new AuthenticationTokenSimple($config);
     }
 
     /**
