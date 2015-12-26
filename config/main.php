@@ -26,11 +26,13 @@ return [
         'character' => [],
         'person' => [],
         'event' => [],
+        'group' => [],
     ],
 
     'help' => [
         'character' => [],
         'person' => [],
         'event' => [],
+        'group' => [],
     ],
 ];

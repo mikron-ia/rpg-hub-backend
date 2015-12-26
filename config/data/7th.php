@@ -37,6 +37,13 @@ return [
             'reputations' => [], // reputation values
             'reputationEvents' => [], // reputation history
         ],
+        'group' => [
+            'basics' => [], // names, descriptions, etc.
+            'descriptions' => [], // descriptions detailed
+            'public' => [], // public information
+            'reputations' => [], // reputation values
+            'reputationEvents' => [], // reputation history
+        ],
         'event' => [],
     ],
 ];
