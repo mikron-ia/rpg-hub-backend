@@ -41,9 +41,19 @@ return [
             'basics' => [], // names, descriptions, etc.
             'descriptions' => [], // descriptions detailed
             'public' => [], // public information
+            'members' => [], // public information
+            'absentMembers' => [], // public information
+            'pastMembers' => [], // public information
+            'membersReputations' => [], // public information
             'reputations' => [], // reputation values
             'reputationEvents' => [], // reputation history
         ],
         'event' => [],
+    ],
+    'help' => [
+        'character' => [],
+        'person' => [],
+        'event' => [],
+        'group' => [],
     ],
 ];

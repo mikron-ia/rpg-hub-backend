@@ -49,5 +49,6 @@ return [
         'character' => [],
         'person' => [],
         'event' => [],
+        'group' => [],
     ],
 ];
