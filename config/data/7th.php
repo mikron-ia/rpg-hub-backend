@@ -12,7 +12,7 @@ return [
             'advantages' => [], // traits - advantages & disadvantages
             'attributes' => [], // basic attributes
             'basics' => [], // names, descriptions, etc.
-            'catches' => [], // catches: backgrounds, motivations...
+            'catches' => [], // catches: backgrounds, motivations... - NOTE: system specific; backgrounds here
             'contacts' => [], // friends & allies
             'damage' => [], // more permanent damage
             'defences' => [], // hit difficulties
@@ -26,11 +26,10 @@ return [
             'public' => [], // public information
             'professions' => [], // used together skill groups with skills
             'rolls' => [], // most commonly used rolls
-            'skillGroups' => [], // thematic skill groups
             'skills' => [], // skills
-            'stunts' => [], // one-of kind tricks
-            'weapons' => [], // specific catergory of equipment - tools for combat
-            'variables' => [], // often changing values, like counters
+            'stunts' => [], // one-of kind tricks - NOTE: should be renamed to techniques, this is not FATE
+            'weapons' => [], // specific category of equipment - tools for combat, with additional parameters
+            'variables' => [], // often changing values, like damage or drama counters
             'xp' => [], // experience
         ],
         'person' => [

@@ -13,7 +13,6 @@ return [
             'advantages' => [], // traits - advantages & disadvantages
             'attributes' => [], // basic attributes
             'basics' => [], // names, descriptions, etc.
-            'catches' => [], // catches: backgrounds, motivations...
             'contacts' => [], // friends & allies
             'damage' => [], // more permanent damage
             'descriptions' => [], // descriptions detailed
@@ -21,14 +20,14 @@ return [
             'equipment' => [], // items on person
             'expenses' => [], // regular expenses
             'income' => [], // regular income
-            'languages' => [], // languages known
             'money' => [], // cash at hand
+            'motivations' => [], // what drives the character?
             'public' => [], // public information
             'rolls' => [], // most commonly used rolls
             'skillGroups' => [], // thematic skill groups
             'skills' => [], // skills
             'stunts' => [], // one-of kind tricks
-            'weapons' => [], // specific catergory of equipment - tools for combat
+            'weapons' => [], // specific category of equipment - tools for combat
             'variables' => [], // often changing values, like counters
             'xp' => [], // experience
         ],
