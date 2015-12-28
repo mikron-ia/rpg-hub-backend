@@ -1,8 +1,10 @@
 <?php
 
-/* Reputation data of a particular person */
+use Mikron\HubBack\Domain\Blueprint\Displayable;
 use Mikron\HubBack\Domain\Exception\ExceptionWithSafeMessage;
+use Mikron\HubBack\Domain\Service\Output;
 
+/* Reputation data of a particular person */
 $app->get(
     '/character/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
@@ -36,7 +38,9 @@ $app->get(
             );
         }
 
-        /* Prepare data and start the factory */
+        /**
+         * @var Displayable $character Character data
+         */
         $character = $characterFactory->$method(
             $connection,
             $app['config']['dataPatterns'],
@@ -44,7 +48,7 @@ $app->get(
             $identificationKey
         );
 
-        $output = new \Mikron\HubBack\Domain\Service\Output(
+        $output = new Output(
             "Character data",
             "Characters complete details",
             $character->getCompleteData()
