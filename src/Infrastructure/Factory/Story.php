@@ -47,10 +47,12 @@ class Story
      * Retrieves story objects from database
      *
      * @param $connection
-     * @param $dataPatterns
-     * @return Story[]
+     * @param array $dataPatterns
+     * @param string[][] $help
+     * @return Entity\Story[]
+     * @throws StoryNotFoundException
      */
-    public function retrieveAllFromDb($connection, $dataPatterns)
+    public function retrieveAllFromDb($connection, $dataPatterns, $help)
     {
         $storyStorage = new StorageForStory($connection);
 
@@ -61,7 +63,7 @@ class Story
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['story_id'], null);
-                $list[] = $this->unwrapStory($record, $dataPatterns, null, []);
+                $list[] = $this->unwrapStory([$record], $dataPatterns, null, $help);
             }
         }
 

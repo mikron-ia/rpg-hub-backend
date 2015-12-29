@@ -42,8 +42,15 @@ class Epic extends BasicDataObject implements Displayable
     {
         $stories = $this->getStory();
         $ownData = [
-            'stories' => !empty($stories)?$stories->getCompleteData():null,
+            'stories' => [],
         ];
-        return parent::getCompleteData() + $ownData;
+
+        foreach($stories as $story) {
+            $ownData['stories'][] = $story->getSimpleData();
+        }
+
+        $ownData['stories'] = array_reverse($ownData['stories']);
+
+        return array_merge_recursive(parent::getCompleteData(), $ownData);
     }
 }

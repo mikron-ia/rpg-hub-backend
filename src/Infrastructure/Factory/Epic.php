@@ -30,7 +30,8 @@ class Epic
         $dataContainerFactory = new DataContainer();
         $dataContainer = $dataContainerFactory->createWithPattern($configEpicData['data'], $dataPatterns['epic']);
 
-        $stories = [];
+        $storyFactory = new Story();
+        $stories = $storyFactory->retrieveAllFromDb($connection, $dataPatterns, $configHelp);
 
         return $this->createFromSingleArray(
             null,

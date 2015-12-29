@@ -1,11 +1,3 @@
-CREATE TABLE `person` (
-  `person_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `key` varchar(80) NOT NULL,
-  `name` varchar(120) NOT NULL,
-  `data` text NOT NULL,
-  PRIMARY KEY (`person_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `character` (
   `character_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(80) NOT NULL,
@@ -23,4 +15,20 @@ CREATE TABLE `group` (
   `name` varchar(120) NOT NULL,
   `data` text NOT NULL,
   PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `person` (
+  `person_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(80) NOT NULL,
+  `name` varchar(120) NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`person_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `story` (
+  `story_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(80) NOT NULL,
+  `name` varchar(120) NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`story_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
