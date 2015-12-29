@@ -24,15 +24,19 @@ return [
 
     'dataPatterns' => [
         'character' => [],
-        'person' => [],
+        'epic' => [],
         'event' => [],
         'group' => [],
+        'person' => [],
+        'story' => [],
     ],
 
     'help' => [
         'character' => [],
-        'person' => [],
+        'epic' => [],
         'event' => [],
         'group' => [],
+        'person' => [],
+        'story' => [],
     ],
 ];

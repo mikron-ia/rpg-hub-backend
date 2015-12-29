@@ -40,7 +40,17 @@ return [
             'reputations' => [], // reputation values
             'reputationEvents' => [], // reputation history
         ],
+        'epic' => [
+            'basics' => [], // names, descriptions, etc.
+            'current' => [],
+            'stories' => [],
+        ],
         'event' => [],
+        'story' => [
+            'parameters' => [],
+            'short' => "",
+            'long' => "",
+        ],
     ],
     'help' => [
         'character' => [],

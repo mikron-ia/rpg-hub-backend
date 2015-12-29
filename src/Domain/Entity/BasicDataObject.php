@@ -98,6 +98,10 @@ abstract class BasicDataObject implements Displayable
      */
     public function getKey()
     {
+        if (empty($this->identification)) {
+            return null;
+        }
+
         return $this->identification->getUuid();
     }
 
