@@ -40,16 +40,6 @@ interface StorageEngine
     /**
      * @param string $table
      * @param string $primaryKeyName
-     * @param string $keyName
-     * @param string|int $keyValues
-     * @param string $orderName
-     * @return mixed
-     */
-    public function selectNewestWithConditions($table, $primaryKeyName, $keyName, $keyValues, $orderName);
-
-    /**
-     * @param string $table
-     * @param string $primaryKeyName
      * @param string $orderName
      * @return mixed
      */

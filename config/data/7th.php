@@ -49,7 +49,7 @@ return [
         ],
         'epic' => [
             'basics' => [], // names, descriptions, etc.
-            'current' => [],
+            'current' => null,
             'stories' => [],
         ],
         'event' => [],

@@ -17,17 +17,24 @@ class Epic extends BasicDataObject implements Displayable
     private $stories;
 
     /**
+     * @var Recap Recent events
+     */
+    private $recap;
+
+    /**
      * Character constructor.
      * @param StorageIdentification|null $identification
      * @param string $name
      * @param DataContainer $data
      * @param string[] $help
      * @param Story[] $stories
+     * @param Recap $recap
      */
-    public function __construct($identification, $name, $data, $help, $stories)
+    public function __construct($identification, $name, $data, $help, $stories, $recap)
     {
         parent::__construct($identification, $name, $data, $help);
         $this->stories = $stories;
+        $this->recap = $recap;
     }
 
     /**
@@ -43,6 +50,7 @@ class Epic extends BasicDataObject implements Displayable
         $stories = $this->getStory();
         $ownData = [
             'stories' => [],
+            'current' => $this->recap->getCompleteData()
         ];
 
         foreach($stories as $story) {

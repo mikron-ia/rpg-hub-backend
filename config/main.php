@@ -28,6 +28,7 @@ return [
         'event' => [],
         'group' => [],
         'person' => [],
+        'recap' => [],
         'story' => [],
     ],
 
@@ -37,6 +38,7 @@ return [
         'event' => [],
         'group' => [],
         'person' => [],
+        'recap' => [],
         'story' => [],
     ],
 ];

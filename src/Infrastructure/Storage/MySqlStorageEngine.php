@@ -87,7 +87,7 @@ final class MySqlStorageEngine implements StorageEngine
         return $this->selectByKey($table, $primaryKeyName, $primaryKeyName, $primaryKeyValues, null, null);
     }
 
-    public function selectNewestWithConditions($table, $primaryKeyName, $keyName, $keyValues, $orderName)
+    private function selectNewestWithConditions($table, $primaryKeyName, $keyName, $keyValues, $orderName)
     {
         return $this->selectByKey($table, $primaryKeyName, $keyName, $keyValues, $orderName, true);
     }

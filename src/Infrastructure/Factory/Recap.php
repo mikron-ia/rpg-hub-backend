@@ -138,11 +138,12 @@ final class Recap
         return $recap;
     }
 
-    public function retrieveMostRecent($connection, $dataPatterns, $help, $key)
+    public function retrieveMostRecent($connection, $dataPatterns, $help)
     {
         $recapStorage = new StorageForRecap($connection);
-        $recapWrapped = $recapStorage->retrieveByKey($key);
+        $recapWrapped = $recapStorage->retrieveAll();
+        $recapRecent = array_pop($recapWrapped);
 
-        return $this->unwrapRecap($recapWrapped, $dataPatterns, null, $help);
+        return $this->unwrapRecap([$recapRecent], $dataPatterns, null, $help);
     }
 }

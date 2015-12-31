@@ -18,11 +18,12 @@ class Epic
      * @param Entity\DataContainer|null $data
      * @param string[] $help
      * @param Entity\Story[] $stories
+     * @param Entity\Recap|null $recap
      * @return Entity\Epic
      */
-    public function createFromSingleArray($identification, $name, $data, $help, $stories)
+    public function createFromSingleArray($identification, $name, $data, $help, $stories, $recap)
     {
-        return new Entity\Epic($identification, $name, $data, $help, $stories);
+        return new Entity\Epic($identification, $name, $data, $help, $stories, $recap);
     }
 
     public function retrieveEpic($connection, $dataPatterns, $configHelp, $configEpicData)
@@ -33,12 +34,16 @@ class Epic
         $storyFactory = new Story();
         $stories = $storyFactory->retrieveAllFromDb($connection, $dataPatterns, $configHelp);
 
+        $recapFactory = new Recap();
+        $recap = $recapFactory->retrieveMostRecent($connection, $dataPatterns, $configHelp);
+
         return $this->createFromSingleArray(
             null,
             $configEpicData['name'],
             $dataContainer,
             $configHelp['epic'],
-            $stories
+            $stories,
+            $recap
         );
     }
 }
