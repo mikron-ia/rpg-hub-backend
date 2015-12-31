@@ -25,6 +25,15 @@ CREATE TABLE `person` (
   PRIMARY KEY (`person_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `recap` (
+  `recap_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(80) NOT NULL,
+  `name` varchar(120) NOT NULL,
+  `data` text NOT NULL,
+  `time` DATETIME NOT NULL,
+  PRIMARY KEY (`recap_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `story` (
   `story_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(80) NOT NULL,

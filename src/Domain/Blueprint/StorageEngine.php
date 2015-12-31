@@ -18,7 +18,7 @@ interface StorageEngine
     /**
      * @param string $table
      * @param string $primaryKeyName
-     * @param string[] $keyName
+     * @param string $keyName
      * @param mixed $keyValues
      * @return mixed
      */

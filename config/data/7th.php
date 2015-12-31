@@ -53,6 +53,10 @@ return [
             'stories' => [],
         ],
         'event' => [],
+        'recap' => [
+            'parameters' => [],
+            'short' => "",
+        ],
         'story' => [
             'parameters' => [],
             'short' => "",
