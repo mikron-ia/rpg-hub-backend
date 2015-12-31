@@ -30,7 +30,7 @@ final class StorageForGroup implements StorageForObject
 
     public function retrieveByKey($key)
     {
-        $result = $this->storage->selectByKey('group', 'group_id', 'key', [$key]);
+        $result = $this->storage->selectByKey('group', 'group_id', 'key', [$key], null, false);
 
         return $result;
     }

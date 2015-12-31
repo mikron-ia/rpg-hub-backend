@@ -24,7 +24,7 @@ final class Recap
     }
 
     /**
-     * Creates person objects from array
+     * Creates recap objects from array
      *
      * @param $array
      * @return Recap[]
@@ -35,7 +35,7 @@ final class Recap
 
         if (!empty($array)) {
             foreach ($array as $record) {
-                $storageData = new StorageIdentification($record['person_id'], null);
+                $storageData = new StorageIdentification($record['recap_id'], null);
                 $list[] = $this->createFromSingleArray($storageData, $record['name'], null, []);
             }
         }
@@ -44,7 +44,7 @@ final class Recap
     }
 
     /**
-     * Retrieves person objects from database
+     * Retrieves recap objects from database
      *
      * @param $connection
      * @param $dataPatterns
@@ -52,15 +52,15 @@ final class Recap
      */
     public function retrieveAllFromDb($connection, $dataPatterns)
     {
-        $personStorage = new StorageForRecap($connection);
+        $recapStorage = new StorageForRecap($connection);
 
-        $array = $personStorage->retrieveAll();
+        $array = $recapStorage->retrieveAll();
 
         $list = [];
 
         if (!empty($array)) {
             foreach ($array as $record) {
-                $storageData = new StorageIdentification($record['person_id'], null);
+                $storageData = new StorageIdentification($record['recap_id'], null);
                 $list[] = $this->unwrapRecap($record, $dataPatterns, null, []);
             }
         }
@@ -69,43 +69,43 @@ final class Recap
     }
 
     /**
-     * Retrieves a given person from the database
+     * Retrieves a given recap from the database
      *
      * @param $connection StorageEngine
      * @param $dataPatterns
      * @param string[][] $help
      * @param int $dbId
-     * @return Entity\person
+     * @return Entity\recap
      * @throws RecapNotFoundException
      */
     public function retrieveRecapFromDbById($connection, $dataPatterns, $help, $dbId)
     {
-        $personStorage = new StorageForRecap($connection);
-        $personWrapped = $personStorage->retrieveById($dbId);
+        $recapStorage = new StorageForRecap($connection);
+        $recapWrapped = $recapStorage->retrieveById($dbId);
 
-        return $this->unwrapRecap($personWrapped, $dataPatterns, null, $help);
+        return $this->unwrapRecap($recapWrapped, $dataPatterns, null, $help);
     }
 
     /**
-     * Retrieves a given person from the database
+     * Retrieves a given recap from the database
      *
      * @param $connection StorageEngine
      * @param $dataPatterns
      * @param string[][] $help
      * @param string $key
-     * @return Entity\person
+     * @return Entity\recap
      * @throws RecapNotFoundException
      */
     public function retrieveRecapFromDbByKey($connection, $dataPatterns, $help, $key)
     {
-        $personStorage = new StorageForRecap($connection);
-        $personWrapped = $personStorage->retrieveByKey($key);
+        $recapStorage = new StorageForRecap($connection);
+        $recapWrapped = $recapStorage->retrieveByKey($key);
 
-        return $this->unwrapRecap($personWrapped, $dataPatterns, null, $help);
+        return $this->unwrapRecap($recapWrapped, $dataPatterns, null, $help);
     }
 
     /**
-     * @param array $personWrapped
+     * @param array $recapWrapped
      * @param array $dataPatterns
      * @param LoggerInterface $logger
      * @param string[][] $help
@@ -114,27 +114,35 @@ final class Recap
      * @todo DataContainer factory should be passed as DI with defined pattern?
      * @todo Consider methods for JSON and array separately
      */
-    public function unwrapRecap($personWrapped, $dataPatterns, $logger, $help)
+    public function unwrapRecap($recapWrapped, $dataPatterns, $logger, $help)
     {
-        if (!empty($personWrapped)) {
-            $personUnwrapped = array_pop($personWrapped);
+        if (!empty($recapWrapped)) {
+            $recapUnwrapped = array_pop($recapWrapped);
 
-            $storageData = new StorageIdentification($personUnwrapped['person_id'], $personUnwrapped['key']);
+            $storageData = new StorageIdentification($recapUnwrapped['recap_id'], $recapUnwrapped['key']);
 
             $dataContainerFactory = new DataContainer();
-            $data = json_decode($personUnwrapped['data'], true);
-            $dataContainerForRecap = $dataContainerFactory->createWithPattern($data, $dataPatterns['person']);
+            $data = json_decode($recapUnwrapped['data'], true);
+            $dataContainerForRecap = $dataContainerFactory->createWithPattern($data, $dataPatterns['recap']);
 
-            $person = $this->createFromSingleArray(
+            $recap = $this->createFromSingleArray(
                 $storageData,
-                $personUnwrapped['name'],
+                $recapUnwrapped['name'],
                 $dataContainerForRecap,
-                $help['person']
+                $help['recap']
             );
         } else {
             throw new RecapNotFoundException("Recap with given ID has not been found in our database");
         }
 
-        return $person;
+        return $recap;
+    }
+
+    public function retrieveMostRecent($connection, $dataPatterns, $help, $key)
+    {
+        $recapStorage = new StorageForRecap($connection);
+        $recapWrapped = $recapStorage->retrieveByKey($key);
+
+        return $this->unwrapRecap($recapWrapped, $dataPatterns, null, $help);
     }
 }

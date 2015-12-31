@@ -30,7 +30,7 @@ final class StorageForStory implements StorageForObject
 
     public function retrieveByKey($key)
     {
-        $result = $this->storage->selectByKey('story', 'story_id', 'key', [$key]);
+        $result = $this->storage->selectByKey('story', 'story_id', 'key', [$key], null, false);
 
         return $result;
     }

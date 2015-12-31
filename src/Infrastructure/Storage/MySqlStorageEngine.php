@@ -20,26 +20,34 @@ final class MySqlStorageEngine implements StorageEngine
     private $connection;
 
     /**
-     * @param string $table
-     * @param string $primaryKeyName
-     * @param string $keyName
-     * @param $keyValues
+     * @param string $table Name of the table
+     * @param string $primaryKeyName Name of the primary key
+     * @param string $keyName Name of the key in condition
+     * @param string|int $keyValues Values to search by
+     * @param string $orderName Key to order by
+     * @param boolean $orderDesc Descend order if true
      * @return array
      * @throws ExceptionWithSafeMessage
      */
-    public function selectByKey($table, $primaryKeyName, $keyName, $keyValues)
+    public function selectByKey($table, $primaryKeyName, $keyName, $keyValues, $orderName, $orderDesc)
     {
         $basicSql = "SELECT * FROM `$table`";
+
+        if (!empty($orderName)) {
+            $orderSql = " ORDER BY `$orderName` " . ($orderDesc ? "DESC" : "ASC");
+        } else {
+            $orderSql = "";
+        }
 
         try {
             if (!empty($keyValues)) {
                 $where = " WHERE `$keyName` IN (?)";
-                $statement = $this->connection->executeQuery($basicSql . $where,
+                $statement = $this->connection->executeQuery($basicSql . $where . $orderSql,
                     [$keyValues],
                     [Connection::PARAM_STR_ARRAY]
                 );
             } else {
-                $statement = $this->connection->executeQuery($basicSql);
+                $statement = $this->connection->executeQuery($basicSql . $orderSql);
             }
         } catch (\Exception $e) {
             throw new ExceptionWithSafeMessage(
@@ -71,11 +79,21 @@ final class MySqlStorageEngine implements StorageEngine
 
     public function selectAll($table, $primaryKeyName)
     {
-        return $this->selectByKey($table, $primaryKeyName, null, []);
+        return $this->selectByKey($table, $primaryKeyName, null, [], null, null);
     }
 
     public function selectByPrimaryKey($table, $primaryKeyName, $primaryKeyValues)
     {
-        return $this->selectByKey($table, $primaryKeyName, $primaryKeyName, $primaryKeyValues);
+        return $this->selectByKey($table, $primaryKeyName, $primaryKeyName, $primaryKeyValues, null, null);
+    }
+
+    public function selectNewestWithConditions($table, $primaryKeyName, $keyName, $keyValues, $orderName)
+    {
+        return $this->selectByKey($table, $primaryKeyName, $keyName, $keyValues, $orderName, true);
+    }
+
+    public function selectNewest($table, $primaryKeyName, $orderName)
+    {
+        return $this->selectNewestWithConditions($table, $primaryKeyName, '', [], $orderName);
     }
 }

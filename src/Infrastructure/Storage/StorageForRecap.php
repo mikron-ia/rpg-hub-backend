@@ -30,7 +30,7 @@ final class StorageForRecap implements StorageForObject
 
     public function retrieveByKey($key)
     {
-        $result = $this->storage->selectByKey('recap', 'recap_id', 'key', [$key]);
+        $result = $this->storage->selectByKey('recap', 'recap_id', 'key', [$key], null, false);
 
         return $result;
     }
@@ -38,6 +38,13 @@ final class StorageForRecap implements StorageForObject
     public function retrieveAll()
     {
         $result = $this->storage->selectAll('recap', 'recap_id');
+
+        return $result;
+    }
+
+    public function retrieveNewest()
+    {
+        $result = $this->storage->selectNewest('recap', 'recap_id', 'time');
 
         return $result;
     }

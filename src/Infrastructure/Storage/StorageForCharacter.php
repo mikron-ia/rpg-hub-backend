@@ -30,7 +30,7 @@ final class StorageForCharacter implements StorageForObject
 
     public function retrieveByKey($key)
     {
-        $result = $this->storage->selectByKey('character', 'character_id', 'key', [$key]);
+        $result = $this->storage->selectByKey('character', 'character_id', 'key', [$key], null, false);
 
         return $result;
     }
