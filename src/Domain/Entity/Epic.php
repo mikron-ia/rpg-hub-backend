@@ -12,7 +12,7 @@ use Mikron\HubBack\Domain\Value\StorageIdentification;
 class Epic extends BasicDataObject implements Displayable
 {
     /**
-     * @var Story Story data
+     * @var Story[] Story data
      */
     private $stories;
 
@@ -38,16 +38,16 @@ class Epic extends BasicDataObject implements Displayable
     }
 
     /**
-     * @return Story|null
+     * @return Story[]
      */
-    public function getStory()
+    public function getStories()
     {
         return $this->stories;
     }
 
     public function getCompleteData()
     {
-        $stories = $this->getStory();
+        $stories = $this->getStories();
         $ownData = [
             'stories' => [],
             'current' => $this->recap->getCompleteData()
