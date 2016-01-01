@@ -4,7 +4,7 @@ use Mikron\HubBack\Domain\Blueprint\Displayable;
 use Mikron\HubBack\Domain\Exception\ExceptionWithSafeMessage;
 use Mikron\HubBack\Domain\Service\Output;
 
-/* Reputation data of a particular group */
+/* Data of a particular group */
 $app->get(
     '/group/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
