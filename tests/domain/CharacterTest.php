@@ -5,7 +5,7 @@ use Mikron\HubBack\Domain\Entity\Person;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
 
-class CharacterTest extends PHPUnit_Framework_TestCase
+final class CharacterTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -16,7 +16,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @param string[] $help
      * @param Person $person
      */
-    function isNameCorrect($storage, $name, $data, $help, $person)
+    public function isNameCorrect($storage, $name, $data, $help, $person)
     {
         $dataFactory = new DataContainerFactory();
         $character = new Character($storage, $name, $dataFactory->createWithoutPattern($data), $help, $person);
@@ -32,7 +32,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @param array $data
      * @param string[] $help
      */
-    function isPersonCorrect($storage, $name, $data, $help, $person)
+    public function isPersonCorrect($storage, $name, $data, $help, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $character = new Character($storage, $name, $dataObject, $help, $person);
@@ -51,7 +51,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @param array $data
      * @param Person $person
      */
-    function isDataCorrect($storage, $name, $help, $data, $person)
+    public function isDataCorrect($storage, $name, $help, $data, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $character = new Character($storage, $name, $dataObject, $help, $person);
@@ -67,7 +67,7 @@ class CharacterTest extends PHPUnit_Framework_TestCase
      * @param array $data
      * @param Person $person
      */
-    function isHelpCorrect($storage, $name, $help, $data, $person)
+    public function isHelpCorrect($storage, $name, $help, $data, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $character = new Character($storage, $name, $dataObject, $help, $person);

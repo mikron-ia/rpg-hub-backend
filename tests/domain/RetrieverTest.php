@@ -3,7 +3,7 @@
 /**
  * Class RetrieverTest
  */
-class RetrieverTest extends \PHPUnit_Framework_TestCase
+final class RetrieverTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test

@@ -4,7 +4,7 @@ use Mikron\HubBack\Domain\Entity\DataContainer;
 /**
  * Class DataContainerTest
  */
-class DataContainerTest extends PHPUnit_Framework_TestCase
+final class DataContainerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
