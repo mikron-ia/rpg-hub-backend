@@ -1,6 +1,4 @@
 engines:
-  duplication:
-    enabled: true
   phpmd:
     enabled: true
     config:
