@@ -1,13 +1,13 @@
 <?php
 
 use Mikron\HubBack\Domain\Service\Output;
-use Mikron\HubBack\Infrastructure\Connection\DisplayableLoader;
+use Mikron\HubBack\Infrastructure\Connection\Loader;
 
 /* Data of a particular group */
 $app->get(
     '/group/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
-        $group = DisplayableLoader::loadSingleObject(
+        $group = Loader::loadSingleObject(
             $app['config'],
             'Group',
             $identificationMethod,

@@ -2,14 +2,14 @@
 
 use Mikron\HubBack\Domain\Blueprint\Displayable;
 use Mikron\HubBack\Domain\Service\Output;
-use Mikron\HubBack\Infrastructure\Connection\DisplayableLoader;
+use Mikron\HubBack\Infrastructure\Connection\Loader;
 
 /* Reputation data of a particular epic */
 $app->get(
     '/epic/{authenticationMethod}/{authenticationKey}/',
     function ($authenticationMethod, $authenticationKey) use ($app) {
-        DisplayableLoader::checkAuthentication($app['config'], $authenticationMethod, $authenticationKey);
-        $connection = DisplayableLoader::provideConnection($app['config']);
+        Loader::checkAuthentication($app['config'], $authenticationMethod, $authenticationKey);
+        $connection = Loader::provideConnection($app['config']);
         $epicFactory = new \Mikron\HubBack\Infrastructure\Factory\Epic();
 
         /**
@@ -37,7 +37,7 @@ $app->get(
 $app->get(
     '/story/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
-        $story = DisplayableLoader::loadSingleObject(
+        $story = Loader::loadSingleObject(
             $app['config'],
             'Story',
             $identificationMethod,

@@ -1,13 +1,13 @@
 <?php
 
 use Mikron\HubBack\Domain\Service\Output;
-use Mikron\HubBack\Infrastructure\Connection\DisplayableLoader;
+use Mikron\HubBack\Infrastructure\Connection\Loader;
 
 /* Reputation data of a particular person */
 $app->get(
     '/person/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
-        $person = DisplayableLoader::loadSingleObject(
+        $person = Loader::loadSingleObject(
             $app['config'],
             'Person',
             $identificationMethod,

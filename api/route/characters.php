@@ -2,18 +2,18 @@
 
 use Mikron\HubBack\Domain\Blueprint\Displayable;
 use Mikron\HubBack\Domain\Service\Output;
-use Mikron\HubBack\Infrastructure\Connection\DisplayableLoader;
+use Mikron\HubBack\Infrastructure\Connection\Loader;
 
 /* List of all characters available for display */
 $app->get(
     '/characters/{authenticationMethod}/{authenticationKey}/',
     function ($authenticationMethod, $authenticationKey) use ($app) {
-        DisplayableLoader::checkAuthentication($app['config'], $authenticationMethod, $authenticationKey);
-        $connection = DisplayableLoader::provideConnection($app['config']);
+        Loader::checkAuthentication($app['config'], $authenticationMethod, $authenticationKey);
+        $connection = Loader::provideConnection($app['config']);
         $factory = new \Mikron\HubBack\Infrastructure\Factory\Character();
 
         /**
-         * @var Displayable $characterObjects [] Characters list
+         * @var Displayable[] $characterObjects Characters list
          */
         $characterObjects = $factory->retrieveAllFromDb(
             $connection,

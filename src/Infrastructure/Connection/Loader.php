@@ -3,6 +3,7 @@
 namespace Mikron\HubBack\Infrastructure\Connection;
 
 use Mikron\HubBack\Domain\Blueprint\Displayable;
+use Mikron\HubBack\Domain\Blueprint\StorageEngine;
 use Mikron\HubBack\Domain\Exception\AuthenticationException;
 use Mikron\HubBack\Domain\Exception\ExceptionWithSafeMessage;
 use Mikron\HubBack\Infrastructure\Security\Authentication;
@@ -11,8 +12,14 @@ use Mikron\HubBack\Infrastructure\Security\Authentication;
  * Class DisplayableLoader
  * @package Mikron\HubBack\Infrastructure\Connection
  */
-class DisplayableLoader
+class Loader
 {
+    /**
+     * @param array $config
+     * @param string $authenticationMethod
+     * @param string $authenticationKey
+     * @throws AuthenticationException
+     */
     public static function checkAuthentication($config, $authenticationMethod, $authenticationKey)
     {
         $authentication = new Authentication(
@@ -30,6 +37,10 @@ class DisplayableLoader
         }
     }
 
+    /**
+     * @param array $config
+     * @return StorageEngine
+     */
     public static function provideConnection($config)
     {
         $dbEngine = $config['dbEngine'];
@@ -38,6 +49,15 @@ class DisplayableLoader
         return new $dbClass($config[$dbEngine]);
     }
 
+    /**
+     * @param StorageEngine $connection
+     * @param array $config
+     * @param string $class
+     * @param string $identificationMethod
+     * @param string $identificationKey
+     * @return Displayable
+     * @throws ExceptionWithSafeMessage
+     */
     public static function provideObject($connection, $config, $class, $identificationMethod, $identificationKey)
     {
         $className = '\Mikron\HubBack\Infrastructure\Factory\\' . $class;
@@ -52,9 +72,6 @@ class DisplayableLoader
             );
         }
 
-        /**
-         * @var Displayable $object
-         */
         $object = $factory->$method(
             $connection,
             $config['dataPatterns'],
@@ -65,6 +82,17 @@ class DisplayableLoader
         return $object;
     }
 
+    /**
+     * @param array $config Configuration data
+     * @param string $class Name of the class used
+     * @param string $identificationMethod Method to find object
+     * @param string $identificationKey Key that identifies the object
+     * @param string $authenticationMethod Authentication method
+     * @param string $authenticationKey Authentication key
+     * @return Displayable
+     * @throws AuthenticationException
+     * @throws ExceptionWithSafeMessage
+     */
     public static function loadSingleObject(
         $config, $class,
         $identificationMethod, $identificationKey,
