@@ -8,26 +8,8 @@ use Mikron\HubBack\Infrastructure\Connection\DisplayableLoader;
 $app->get(
     '/epic/{authenticationMethod}/{authenticationKey}/',
     function ($authenticationMethod, $authenticationKey) use ($app) {
-
-        $authentication = new \Mikron\HubBack\Infrastructure\Security\Authentication(
-            $app['config']['authentication'],
-            'front',
-            $authenticationMethod
-        );
-
-        /* Check credentials */
-        if (!$authentication->isAuthenticated($authenticationKey)) {
-            throw new \Mikron\HubBack\Domain\Exception\AuthenticationException(
-                "Authentication code does not check out",
-                "Authentication code $authenticationKey for method $authenticationMethod does not check out"
-            );
-        }
-
-        $dbEngine = $app['config']['dbEngine'];
-        $dbClass = '\Mikron\HubBack\Infrastructure\Storage\\'
-            . $app['config']['databaseReference'][$dbEngine] . 'StorageEngine';
-        $connection = new $dbClass($app['config'][$dbEngine]);
-
+        DisplayableLoader::checkAuthentication($app['config'], $authenticationMethod, $authenticationKey);
+        $connection = DisplayableLoader::provideConnection($app['config']);
         $epicFactory = new \Mikron\HubBack\Infrastructure\Factory\Epic();
 
         /**
