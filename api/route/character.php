@@ -1,6 +1,5 @@
 <?php
 
-use Mikron\HubBack\Domain\Blueprint\Displayable;
 use Mikron\HubBack\Domain\Service\Output;
 use Mikron\HubBack\Infrastructure\Connection\DisplayableLoader;
 
@@ -8,11 +7,14 @@ use Mikron\HubBack\Infrastructure\Connection\DisplayableLoader;
 $app->get(
     '/character/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
-
-        /**
-         * @var Displayable $character Character data
-         */
-        $character = DisplayableLoader::load($app, 'Character', $identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey);
+        $character = DisplayableLoader::load(
+            $app['config'],
+            'Character',
+            $identificationMethod,
+            $identificationKey,
+            $authenticationMethod,
+            $authenticationKey
+        );
 
         $output = new Output(
             "Character data",
@@ -21,6 +23,5 @@ $app->get(
         );
 
         return $app->json($output->getArrayForJson());
-
     }
 );

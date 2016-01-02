@@ -13,10 +13,10 @@ use Mikron\HubBack\Infrastructure\Security\Authentication;
  */
 class DisplayableLoader
 {
-    public static function load($app, $class, $identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey)
+    public static function load($config, $class, $identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey)
     {
         $authentication = new Authentication(
-            $app['config']['authentication'],
+            $config['authentication'],
             'front',
             $authenticationMethod
         );
@@ -29,10 +29,10 @@ class DisplayableLoader
             );
         }
 
-        $dbEngine = $app['config']['dbEngine'];
+        $dbEngine = $config['dbEngine'];
         $dbClass = '\Mikron\HubBack\Infrastructure\Storage\\'
-            . $app['config']['databaseReference'][$dbEngine] . 'StorageEngine';
-        $connection = new $dbClass($app['config'][$dbEngine]);
+            . $config['databaseReference'][$dbEngine] . 'StorageEngine';
+        $connection = new $dbClass($config[$dbEngine]);
 
         $className = '\Mikron\HubBack\Infrastructure\Factory\\'.$class;
 
@@ -51,8 +51,8 @@ class DisplayableLoader
          */
         $object = $factory->$method(
             $connection,
-            $app['config']['dataPatterns'],
-            $app['config']['help'],
+            $config['dataPatterns'],
+            $config['help'],
             $identificationKey
         );
 
