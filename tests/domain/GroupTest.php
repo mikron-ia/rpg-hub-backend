@@ -3,7 +3,7 @@
 use Mikron\HubBack\Domain\Entity\Group;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
 
-class GroupTest extends PHPUnit_Framework_TestCase
+final class GroupTest extends PHPUnit_Framework_TestCase
 {
     private $identification;
 
@@ -29,7 +29,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
      * @param array $dataArray
      * @param string[] $help
      */
-    function isNameCorrect($name, $dataArray, $help)
+    public function isNameCorrect($name, $dataArray, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
         $character = new Group($this->identification, $name, $data, $help);
@@ -43,7 +43,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
      * @param array $dataArray
      * @param string[] $help
      */
-    function isDataCorrect($name, $dataArray, $help)
+    public function isDataCorrect($name, $dataArray, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
         $group = new Group($this->identification, $name, $data, $help);
@@ -57,7 +57,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
      * @param array $data
      * @param string[] $help
      */
-    function isHelpCorrect($name, $data, $help)
+    public function isHelpCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $group = new Group($this->identification, $name, $dataObject, $help);
