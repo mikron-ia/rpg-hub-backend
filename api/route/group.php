@@ -7,7 +7,7 @@ use Mikron\HubBack\Infrastructure\Connection\DisplayableLoader;
 $app->get(
     '/group/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
-        $group = DisplayableLoader::load(
+        $group = DisplayableLoader::loadSingleObject(
             $app['config'],
             'Group',
             $identificationMethod,

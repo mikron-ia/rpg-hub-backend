@@ -55,7 +55,7 @@ $app->get(
 $app->get(
     '/story/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
     function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
-        $story = DisplayableLoader::load(
+        $story = DisplayableLoader::loadSingleObject(
             $app['config'],
             'Story',
             $identificationMethod,

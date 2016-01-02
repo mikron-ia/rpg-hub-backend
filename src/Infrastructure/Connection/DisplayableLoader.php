@@ -13,7 +13,7 @@ use Mikron\HubBack\Infrastructure\Security\Authentication;
  */
 class DisplayableLoader
 {
-    public static function load($config, $class, $identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey)
+    public static function checkAuthentication($config, $authenticationMethod, $authenticationKey)
     {
         $authentication = new Authentication(
             $config['authentication'],
@@ -28,13 +28,19 @@ class DisplayableLoader
                 "Authentication code $authenticationKey for method $authenticationMethod does not check out"
             );
         }
+    }
 
+    public static function provideConnection($config)
+    {
         $dbEngine = $config['dbEngine'];
         $dbClass = '\Mikron\HubBack\Infrastructure\Storage\\'
             . $config['databaseReference'][$dbEngine] . 'StorageEngine';
-        $connection = new $dbClass($config[$dbEngine]);
+        return new $dbClass($config[$dbEngine]);
+    }
 
-        $className = '\Mikron\HubBack\Infrastructure\Factory\\'.$class;
+    public static function provideObject($connection, $config, $class, $identificationMethod, $identificationKey)
+    {
+        $className = '\Mikron\HubBack\Infrastructure\Factory\\' . $class;
 
         $factory = new $className();
 
@@ -57,5 +63,16 @@ class DisplayableLoader
         );
 
         return $object;
+    }
+
+    public static function loadSingleObject(
+        $config, $class,
+        $identificationMethod, $identificationKey,
+        $authenticationMethod, $authenticationKey
+    )
+    {
+        self::checkAuthentication($config, $authenticationMethod, $authenticationKey);
+        $connection = self::provideConnection($config);
+        return self::provideObject($connection, $config, $class, $identificationMethod, $identificationKey);
     }
 }
