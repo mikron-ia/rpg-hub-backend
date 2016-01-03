@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'version' => '0.2-dev',
+    'version' => '0.3-dev',
     'databaseReference' => [
         'mysql' => 'MySql',
         'mongodb' => 'MongoDb',
