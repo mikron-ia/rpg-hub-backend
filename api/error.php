@@ -10,7 +10,7 @@ $app->error(function (\Exception $exception) use ($app) {
     if ($app['config']['debug']) {
         $result['content'][] = $exception->getMessage();
     } else {
-        if($exception instanceof \Mikron\HubBack\Domain\Exception\ExceptionWithSafeMessage) {
+        if ($exception instanceof \Mikron\HubBack\Domain\Exception\ExceptionWithSafeMessage) {
             $result['content'][] = $exception->getSafeMessage();
         }
     }

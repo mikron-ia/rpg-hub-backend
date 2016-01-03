@@ -45,12 +45,20 @@ class Epic extends BasicDataObject implements Displayable
         return $this->stories;
     }
 
+    /**
+     * @return Recap
+     */
+    public function getRecap()
+    {
+        return $this->recap;
+    }
+
     public function getCompleteData()
     {
         $stories = $this->getStories();
         $ownData = [
             'stories' => [],
-            'current' => $this->recap->getCompleteData()
+            'current' => (isset($this->recap)?$this->getRecap()->getCompleteData():null)
         ];
 
         foreach($stories as $story) {

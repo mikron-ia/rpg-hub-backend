@@ -94,11 +94,13 @@ class Loader
      * @throws ExceptionWithSafeMessage
      */
     public static function loadSingleObject(
-        $config, $class,
-        $identificationMethod, $identificationKey,
-        $authenticationMethod, $authenticationKey
-    )
-    {
+        $config,
+        $class,
+        $identificationMethod,
+        $identificationKey,
+        $authenticationMethod,
+        $authenticationKey
+    ) {
         self::checkAuthentication($config, $authenticationMethod, $authenticationKey);
         $connection = self::provideConnection($config);
         return self::provideObject($connection, $config, $class, $identificationMethod, $identificationKey);

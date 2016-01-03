@@ -32,8 +32,8 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isNameCorrect($name, $dataArray, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $character = new Person($this->identification, $name, $data, $help);
-        $this->assertEquals($name, $character->getName());
+        $person = new Person($this->identification, $name, $data, $help);
+        $this->assertEquals($name, $person->getName());
     }
 
     /**

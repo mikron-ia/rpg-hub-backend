@@ -6,15 +6,15 @@ $app->get('/', function (Silex\Application $app) {
         "This is basic front page. Please choose a functionality you wish to access from 'content' area",
         [
             [
-                "url" => "characters/{authentication-method}/{authentication-key}/",
+                "url" => "characters/{auth-method}/{auth-key}/",
                 "description" => "Lists all characters available in the system"
             ],
             [
-                "url" => "character/{identification-method}/{identification-key}/{authentication-method}/{authentication-key}/",
+                "url" => "character/{identification-method}/{identification-key}/{auth-method}/{auth-key}/",
                 "description" => "Specific character data"
             ],
             [
-                "url" => "person/{identification-method}/{identification-key}/{authentication-method}/{authentication-key}/",
+                "url" => "person/{identification-method}/{identification-key}/{auth-method}/{auth-key}/",
                 "description" => "Specific person data"
             ],
         ]

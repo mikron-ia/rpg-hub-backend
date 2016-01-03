@@ -58,4 +58,3 @@ final class RetrieverTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 }
-
