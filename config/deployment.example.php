@@ -20,7 +20,8 @@ return [
             'settingsByStrategy' => [
                 'simple' => [
                     'authenticationKey' => '[enter key]'
-                ]]
+                ]
+            ]
         ],
         'reputation' => [
             'allowedStrategies' => [],
