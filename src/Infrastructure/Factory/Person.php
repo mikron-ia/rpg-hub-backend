@@ -20,7 +20,7 @@ class Person
      */
     public function createFromSingleArray($identification, $name, $data, $help)
     {
-        return new Entity\Person($identification, $name, $data, $help);
+        return new Entity\Person($identification, $name, $data, $help, []);
     }
 
     /**

@@ -20,7 +20,7 @@ final class Recap
      */
     public function createFromSingleArray($identification, $name, $data, $help)
     {
-        return new Entity\Recap($identification, $name, $data, $help);
+        return new Entity\Recap($identification, $name, $data, $help, []);
     }
 
     /**

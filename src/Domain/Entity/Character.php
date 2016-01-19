@@ -26,7 +26,7 @@ final class Character extends ComplexDataObject implements Displayable
      */
     public function __construct($identification, $name, $data, $help, $person)
     {
-        parent::__construct($identification, $name, $data, $help);
+        parent::__construct($identification, $name, $data, $help, []);
         $this->person = $person;
     }
 
