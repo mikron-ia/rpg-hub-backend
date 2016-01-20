@@ -2,6 +2,7 @@
 
 namespace Mikron\HubBack\Domain\Entity;
 
+use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 
 /**
@@ -12,6 +13,9 @@ use Mikron\HubBack\Domain\Value\StorageIdentification;
  */
 class ComplexDataObject extends BasicDataObject
 {
+    /**
+     * @var Description[]
+     */
     private $descriptions;
 
     /**
@@ -19,19 +23,47 @@ class ComplexDataObject extends BasicDataObject
      * @param string $name
      * @param DataContainer $data
      * @param string[] $help
-     * @param array $descriptions
+     * @param Description[] $descriptions
      */
-    public function __construct($identification, $name, $data, array $help, array $descriptions)
+    public function __construct($identification, $name, $data, $help, $descriptions)
     {
         parent::__construct($identification, $name, $data, $help);
         $this->descriptions = $descriptions;
     }
 
     /**
-     * @return array
+     * @return Description[]
      */
     public function getDescriptions()
     {
-        return $this->descriptions;
+        $descriptions = [];
+
+        foreach ($this->descriptions as $description) {
+            $descriptions[$description->getTitle()] = $description;
+        }
+
+        return $descriptions;
+    }
+
+    public function getDescriptionsAsText()
+    {
+        $texts = [];
+
+        foreach ($this->descriptions as $description) {
+            $texts[$description->getTitle()] = $description->getPublicText();
+        }
+
+        return $texts;
+    }
+
+    public function getCompleteData()
+    {
+        $simpleData = parent::getCompleteData();
+
+        $complexData = [
+            'descriptions' => $this->getDescriptionsAsText()
+        ];
+
+        return array_merge_recursive($simpleData, $complexData);
     }
 }

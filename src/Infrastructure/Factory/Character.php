@@ -5,6 +5,7 @@ namespace Mikron\HubBack\Infrastructure\Factory;
 use Mikron\HubBack\Domain\Blueprint\StorageEngine;
 use Mikron\HubBack\Domain\Entity;
 use Mikron\HubBack\Domain\Exception\CharacterNotFoundException;
+use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Infrastructure\Storage\StorageForCharacter;
 use Psr\Log\LoggerInterface;
@@ -18,12 +19,13 @@ class Character
      * @param string $name
      * @param Entity\DataContainer $data
      * @param string[] $help
+     * @param Description[] $descriptions
      * @param Entity\Person|null $person
      * @return Entity\Character
      */
-    public function createFromSingleArray($identification, $name, $data, $help, $person)
+    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $person)
     {
-        return new Entity\Character($identification, $name, $data, $help, $person);
+        return new Entity\Character($identification, $name, $data, $help, $descriptions, $person);
     }
 
     /**
@@ -38,7 +40,7 @@ class Character
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['character_id'], null);
-                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], null);
+                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], null);
             }
         }
 
@@ -119,7 +121,10 @@ class Character
         if (!empty($characterWrapped)) {
             $characterUnwrapped = array_pop($characterWrapped);
 
-            $identification = new StorageIdentification($characterUnwrapped['character_id'], $characterUnwrapped['key']);
+            $identification = new StorageIdentification(
+                $characterUnwrapped['character_id'],
+                $characterUnwrapped['key']
+            );
 
             /* Get Person if ID is available */
             if (!empty($characterUnwrapped['person_id'])) {
@@ -143,6 +148,7 @@ class Character
                 $characterUnwrapped['name'],
                 $dataContainerForCharacter,
                 $help['character'],
+                [], /* descriptions not retrieved from DB */
                 $person
             );
         } else {
