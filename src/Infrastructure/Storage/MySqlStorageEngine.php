@@ -42,7 +42,8 @@ final class MySqlStorageEngine implements StorageEngine
         try {
             if (!empty($keyValues)) {
                 $where = " WHERE `$keyName` IN (?)";
-                $statement = $this->connection->executeQuery($basicSql . $where . $orderSql,
+                $statement = $this->connection->executeQuery(
+                    $basicSql . $where . $orderSql,
                     [$keyValues],
                     [Connection::PARAM_STR_ARRAY]
                 );
