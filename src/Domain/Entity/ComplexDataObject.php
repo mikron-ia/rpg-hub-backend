@@ -25,7 +25,7 @@ class ComplexDataObject extends BasicDataObject
      * @param string[] $help
      * @param Description[] $descriptions
      */
-    public function __construct($identification, $name, $data, $help, $descriptions)
+    public function __construct($identification, $name, $data, array $help, array $descriptions)
     {
         parent::__construct($identification, $name, $data, $help);
         $this->descriptions = $descriptions;

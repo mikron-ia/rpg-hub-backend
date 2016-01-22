@@ -50,9 +50,12 @@ class Person
      *
      * @param $connection
      * @param $dataPatterns
+     * @param string[][] $help
+     * @param LoggerInterface $logger
      * @return Person[]
+     * @throws PersonNotFoundException
      */
-    public function retrieveAllFromDb($connection, $dataPatterns)
+    public function retrieveAllFromDb($connection, $dataPatterns, $help, $logger)
     {
         $personStorage = new StorageForPerson($connection);
 
@@ -63,7 +66,7 @@ class Person
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['person_id'], null);
-                $list[] = $this->unwrapPerson($record, $dataPatterns, null, []);
+                $list[] = $this->unwrapPerson([$record], $dataPatterns, $logger, $help);
             }
         }
 

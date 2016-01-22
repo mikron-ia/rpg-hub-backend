@@ -6,5 +6,6 @@ require_once $route . 'front.php';
 require_once $route . 'characters.php';
 require_once $route . 'character.php';
 require_once $route . 'person.php';
+require_once $route . 'people.php';
 require_once $route . 'group.php';
 require_once $route . 'epic.php';
