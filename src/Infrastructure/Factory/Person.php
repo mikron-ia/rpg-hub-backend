@@ -7,6 +7,7 @@ use Mikron\HubBack\Domain\Entity;
 use Mikron\HubBack\Domain\Exception\PersonNotFoundException;
 use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
+use Mikron\HubBack\Domain\Value\Tag;
 use Mikron\HubBack\Infrastructure\Storage\StorageForPerson;
 use Psr\Log\LoggerInterface;
 
@@ -18,11 +19,12 @@ class Person
      * @param Entity\DataContainer|null $data
      * @param string[] $help
      * @param Description[] $descriptions
+     * @param Tag[] $tags
      * @return Entity\Person
      */
-    public function createFromSingleArray($identification, $name, $data, $help, $descriptions)
+    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags)
     {
-        return new Entity\Person($identification, $name, $data, $help, $descriptions);
+        return new Entity\Person($identification, $name, $data, $help, $descriptions, $tags);
     }
 
     /**
@@ -38,7 +40,7 @@ class Person
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['person_id'], null);
-                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], []);
+                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], []);
             }
         }
 
@@ -135,7 +137,8 @@ class Person
                 $personUnwrapped['name'],
                 $dataContainerForPerson,
                 $help['person'],
-                [] /* descriptions not retrieved from DB */
+                [], /* descriptions not retrieved from DB */
+                [] /* tags not retrieved from DB */
             );
         } else {
             throw new PersonNotFoundException("Person with given ID has not been found in our database");

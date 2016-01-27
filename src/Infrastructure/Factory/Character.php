@@ -7,6 +7,7 @@ use Mikron\HubBack\Domain\Entity;
 use Mikron\HubBack\Domain\Exception\CharacterNotFoundException;
 use Mikron\HubBack\Domain\Value\Description;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
+use Mikron\HubBack\Domain\Value\Tag;
 use Mikron\HubBack\Infrastructure\Storage\StorageForCharacter;
 use Psr\Log\LoggerInterface;
 
@@ -20,12 +21,13 @@ class Character
      * @param Entity\DataContainer $data
      * @param string[] $help
      * @param Description[] $descriptions
+     * @param Tag[] $tags
      * @param Entity\Person|null $person
      * @return Entity\Character
      */
-    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $person)
+    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags, $person)
     {
-        return new Entity\Character($identification, $name, $data, $help, $descriptions, $person);
+        return new Entity\Character($identification, $name, $data, $help, $descriptions, $tags, $person);
     }
 
     /**
@@ -40,7 +42,7 @@ class Character
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['character_id'], null);
-                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], null);
+                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], [], null);
             }
         }
 
@@ -149,6 +151,7 @@ class Character
                 $dataContainerForCharacter,
                 $help['character'],
                 [], /* descriptions not retrieved from DB */
+                [], /* tags not retrieved from DB */
                 $person
             );
         } else {

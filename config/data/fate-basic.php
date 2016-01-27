@@ -3,7 +3,7 @@
 /**
  * Data file for base FATE CORE system
  * http://www.faterpg.com/
- * Fate™ is a trademark of Evil Hat Productions, LLC.
+ * Fateï¿½ is a trademark of Evil Hat Productions, LLC.
  */
 
 return [
@@ -22,7 +22,10 @@ return [
             'variables' => [], // often changing values, like counters
             'xp' => [], // experience
         ],
-        'person' => [],
+        'person' => [
+            'indexText' => "", // helpful information to display on page
+            'tags' => [], // tags for grouping
+        ],
         'group' => [
             'basics' => [], // names, descriptions, etc.
             'descriptions' => [], // descriptions detailed
