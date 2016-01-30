@@ -3,9 +3,10 @@
 namespace Mikron\HubBack\Domain\Entity;
 
 /**
- * Class DataContainer - class for all bag-like resources that are extras for the model, not represented it is normal structure
- * This container is intended to wrap module-delivered data, with assumption they are already correctly formatted (if JSON was correct)
- * This container should not be used for things that have their own entity models
+ * Class DataContainer - class for all bag-like resources that are extras for the model, not represented it is normal
+ * structure; it is intended to wrap module-delivered data, with assumption they are already correctly formatted
+ * (if JSON was correct). This container is not supposed to be used for data that have their own fields - it is supposed
+ * to process data from other modules only.
  *
  * @package Mikron\HubBack\Domain\Entity
  */
