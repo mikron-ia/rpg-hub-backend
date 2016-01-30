@@ -3,6 +3,7 @@
 namespace Mikron\HubBack\Domain\Entity;
 
 use Mikron\HubBack\Domain\Value\Description;
+use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Domain\Value\Tag;
 
@@ -15,9 +16,9 @@ use Mikron\HubBack\Domain\Value\Tag;
 class ComplexDataObject extends BasicDataObject
 {
     /**
-     * @var Description[]
+     * @var DescriptionPack
      */
-    private $descriptions;
+    private $descriptionPack;
 
     /**
      * @var Tag[]
@@ -29,39 +30,34 @@ class ComplexDataObject extends BasicDataObject
      * @param string $name
      * @param DataContainer $data
      * @param string[] $help
-     * @param Description[] $descriptions
+     * @param DescriptionPack $descriptionPack
      * @param Tag[] $tags
      */
-    public function __construct($identification, $name, $data, array $help, array $descriptions, array $tags)
+    public function __construct($identification, $name, $data, array $help, $descriptionPack, array $tags)
     {
         parent::__construct($identification, $name, $data, $help);
-        $this->descriptions = $descriptions;
+        $this->descriptionPack = $descriptionPack;
         $this->tags = $tags;
+    }
+
+    /**
+     * @return DescriptionPack
+     */
+    public function getDescriptionPack()
+    {
+        return $this->descriptionPack;
     }
 
     /**
      * @return Description[]
      */
-    public function getDescriptions()
-    {
-        $descriptions = [];
-
-        foreach ($this->descriptions as $description) {
-            $descriptions[$description->getTitle()] = $description;
-        }
-
-        return $descriptions;
-    }
-
     public function getDescriptionsAsText()
     {
-        $texts = [];
-
-        foreach ($this->descriptions as $description) {
-            $texts[$description->getTitle()] = $description->getPublicText();
+        if(empty($this->descriptionPack)) {
+            return [];
+        } else {
+            return $this->descriptionPack->getDescriptionsAsText();
         }
-
-        return $texts;
     }
 
     /**
