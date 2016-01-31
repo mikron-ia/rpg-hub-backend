@@ -14,6 +14,11 @@ class Description
     private $title;
 
     /**
+     * @var string
+     */
+    private $code;
+
+    /**
      * @var string Description text visible to everyone
      */
     private $publicText;
@@ -25,11 +30,15 @@ class Description
 
     /**
      * Description constructor.
+     * @param string $title
+     * @param string $code
      * @param string $publicText
      * @param string $notes
      */
-    public function __construct($publicText, $notes)
+    public function __construct($title, $code, $publicText, $notes)
     {
+        $this->title = $title;
+        $this->code = $code;
         $this->publicText = $publicText;
         $this->notes = $notes;
     }
