@@ -2,12 +2,13 @@
 
 namespace Mikron\HubBack\Infrastructure\Factory;
 
+use Mikron\HubBack\Domain\Blueprint\StorageEngine;
 use Mikron\HubBack\Domain\Value;
+use Mikron\HubBack\Infrastructure\Storage\DescriptionPackStorage;
 
 /**
  * Class Descriptions - factory for Description and Description Pack
  * @package Mikron\HubBack\Infrastructure\Factory
- * @todo Add creation of DescriptionPack objects
  */
 class Descriptions
 {
@@ -50,5 +51,19 @@ class Descriptions
         }
 
         return $array;
+    }
+
+    /**
+     * @param StorageEngine $connection
+     * @param int $packId
+     * @return Value\DescriptionPack
+     */
+    public function retrieveDescriptionPackFromDatabase($connection, $packId)
+    {
+        $storage = new DescriptionPackStorage($connection);
+        /* Unpack data */
+        /* Retrieve and create descriptions */
+        /* Pack it in DescriptionObject */
+        /* return */
     }
 }
