@@ -23,6 +23,8 @@ return [
             'xp' => [], // experience
         ],
         'person' => [
+            "name" => "", // name
+            'descriptions' => [], // listing of descriptions
             'indexText' => "", // helpful information to display on page
             'tags' => [], // tags for grouping
         ],

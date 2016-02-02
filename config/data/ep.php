@@ -32,6 +32,8 @@ return [
             'xp' => [], // experience
         ],
         'person' => [
+            "name" => "", // name
+            'descriptions' => [], // listing of descriptions
             'reputations' => [], // reputation values
             'reputationEvents' => [], // reputation history
             'indexText' => "", // helpful information to display on page
