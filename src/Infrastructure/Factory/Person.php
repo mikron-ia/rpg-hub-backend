@@ -5,7 +5,7 @@ namespace Mikron\HubBack\Infrastructure\Factory;
 use Mikron\HubBack\Domain\Blueprint\StorageEngine;
 use Mikron\HubBack\Domain\Entity;
 use Mikron\HubBack\Domain\Exception\PersonNotFoundException;
-use Mikron\HubBack\Domain\Value\Description;
+use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Domain\Value\Tag;
 use Mikron\HubBack\Infrastructure\Storage\StorageForPerson;
@@ -18,7 +18,7 @@ class Person
      * @param string $name
      * @param Entity\DataContainer|null $data
      * @param string[] $help
-     * @param Description[] $descriptions
+     * @param DescriptionPack $descriptions
      * @param Tag[] $tags
      * @param string $tagLine
      * @return Entity\Person
@@ -41,7 +41,15 @@ class Person
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['person_id'], null);
-                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], [], '');
+                $list[] = $this->createFromSingleArray(
+                    $storageData,
+                    $record['name'],
+                    null,
+                    [],
+                    new DescriptionPack([]),
+                    [],
+                    ''
+                );
             }
         }
 
@@ -138,9 +146,9 @@ class Person
                 $personUnwrapped['name'],
                 $dataContainerForPerson,
                 $help['person'],
-                [], /* descriptions not retrieved from DB */
+                new DescriptionPack([]), /* descriptions not retrieved from DB */
                 [], /* tags not retrieved from DB */
-                ''
+                $personUnwrapped['tagline']
             );
         } else {
             throw new PersonNotFoundException("Person with given ID has not been found in our database");

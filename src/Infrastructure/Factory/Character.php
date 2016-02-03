@@ -5,7 +5,7 @@ namespace Mikron\HubBack\Infrastructure\Factory;
 use Mikron\HubBack\Domain\Blueprint\StorageEngine;
 use Mikron\HubBack\Domain\Entity;
 use Mikron\HubBack\Domain\Exception\CharacterNotFoundException;
-use Mikron\HubBack\Domain\Value\Description;
+use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Domain\Value\Tag;
 use Mikron\HubBack\Infrastructure\Storage\StorageForCharacter;
@@ -20,7 +20,7 @@ class Character
      * @param string $name
      * @param Entity\DataContainer $data
      * @param string[] $help
-     * @param Description[] $descriptions
+     * @param DescriptionPack $descriptions
      * @param Tag[] $tags
      * @param Entity\Person|null $person
      * @return Entity\Character
@@ -150,7 +150,7 @@ class Character
                 $characterUnwrapped['name'],
                 $dataContainerForCharacter,
                 $help['character'],
-                [], /* descriptions not retrieved from DB */
+                new DescriptionPack([]), /* descriptions not retrieved from DB */
                 [], /* tags not retrieved from DB */
                 '', /* tag line not retrieved from DB */
                 $person

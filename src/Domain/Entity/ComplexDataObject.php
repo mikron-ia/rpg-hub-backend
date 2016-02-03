@@ -101,7 +101,7 @@ class ComplexDataObject extends BasicDataObject
             'tagline' => $this->getTagLine(),
         ];
 
-        return array_merge_recursive($simpleData, $complexData);
+        return array_merge($simpleData, $complexData);
     }
 
     public function getCompleteData()
@@ -114,6 +114,6 @@ class ComplexDataObject extends BasicDataObject
             'tagline' => $this->getTagLine(),
         ];
 
-        return array_merge_recursive($simpleData, $complexData);
+        return array_merge($simpleData, $complexData);
     }
 }

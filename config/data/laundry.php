@@ -29,8 +29,8 @@ return [
             'descriptions' => [], // listing of descriptions
             'reputations' => [], // reputation values
             'reputationEvents' => [], // reputation history
-            'indexText' => "", // helpful information to display on page
             'tags' => [], // tags for grouping
+            'tagline' => '', // line of description for index
         ],
         'group' => [
             'basics' => [], // names, descriptions, etc.
