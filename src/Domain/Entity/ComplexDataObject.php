@@ -26,18 +26,25 @@ class ComplexDataObject extends BasicDataObject
     private $tags;
 
     /**
+     * @var string
+     */
+    private $tagLine;
+
+    /**
      * @param StorageIdentification|null $identification
      * @param string $name
      * @param DataContainer $data
      * @param string[] $help
      * @param DescriptionPack $descriptionPack
      * @param Tag[] $tags
+     * @param string $tagLine
      */
-    public function __construct($identification, $name, $data, array $help, $descriptionPack, array $tags)
+    public function __construct($identification, $name, $data, array $help, $descriptionPack, array $tags, $tagLine)
     {
         parent::__construct($identification, $name, $data, $help);
         $this->descriptionPack = $descriptionPack;
         $this->tags = $tags;
+        $this->tagLine = $tagLine;
     }
 
     /**
@@ -75,6 +82,14 @@ class ComplexDataObject extends BasicDataObject
     }
 
     /**
+     * @return string
+     */
+    public function getTagLine()
+    {
+        return $this->tagLine;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getSimpleData()
@@ -83,6 +98,7 @@ class ComplexDataObject extends BasicDataObject
 
         $complexData = [
             'tags' => $this->getTagsAsText(),
+            'tagline' => $this->getTagLine(),
         ];
 
         return array_merge_recursive($simpleData, $complexData);
@@ -95,6 +111,7 @@ class ComplexDataObject extends BasicDataObject
         $complexData = [
             'descriptions' => $this->getDescriptionsAsText(),
             'tags' => $this->getTagsAsText(),
+            'tagline' => $this->getTagLine(),
         ];
 
         return array_merge_recursive($simpleData, $complexData);

@@ -3,7 +3,7 @@
 namespace Mikron\HubBack\Domain\Entity;
 
 use Mikron\HubBack\Domain\Blueprint\Displayable;
-use Mikron\HubBack\Domain\Value\Description;
+use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Domain\Value\Tag;
 
@@ -23,13 +23,14 @@ final class Character extends ComplexDataObject implements Displayable
      * @param string $name
      * @param DataContainer $data
      * @param string[] $help
-     * @param Description[] $descriptionPack
+     * @param DescriptionPack $descriptionPack
      * @param Tag[] $tags
+     * @param string $tagLine
      * @param Person|null $person
      */
-    public function __construct($identification, $name, $data, $help, $descriptionPack, $tags, $person)
+    public function __construct($identification, $name, $data, $help, $descriptionPack, $tags, $tagLine, $person)
     {
-        parent::__construct($identification, $name, $data, $help, $descriptionPack, $tags);
+        parent::__construct($identification, $name, $data, $help, $descriptionPack, $tags, $tagLine);
         $this->person = $person;
     }
 

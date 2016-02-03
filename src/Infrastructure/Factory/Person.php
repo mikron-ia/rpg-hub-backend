@@ -20,11 +20,12 @@ class Person
      * @param string[] $help
      * @param Description[] $descriptions
      * @param Tag[] $tags
+     * @param string $tagLine
      * @return Entity\Person
      */
-    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags)
+    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags, $tagLine)
     {
-        return new Entity\Person($identification, $name, $data, $help, $descriptions, $tags);
+        return new Entity\Person($identification, $name, $data, $help, $descriptions, $tags, $tagLine);
     }
 
     /**
@@ -40,7 +41,7 @@ class Person
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['person_id'], null);
-                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], []);
+                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], [], '');
             }
         }
 
@@ -138,7 +139,8 @@ class Person
                 $dataContainerForPerson,
                 $help['person'],
                 [], /* descriptions not retrieved from DB */
-                [] /* tags not retrieved from DB */
+                [], /* tags not retrieved from DB */
+                ''
             );
         } else {
             throw new PersonNotFoundException("Person with given ID has not been found in our database");

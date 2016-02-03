@@ -25,9 +25,9 @@ class Character
      * @param Entity\Person|null $person
      * @return Entity\Character
      */
-    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags, $person)
+    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags, $tagLine, $person)
     {
-        return new Entity\Character($identification, $name, $data, $help, $descriptions, $tags, $person);
+        return new Entity\Character($identification, $name, $data, $help, $descriptions, $tags, $tagLine, $person);
     }
 
     /**
@@ -42,7 +42,7 @@ class Character
         if (!empty($array)) {
             foreach ($array as $record) {
                 $storageData = new StorageIdentification($record['character_id'], null);
-                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], [], null);
+                $list[] = $this->createFromSingleArray($storageData, $record['name'], null, [], [], [], '', null);
             }
         }
 
@@ -152,6 +152,7 @@ class Character
                 $help['character'],
                 [], /* descriptions not retrieved from DB */
                 [], /* tags not retrieved from DB */
+                '', /* tag line not retrieved from DB */
                 $person
             );
         } else {

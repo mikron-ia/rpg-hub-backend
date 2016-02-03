@@ -2,6 +2,7 @@
 
 use Mikron\HubBack\Domain\Entity\Character;
 use Mikron\HubBack\Domain\Entity\Person;
+use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
 
@@ -19,7 +20,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
     public function isNameCorrect($storage, $name, $data, $help, $person)
     {
         $dataFactory = new DataContainerFactory();
-        $character = new Character($storage, $name, $dataFactory->createWithoutPattern($data), $help, [], [], $person);
+        $character = new Character($storage, $name, $dataFactory->createWithoutPattern($data), $help, [], [], '', $person);
         $this->assertEquals($name, $character->getName());
     }
 
@@ -35,7 +36,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
     public function isPersonCorrect($storage, $name, $data, $help, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $character = new Character($storage, $name, $dataObject, $help, [], [], $person);
+        $character = new Character($storage, $name, $dataObject, $help, [], [], '', $person);
         if ($person !== null) {
             $this->assertInstanceOf('\Mikron\HubBack\Domain\Entity\Person', $person);
         }
@@ -54,7 +55,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
     public function isDataCorrect($storage, $name, $help, $data, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $character = new Character($storage, $name, $dataObject, $help, [], [], $person);
+        $character = new Character($storage, $name, $dataObject, $help, [], [], '', $person);
         $this->assertEquals($dataObject, $character->getData());
     }
 
@@ -70,7 +71,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
     public function isHelpCorrect($storage, $name, $help, $data, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $character = new Character($storage, $name, $dataObject, $help, [], [], $person);
+        $character = new Character($storage, $name, $dataObject, $help, [], [], '', $person);
         $this->assertEquals($help, $character->getHelp());
     }
 
@@ -95,7 +96,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
                     'test1' => 'Test Data',
                 ],
                 [],
-                new Person(null, "Test Person", null, [], [], [])
+                new Person(null, "Test Person", null, [], new DescriptionPack([]), [], '')
             ],
         ];
     }

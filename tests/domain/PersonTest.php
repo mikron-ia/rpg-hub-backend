@@ -1,6 +1,7 @@
 <?php
 
 use Mikron\HubBack\Domain\Entity\Person;
+use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
 
 final class PersonTest extends PHPUnit_Framework_TestCase
@@ -18,7 +19,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      */
     public function identificationIsCorrect()
     {
-        $person = new Person($this->identification, 'Test Name', null, [], [], []);
+        $person = new Person($this->identification, 'Test Name', null, [], new DescriptionPack([]), [], '');
         $this->assertEquals($this->identification, $person->getIdentification());
     }
 
@@ -32,7 +33,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isNameCorrect($name, $dataArray, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, [], []);
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), [], '');
         $this->assertEquals($name, $person->getName());
     }
 
@@ -46,7 +47,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isDataCorrect($name, $dataArray, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, [], []);
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), [], '');
         $this->assertEquals($data, $person->getData());
     }
 
@@ -60,7 +61,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isHelpCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject, $help, [], []);
+        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), [], '');
         $this->assertEquals($help, $person->getHelp());
     }
 
@@ -75,11 +76,12 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function simpleDataIsCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject, $help, [], []);
+        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), [], 'Test TagLine');
         $expected = [
             'name' => $person->getName(),
             'key' => $person->getKey(),
             'tags' => [],
+            'tagline' => 'Test TagLine'
         ];
 
         $this->assertEquals($expected, $person->getSimpleData());
@@ -96,7 +98,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function completeDataIsCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject, $help, [], []);
+        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), [], 'Test TagLine');
 
         $expectedSimple = [
             'name' => $person->getName(),
@@ -104,6 +106,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             'help' => $person->getHelp(),
             'descriptions' => [],
             'tags' => [],
+            'tagline' => 'Test TagLine'
         ];
 
         $expected = $expectedSimple + $person->getData()->getData();
