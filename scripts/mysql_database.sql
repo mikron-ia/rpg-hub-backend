@@ -40,6 +40,7 @@ CREATE TABLE `person` (
   `person_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(80) NOT NULL,
   `name` varchar(120) NOT NULL,
+  `tagline` varchar(120) NOT NULL,
   `data` text NOT NULL,
   PRIMARY KEY (`person_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
