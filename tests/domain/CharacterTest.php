@@ -1,10 +1,13 @@
 <?php
 
+namespace Mikron\HubBack\Tests;
+
 use Mikron\HubBack\Domain\Entity\Character;
 use Mikron\HubBack\Domain\Entity\Person;
 use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Domain\Value\StorageIdentification;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
+use PHPUnit_Framework_TestCase;
 
 final class CharacterTest extends PHPUnit_Framework_TestCase
 {

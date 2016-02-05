@@ -1,6 +1,9 @@
 <?php
 
+namespace Mikron\HubBack\Tests;
+
 use Mikron\HubBack\Infrastructure\Security\AuthenticationTokenSimple;
+use PHPUnit_Framework_TestCase;
 
 class AuthenticationTokenSimpleTest extends PHPUnit_Framework_TestCase
 {

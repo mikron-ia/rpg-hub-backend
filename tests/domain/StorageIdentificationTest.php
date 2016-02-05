@@ -1,6 +1,9 @@
 <?php
 
+namespace Mikron\HubBack\Tests;
+
 use Mikron\HubBack\Domain\Value\StorageIdentification;
+use PHPUnit_Framework_TestCase;
 
 class StorageIdentificationTest extends PHPUnit_Framework_TestCase
 {

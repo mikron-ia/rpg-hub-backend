@@ -1,5 +1,9 @@
 <?php
+
+namespace Mikron\HubBack\Tests;
+
 use Mikron\HubBack\Domain\Entity\DataContainer;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Class DataContainerTest

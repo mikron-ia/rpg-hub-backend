@@ -1,7 +1,10 @@
 <?php
 
+namespace Mikron\HubBack\Tests;
+
 use Mikron\HubBack\Domain\Entity\Group;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
+use PHPUnit_Framework_TestCase;
 
 final class GroupTest extends PHPUnit_Framework_TestCase
 {

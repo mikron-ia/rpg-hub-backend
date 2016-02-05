@@ -1,8 +1,11 @@
 <?php
 
+namespace Mikron\HubBack\Tests;
+
 use Mikron\HubBack\Domain\Entity\Person;
 use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
+use PHPUnit_Framework_TestCase;
 
 final class PersonTest extends PHPUnit_Framework_TestCase
 {

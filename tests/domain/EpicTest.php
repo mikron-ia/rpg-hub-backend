@@ -1,9 +1,12 @@
 <?php
 
+namespace Mikron\HubBack\Tests;
+
 use Mikron\HubBack\Domain\Entity\DataContainer;
 use Mikron\HubBack\Domain\Entity\Epic;
 use Mikron\HubBack\Domain\Entity\Story;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
+use PHPUnit_Framework_TestCase;
 
 final class EpicTest extends PHPUnit_Framework_TestCase
 {
