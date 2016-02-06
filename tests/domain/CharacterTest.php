@@ -23,7 +23,16 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
     public function isNameCorrect($storage, $name, $data, $help, $person)
     {
         $dataFactory = new DataContainerFactory();
-        $character = new Character($storage, $name, $dataFactory->createWithoutPattern($data), $help, [], [], '', $person);
+        $character = new Character(
+            $storage,
+            $name,
+            $dataFactory->createWithoutPattern($data),
+            $help,
+            new DescriptionPack([]),
+            [],
+            '',
+            $person
+        );
         $this->assertEquals($name, $character->getName());
     }
 
@@ -39,7 +48,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
     public function isPersonCorrect($storage, $name, $data, $help, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $character = new Character($storage, $name, $dataObject, $help, [], [], '', $person);
+        $character = new Character($storage, $name, $dataObject, $help, new DescriptionPack([]), [], '', $person);
         if ($person !== null) {
             $this->assertInstanceOf('\Mikron\HubBack\Domain\Entity\Person', $person);
         }
@@ -58,7 +67,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
     public function isDataCorrect($storage, $name, $help, $data, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $character = new Character($storage, $name, $dataObject, $help, [], [], '', $person);
+        $character = new Character($storage, $name, $dataObject, $help, new DescriptionPack([]), [], '', $person);
         $this->assertEquals($dataObject, $character->getData());
     }
 
@@ -74,7 +83,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
     public function isHelpCorrect($storage, $name, $help, $data, $person)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $character = new Character($storage, $name, $dataObject, $help, [], [], '', $person);
+        $character = new Character($storage, $name, $dataObject, $help, new DescriptionPack([]), [], '', $person);
         $this->assertEquals($help, $character->getHelp());
     }
 

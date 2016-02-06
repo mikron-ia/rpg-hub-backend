@@ -4,6 +4,7 @@ namespace Mikron\HubBack\Tests;
 
 use Mikron\HubBack\Domain\Entity\DataContainer;
 use Mikron\HubBack\Domain\Entity\Epic;
+use Mikron\HubBack\Domain\Entity\Recap;
 use Mikron\HubBack\Domain\Entity\Story;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
 use PHPUnit_Framework_TestCase;
@@ -35,7 +36,7 @@ final class EpicTest extends PHPUnit_Framework_TestCase
     public function areStoriesCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $recapObject = new \Mikron\HubBack\Domain\Entity\Recap(null, 'Recap', new DataContainer([], []), $help, []);
+        $recapObject = new Recap(null, 'Recap', new DataContainer([], []), $help, []);
 
         $epic = new Epic(null, $name, $dataObject, $help, [], $recapObject);
         $this->assertContainsOnlyInstancesOf('\Mikron\HubBack\Domain\Entity\Story', $epic->getStories());
@@ -52,7 +53,7 @@ final class EpicTest extends PHPUnit_Framework_TestCase
     public function simpleDataIsCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $recapObject = new \Mikron\HubBack\Domain\Entity\Recap(null, 'Recap', new DataContainer([], []), $help, []);
+        $recapObject = new Recap(null, 'Recap', new DataContainer([], []), $help, []);
 
         $epic = new Epic(null, $name, $dataObject, $help, [], $recapObject);
         $expected = [
@@ -74,7 +75,7 @@ final class EpicTest extends PHPUnit_Framework_TestCase
     public function completeDataIsCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $recapObject = new \Mikron\HubBack\Domain\Entity\Recap(null, 'Recap', new DataContainer([], []), $help, []);
+        $recapObject = new Recap(null, 'Recap', new DataContainer([], []), $help, []);
 
         $epic = new Epic(null, $name, $dataObject, $help, [], $recapObject);
 
