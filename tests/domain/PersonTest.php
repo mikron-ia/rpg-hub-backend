@@ -6,6 +6,7 @@ use Mikron\HubBack\Domain\Entity\Person;
 use Mikron\HubBack\Domain\Value\DescriptionPack;
 use Mikron\HubBack\Domain\Value\Tag;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
+use Mikron\HubBack\Infrastructure\Factory\StorageIdentification;
 use PHPUnit_Framework_TestCase;
 
 final class PersonTest extends PHPUnit_Framework_TestCase
@@ -14,7 +15,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $idFactory = new \Mikron\HubBack\Infrastructure\Factory\StorageIdentification();
+        $idFactory = new StorageIdentification();
         $this->identification = $idFactory->createFromData(1, 'Test Key');
     }
 
@@ -32,12 +33,13 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      * @dataProvider correctDataProvider
      * @param string $name
      * @param array $dataArray
+     * @param Tag[] $tags
      * @param string[] $help
      */
-    public function isNameCorrect($name, $dataArray, $help)
+    public function isNameCorrect($name, $dataArray, $tags, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), [], '');
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags,  '');
         $this->assertEquals($name, $person->getName());
     }
 
@@ -46,12 +48,13 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      * @dataProvider correctDataProvider
      * @param string $name
      * @param array $dataArray
+     * @param Tag[] $tags
      * @param string[] $help
      */
-    public function isDataCorrect($name, $dataArray, $help)
+    public function isDataCorrect($name, $dataArray, $tags, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), [], '');
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '');
         $this->assertEquals($data, $person->getData());
     }
 
@@ -60,12 +63,13 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      * @dataProvider correctDataProvider
      * @param string $name
      * @param array $data
+     * @param Tag[] $tags
      * @param string[] $help
      */
-    public function isHelpCorrect($name, $data, $help)
+    public function isHelpCorrect($name, $data, $tags, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), [], '');
+        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), $tags, '');
         $this->assertEquals($help, $person->getHelp());
     }
 
@@ -75,9 +79,10 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      * @depends      isNameCorrect
      * @param string $name
      * @param array $data
+     * @param Tag[] $tags
      * @param string[] $help
      */
-    public function simpleDataIsCorrect($name, $data, $help)
+    public function simpleDataIsCorrect($name, $data, $tags, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $person = new Person(
@@ -86,7 +91,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             $dataObject,
             $help,
             new DescriptionPack([]),
-            [new Tag('testTag0', ''), new Tag('testTag1', '')],
+            $tags,
             'Test TagLine');
         $expected = [
             'name' => $person->getName(),
@@ -104,9 +109,10 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      * @dataProvider correctDataProvider
      * @param string $name
      * @param array $data
+     * @param Tag[] $tags
      * @param string[] $help
      */
-    public function completeDataIsCorrect($name, $data, $help)
+    public function completeDataIsCorrect($name, $data, $tags, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $person = new Person(
@@ -115,7 +121,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             $dataObject,
             $help,
             new DescriptionPack([]),
-            [new Tag('testTag0', ''), new Tag('testTag1', '')],
+            $tags,
             'Test TagLine'
         );
 
@@ -143,12 +149,17 @@ final class PersonTest extends PHPUnit_Framework_TestCase
                     'test1' => 'Test Data',
                 ],
                 [
+                    new Tag('testTag0', ''),
+                    new Tag('testTag1', '')
+                ],
+                [
                     'basic' => 'Basic help',
                     'complex' => 'Complex help',
                 ],
             ],
             [
                 "Test Person",
+                [],
                 [],
                 [],
             ],
@@ -161,6 +172,10 @@ final class PersonTest extends PHPUnit_Framework_TestCase
                             'Test Data',
                             'Test Data'
                         ]
+                ],
+                [
+                    new Tag('testTag0', ''),
+                    new Tag('testTag1', '')
                 ],
                 [
                     'basic' => 'Basic help',
