@@ -4,6 +4,7 @@ namespace Mikron\HubBack\Tests;
 
 use Mikron\HubBack\Domain\Entity\Person;
 use Mikron\HubBack\Domain\Value\DescriptionPack;
+use Mikron\HubBack\Domain\Value\Tag;
 use Mikron\HubBack\Infrastructure\Factory\DataContainer as DataContainerFactory;
 use PHPUnit_Framework_TestCase;
 
@@ -79,11 +80,18 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function simpleDataIsCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), [], 'Test TagLine');
+        $person = new Person(
+            $this->identification,
+            $name,
+            $dataObject,
+            $help,
+            new DescriptionPack([]),
+            [new Tag('testTag0', ''), new Tag('testTag1', '')],
+            'Test TagLine');
         $expected = [
             'name' => $person->getName(),
             'key' => $person->getKey(),
-            'tags' => [],
+            'tags' => $person->getTagsAsText(),
             'tagline' => 'Test TagLine'
         ];
 
@@ -101,14 +109,22 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function completeDataIsCorrect($name, $data, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), [], 'Test TagLine');
+        $person = new Person(
+            $this->identification,
+            $name,
+            $dataObject,
+            $help,
+            new DescriptionPack([]),
+            [new Tag('testTag0', ''), new Tag('testTag1', '')],
+            'Test TagLine'
+        );
 
         $expectedSimple = [
             'name' => $person->getName(),
             'key' => $person->getKey(),
             'help' => $person->getHelp(),
             'descriptions' => [],
-            'tags' => [],
+            'tags' => $person->getTagsAsText(),
             'tagline' => 'Test TagLine'
         ];
 
