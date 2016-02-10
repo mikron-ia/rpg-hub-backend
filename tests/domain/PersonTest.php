@@ -24,7 +24,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      */
     public function identificationIsCorrect()
     {
-        $person = new Person($this->identification, 'Test Name', null, [], new DescriptionPack([]), [], '');
+        $person = new Person($this->identification, 'Test Name', null, [], new DescriptionPack([]), [], '', 'linked');
         $this->assertEquals($this->identification, $person->getIdentification());
     }
 
@@ -39,7 +39,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isNameCorrect($name, $dataArray, $tags, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags,  '');
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags,  '', 'linked');
         $this->assertEquals($name, $person->getName());
     }
 
@@ -54,7 +54,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isDataCorrect($name, $dataArray, $tags, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '');
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '', 'linked');
         $this->assertEquals($data, $person->getData());
     }
 
@@ -69,7 +69,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isHelpCorrect($name, $data, $tags, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), $tags, '');
+        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), $tags, '', 'linked');
         $this->assertEquals($help, $person->getHelp());
     }
 
@@ -92,7 +92,9 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             $help,
             new DescriptionPack([]),
             $tags,
-            'Test TagLine');
+            'Test TagLine',
+            'linked'
+            );
         $expected = [
             'name' => $person->getName(),
             'key' => $person->getKey(),
@@ -122,7 +124,8 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             $help,
             new DescriptionPack([]),
             $tags,
-            'Test TagLine'
+            'Test TagLine',
+            'linked'
         );
 
         $expectedSimple = [

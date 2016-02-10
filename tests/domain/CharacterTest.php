@@ -108,7 +108,7 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
                     'test1' => 'Test Data',
                 ],
                 [],
-                new Person(null, "Test Person", null, [], new DescriptionPack([]), [], '')
+                new Person(null, "Test Person", null, [], new DescriptionPack([]), [], '', 'linked')
             ],
         ];
     }

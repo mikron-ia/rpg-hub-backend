@@ -42,8 +42,9 @@ CREATE TABLE `person` (
   `name` varchar(120) NOT NULL,
   `tagline` varchar(120) NOT NULL,
   `data` text NOT NULL,
+  `visibility` enum('none','linked','complete') DEFAULT NULL,
   PRIMARY KEY (`person_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `recap` (
   `recap_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
