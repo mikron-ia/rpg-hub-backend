@@ -15,7 +15,7 @@ $app->get(
         /**
          * @var Displayable[] $peopleObjects Characters list
          */
-        $peopleObjects = $factory->retrieveAllFromDb(
+        $peopleObjects = $factory->retrieveAllVisibleFromDb(
             $connection,
             $app['config']['dataPatterns'],
             $app['config']['help'],

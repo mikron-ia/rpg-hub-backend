@@ -41,4 +41,11 @@ final class StorageForPerson implements StorageForObject
 
         return $result;
     }
+
+    public function retrieveAllByVisibility($visibility)
+    {
+        $result = $this->storage->selectByKey('person', 'person_id', 'visibility', [$visibility], null, false);
+
+        return $result;
+    }
 }

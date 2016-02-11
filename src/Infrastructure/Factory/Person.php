@@ -21,11 +21,12 @@ class Person
      * @param DescriptionPack $descriptions
      * @param Tag[] $tags
      * @param string $tagLine
+     * @param string $visibility
      * @return Entity\Person
      */
-    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags, $tagLine)
+    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags, $tagLine, $visibility)
     {
-        return new Entity\Person($identification, $name, $data, $help, $descriptions, $tags, $tagLine);
+        return new Entity\Person($identification, $name, $data, $help, $descriptions, $tags, $tagLine, $visibility);
     }
 
     /**
@@ -48,7 +49,8 @@ class Person
                     [],
                     new DescriptionPack([]),
                     [],
-                    ''
+                    '',
+                    'complete'
                 );
             }
         }
@@ -69,13 +71,41 @@ class Person
     public function retrieveAllFromDb($connection, $dataPatterns, $help, $logger)
     {
         $personStorage = new StorageForPerson($connection);
-
         $array = $personStorage->retrieveAll();
+        return $this->listForRetrieveAll($array,  $dataPatterns, $help, $logger);
+    }
 
+    /**
+     * Retrieves person objects from database
+     *
+     * @param $connection
+     * @param $dataPatterns
+     * @param string[][] $help
+     * @param LoggerInterface $logger
+     * @return Person[]
+     * @throws PersonNotFoundException
+     */
+    public function retrieveAllVisibleFromDb($connection, $dataPatterns, $help, $logger)
+    {
+        $personStorage = new StorageForPerson($connection);
+        $array = $personStorage->retrieveAllByVisibility('complete');
+        return $this->listForRetrieveAll($array,  $dataPatterns, $help, $logger);
+    }
+
+    /**
+     * @param array $arrayOfPeople
+     * @param $dataPatterns
+     * @param string[][] $help
+     * @param LoggerInterface $logger
+     * @return Person[]
+     * @throws PersonNotFoundException
+     */
+    private function listForRetrieveAll(array $arrayOfPeople, $dataPatterns, $help, $logger)
+    {
         $list = [];
 
-        if (!empty($array)) {
-            foreach ($array as $record) {
+        if (!empty($arrayOfPeople)) {
+            foreach ($arrayOfPeople as $record) {
                 $storageData = new StorageIdentification($record['person_id'], null);
                 $list[] = $this->unwrapPerson([$record], $dataPatterns, $logger, $help);
             }
@@ -148,7 +178,8 @@ class Person
                 $help['person'],
                 new DescriptionPack([]), /* descriptions not retrieved from DB */
                 [], /* tags not retrieved from DB */
-                $personUnwrapped['tagline']
+                $personUnwrapped['tagline'],
+                $personUnwrapped['visibility']
             );
         } else {
             throw new PersonNotFoundException("Person with given ID has not been found in our database");
