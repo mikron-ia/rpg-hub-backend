@@ -24,8 +24,16 @@ class Person
      * @param string $visibility
      * @return Entity\Person
      */
-    public function createFromSingleArray($identification, $name, $data, $help, $descriptions, $tags, $tagLine, $visibility)
-    {
+    public function createFromSingleArray(
+        $identification,
+        $name,
+        $data,
+        $help,
+        $descriptions,
+        $tags,
+        $tagLine,
+        $visibility
+    ) {
         return new Entity\Person($identification, $name, $data, $help, $descriptions, $tags, $tagLine, $visibility);
     }
 
@@ -50,7 +58,7 @@ class Person
                     new DescriptionPack([]),
                     [],
                     '',
-                    'complete'
+                    'linked' /* This is arbitrary */
                 );
             }
         }
@@ -61,7 +69,7 @@ class Person
     /**
      * Retrieves person objects from database
      *
-     * @param $connection
+     * @param StorageEngine $connection
      * @param $dataPatterns
      * @param string[][] $help
      * @param LoggerInterface $logger
@@ -71,14 +79,14 @@ class Person
     public function retrieveAllFromDb($connection, $dataPatterns, $help, $logger)
     {
         $personStorage = new StorageForPerson($connection);
-        $array = $personStorage->retrieveAll();
-        return $this->listForRetrieveAll($array,  $dataPatterns, $help, $logger);
+        $arrayOfPeople = $personStorage->retrieveAll();
+        return $this->listForRetrieveAll($arrayOfPeople, $dataPatterns, $help, $logger);
     }
 
     /**
      * Retrieves person objects from database
      *
-     * @param $connection
+     * @param StorageEngine $connection
      * @param $dataPatterns
      * @param string[][] $help
      * @param LoggerInterface $logger
@@ -88,8 +96,8 @@ class Person
     public function retrieveAllVisibleFromDb($connection, $dataPatterns, $help, $logger)
     {
         $personStorage = new StorageForPerson($connection);
-        $array = $personStorage->retrieveAllByVisibility('complete');
-        return $this->listForRetrieveAll($array,  $dataPatterns, $help, $logger);
+        $arrayOfPeople = $personStorage->retrieveAllByVisibility('complete');
+        return $this->listForRetrieveAll($arrayOfPeople, $dataPatterns, $help, $logger);
     }
 
     /**
@@ -103,14 +111,11 @@ class Person
     private function listForRetrieveAll(array $arrayOfPeople, $dataPatterns, $help, $logger)
     {
         $list = [];
-
         if (!empty($arrayOfPeople)) {
             foreach ($arrayOfPeople as $record) {
-                $storageData = new StorageIdentification($record['person_id'], null);
                 $list[] = $this->unwrapPerson([$record], $dataPatterns, $logger, $help);
             }
         }
-
         return $list;
     }
 
@@ -128,14 +133,13 @@ class Person
     {
         $personStorage = new StorageForPerson($connection);
         $personWrapped = $personStorage->retrieveById($dbId);
-
         return $this->unwrapPerson($personWrapped, $dataPatterns, null, $help);
     }
 
     /**
      * Retrieves a given person from the database
      *
-     * @param $connection StorageEngine
+     * @param StorageEngine $connection
      * @param $dataPatterns
      * @param string[][] $help
      * @param string $key
@@ -146,7 +150,6 @@ class Person
     {
         $personStorage = new StorageForPerson($connection);
         $personWrapped = $personStorage->retrieveByKey($key);
-
         return $this->unwrapPerson($personWrapped, $dataPatterns, null, $help);
     }
 
