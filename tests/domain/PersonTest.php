@@ -39,7 +39,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isNameCorrect($name, $dataArray, $tags, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags,  '', 'linked');
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '', 'linked');
         $this->assertEquals($name, $person->getName());
     }
 
@@ -69,7 +69,8 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isHelpCorrect($name, $data, $tags, $help)
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
-        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), $tags, '', 'linked');
+        $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), $tags, '',
+            'linked');
         $this->assertEquals($help, $person->getHelp());
     }
 
@@ -94,7 +95,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             $tags,
             'Test TagLine',
             'linked'
-            );
+        );
         $expected = [
             'name' => $person->getName(),
             'key' => $person->getKey(),

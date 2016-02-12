@@ -9,7 +9,7 @@ use Mikron\HubBack\Domain\Value\Tag;
 
 /**
  * Class ComplexDataObject is intended for objects that have their content proper (like description) stored in the
- * backend, like Character or Person. It is intended to work with descriptions and similar elements.
+ * backend, like Character or Person. It is intended to work with descriptions, tags and similar generic components.
  *
  * @package Mikron\HubBack\Domain\Entity
  */
@@ -60,7 +60,7 @@ class ComplexDataObject extends BasicDataObject
      */
     public function getDescriptionsAsText()
     {
-        if(empty($this->descriptionPack)) {
+        if (empty($this->descriptionPack)) {
             return [];
         } else {
             return $this->descriptionPack->getDescriptionsAsText();
@@ -68,7 +68,7 @@ class ComplexDataObject extends BasicDataObject
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getTagsAsText()
     {
