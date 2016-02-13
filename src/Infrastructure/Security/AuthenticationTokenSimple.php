@@ -59,7 +59,7 @@ final class AuthenticationTokenSimple implements AuthenticationToken
     public function checksOut($key)
     {
         if (self::isValid($key, 'received')) {
-            return $key == $this->correctKey;
+            return $key === $this->correctKey;
         }
     }
 
