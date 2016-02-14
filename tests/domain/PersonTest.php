@@ -36,6 +36,24 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      * @param array $dataArray
      * @param Tag[] $tags
      * @param string[] $help
+     * @return Person
+     */
+    public function isPersonCreatedCorrectly($name, $dataArray, $tags, $help)
+    {
+        $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '',
+            Person::VISIBILITY_LINK);
+
+        $this->assertInstanceOf('Mikron\HubBack\Domain\Entity\Person', $person);
+    }
+
+    /**
+     * @test
+     * @dataProvider correctDataProvider
+     * @param string $name
+     * @param array $dataArray
+     * @param Tag[] $tags
+     * @param string[] $help
      */
     public function isNameCorrect($name, $dataArray, $tags, $help)
     {

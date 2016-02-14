@@ -20,6 +20,32 @@ final class CharacterTest extends PHPUnit_Framework_TestCase
      * @param string[] $help
      * @param Person $person
      */
+    public function isCharacterCreatedCorrectly($storage, $name, $data, $help, $person)
+    {
+        $dataFactory = new DataContainerFactory();
+        $character = new Character(
+            $storage,
+            $name,
+            $dataFactory->createWithoutPattern($data),
+            $help,
+            new DescriptionPack([]),
+            [],
+            '',
+            $person
+        );
+
+        $this->assertInstanceOf('Mikron\HubBack\Domain\Entity\Character', $character);
+    }
+
+    /**
+     * @test
+     * @dataProvider correctDataProvider
+     * @param StorageIdentification $storage
+     * @param string $name
+     * @param array $data
+     * @param string[] $help
+     * @param Person $person
+     */
     public function isNameCorrect($storage, $name, $data, $help, $person)
     {
         $dataFactory = new DataContainerFactory();
