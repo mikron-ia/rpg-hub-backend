@@ -24,7 +24,8 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      */
     public function identificationIsCorrect()
     {
-        $person = new Person($this->identification, 'Test Name', null, [], new DescriptionPack([]), [], '', 'linked');
+        $person = new Person($this->identification, 'Test Name', null, [], new DescriptionPack([]), [], '',
+            Person::VISIBILITY_LINK);
         $this->assertEquals($this->identification, $person->getIdentification());
     }
 
@@ -39,7 +40,8 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isNameCorrect($name, $dataArray, $tags, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '', 'linked');
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '',
+            Person::VISIBILITY_LINK);
         $this->assertEquals($name, $person->getName());
     }
 
@@ -54,7 +56,8 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     public function isDataCorrect($name, $dataArray, $tags, $help)
     {
         $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
-        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '', 'linked');
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '',
+            Person::VISIBILITY_LINK);
         $this->assertEquals($data, $person->getData());
     }
 
@@ -70,7 +73,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
     {
         $dataObject = (new DataContainerFactory())->createWithoutPattern($data);
         $person = new Person($this->identification, $name, $dataObject, $help, new DescriptionPack([]), $tags, '',
-            'linked');
+            Person::VISIBILITY_LINK);
         $this->assertEquals($help, $person->getHelp());
     }
 
@@ -94,7 +97,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             new DescriptionPack([]),
             $tags,
             'Test TagLine',
-            'linked'
+            Person::VISIBILITY_LINK
         );
         $expected = [
             'name' => $person->getName(),
@@ -126,7 +129,7 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             new DescriptionPack([]),
             $tags,
             'Test TagLine',
-            'linked'
+            Person::VISIBILITY_LINK
         );
 
         $expectedSimple = [

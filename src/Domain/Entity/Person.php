@@ -12,6 +12,10 @@ use Mikron\HubBack\Domain\Value\Tag;
  */
 final class Person extends ComplexDataObject
 {
+    const VISIBILITY_NONE = 'none';         // Person is not visible nor accessible at all - NOT IMPLEMENTED
+    const VISIBILITY_LINK = 'linked';     // Person is not visible in index, but accessible via link
+    const VISIBILITY_FULL = 'complete'; // Person is visible in index and accessible via link
+
     /**
      * @var string
      */
@@ -20,7 +24,7 @@ final class Person extends ComplexDataObject
     /**
      * @var string[]
      */
-    private $visibilityAllowedValues = ['none', 'linked', 'complete'];
+    private $visibilityAllowedValues = [self::VISIBILITY_NONE, self::VISIBILITY_LINK, self::VISIBILITY_FULL];
 
     /**
      * @param StorageIdentification|null $identification
@@ -47,7 +51,7 @@ final class Person extends ComplexDataObject
         if (in_array($visibility, $this->visibilityAllowedValues)) {
             $this->visibility = $visibility;
         } else {
-            $this->visibility = 'none';
+            $this->visibility = self::VISIBILITY_NONE;
         }
     }
 

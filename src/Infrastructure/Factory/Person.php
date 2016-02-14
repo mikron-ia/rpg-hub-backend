@@ -73,7 +73,7 @@ class Person
      * @param $dataPatterns
      * @param string[][] $help
      * @param LoggerInterface $logger
-     * @return Person[]
+     * @return Entity\Person[]
      * @throws PersonNotFoundException
      */
     public function retrieveAllFromDb($connection, $dataPatterns, $help, $logger)
@@ -90,13 +90,13 @@ class Person
      * @param $dataPatterns
      * @param string[][] $help
      * @param LoggerInterface $logger
-     * @return Person[]
+     * @return Entity\Person[]
      * @throws PersonNotFoundException
      */
     public function retrieveAllVisibleFromDb($connection, $dataPatterns, $help, $logger)
     {
         $personStorage = new StorageForPerson($connection);
-        $arrayOfPeople = $personStorage->retrieveAllByVisibility('complete');
+        $arrayOfPeople = $personStorage->retrieveAllByVisibility(Entity\Person::VISIBILITY_FULL);
         return $this->listForRetrieveAll($arrayOfPeople, $dataPatterns, $help, $logger);
     }
 
