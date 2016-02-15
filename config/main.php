@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'version' => '0.3-dev',
+    'version' => '0.3.0',
     'databaseReference' => [
         'mysql' => 'MySql',
-        'mongodb' => 'MongoDb',
+        'mongodb' => 'mongoDb',
     ],
 
     'authentication' => [
