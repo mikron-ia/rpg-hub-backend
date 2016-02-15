@@ -32,9 +32,6 @@ return [
         'person' => [
             "name" => "", // name
             'descriptions' => [], // listing of descriptions
-            'reputations' => [], // reputation values
-            'reputationEvents' => [], // reputation history
-            'tags' => [], // tags for grouping
             'tagline' => '', // line of description for index
         ],
         'group' => [

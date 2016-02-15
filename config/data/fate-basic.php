@@ -3,7 +3,7 @@
 /**
  * Data file for base FATE CORE system
  * http://www.faterpg.com/
- * Fate� is a trademark of Evil Hat Productions, LLC.
+ * FATE is a trademark of Evil Hat Productions, LLC.
  */
 
 return [
