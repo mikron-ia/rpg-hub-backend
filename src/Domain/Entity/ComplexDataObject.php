@@ -109,7 +109,6 @@ class ComplexDataObject extends BasicDataObject
         $simpleData = parent::getCompleteData();
 
         $complexData = [
-            'descriptions' => $this->getDescriptionsAsText(),
             'tags' => $this->getTagsAsText(),
             'tagline' => $this->getTagLine(),
         ];

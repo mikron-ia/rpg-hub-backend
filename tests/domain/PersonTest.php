@@ -154,7 +154,6 @@ final class PersonTest extends PHPUnit_Framework_TestCase
             'name' => $person->getName(),
             'key' => $person->getKey(),
             'help' => $person->getHelp(),
-            'descriptions' => [],
             'tags' => $person->getTagsAsText(),
             'tagline' => 'Test TagLine'
         ];
