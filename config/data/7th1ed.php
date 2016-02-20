@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Data file for 7th Sea RPG system, a creation of John Wick, originally published by Alderac Entertainment Group
+ * Data file for 7th Sea RPG system, 1st edition
+ * A creation of John Wick, published by Alderac Entertainment Group in 1999
  * http://www.alderac.com/7thsea/
  * No copyright infringement intended, no copyrighted content used
  */
