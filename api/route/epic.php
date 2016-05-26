@@ -6,10 +6,15 @@ use Mikron\HubBack\Infrastructure\Connection\Loader;
 
 /* Reputation data of a particular epic */
 $app->get(
-    '/epic/{authenticationMethod}/{authenticationKey}/',
-    function ($authenticationMethod, $authenticationKey) use ($app) {
+    '/epic/{identificationMethod}/{identificationKey}/{authenticationMethod}/{authenticationKey}/',
+    function ($identificationMethod, $identificationKey, $authenticationMethod, $authenticationKey) use ($app) {
         Loader::checkAuthentication($app['config'], $authenticationMethod, $authenticationKey);
         $connection = Loader::provideConnection($app['config']);
+
+        /**
+         * Note: $identificationMethod and $identificationKey are for compatibility. This backend is capable of
+         * providing data for one epic only, thus are the parameters ignored.
+         */
         $epicFactory = new \Mikron\HubBack\Infrastructure\Factory\Epic();
 
         /**
@@ -29,7 +34,6 @@ $app->get(
         );
 
         return $app->json($output->getArrayForJson());
-
     }
 );
 
