@@ -83,6 +83,38 @@ final class PersonTest extends PHPUnit_Framework_TestCase
      * @test
      * @dataProvider correctDataProvider
      * @param string $name
+     * @param array $dataArray
+     * @param Tag[] $tags
+     * @param string[] $help
+     */
+    public function isVisibilityCorrect($name, $dataArray, $tags, $help)
+    {
+        $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '',
+            Person::VISIBILITY_LINK);
+        $this->assertEquals(Person::VISIBILITY_LINK, $person->getVisibility());
+    }
+
+    /**
+     * @test
+     * @dataProvider correctDataProvider
+     * @param string $name
+     * @param array $dataArray
+     * @param Tag[] $tags
+     * @param string[] $help
+     */
+    public function isVisibilityDefaulted($name, $dataArray, $tags, $help)
+    {
+        $data = (new DataContainerFactory())->createWithoutPattern($dataArray);
+        $person = new Person($this->identification, $name, $data, $help, new DescriptionPack([]), $tags, '',
+            'wrong');
+        $this->assertEquals(Person::VISIBILITY_NONE, $person->getVisibility());
+    }
+
+    /**
+     * @test
+     * @dataProvider correctDataProvider
+     * @param string $name
      * @param array $data
      * @param Tag[] $tags
      * @param string[] $help
